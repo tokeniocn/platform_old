@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\AdminMenu;
 
 /**
  * Class DashboardController.
@@ -14,6 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('backend.dashboard');
+        return view('backend.dashboard', [
+            'menu' => AdminMenu::menu(),
+            'defaultPage' => url('/admin/welcome')
+        ]);
     }
 }

@@ -19,10 +19,10 @@ use Illuminate\Http\Request;
 
 
 /*
- * Backend Routes
+ * Frontend Routes
  * Namespaces indicate folder structure
  */
-Route::group(['namespace' => 'Frontend/Api', 'prefix' => 'api', 'as' => 'api.'], function () {
+Route::group(['namespace' => 'Frontend\Api', 'prefix' => 'api', 'as' => 'api.'], function () {
     /*
      * These routes need view-backend permission
      * (good if you want to allow more than one group in the backend,

@@ -164,12 +164,9 @@
     </div>
 
     {!! script('static/layuiadmin/layui/layui.js') !!}
+    {!! script('static/admin/js/admin.js') !!}
     <script>
-        layui.config({
-            base: '/static/layuiadmin/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use('index')
+        layui.use('index');
 
         function logout () {
             layer.confirm('真的退出不？', function (index) {

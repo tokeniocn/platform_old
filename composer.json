@@ -20,6 +20,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "lab404/laravel-impersonate": "^1.4",
         "langleyfoxall/laravel-nist-password-rules": "^4.0",
+        "laravel/airlock": "^0.2.1",
         "laravel/framework": "^6.3",
         "laravel/socialite": "^4.1",
         "spatie/laravel-html": "^2.22",

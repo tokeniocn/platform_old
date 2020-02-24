@@ -28,13 +28,7 @@
     <!-- Scripts -->
     @stack('before-scripts')
     {!! script('static/layuiadmin/layui/layui.js') !!}
-    <script>
-        layui.config({
-            base: 'static/layuiadmin/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use(['index'])
-    </script>
+    {!! script('static/admin/js/admin.js') !!}
     @stack('after-scripts')
 </body>
 </html>

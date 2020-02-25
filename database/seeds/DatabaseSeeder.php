@@ -22,9 +22,10 @@ class DatabaseSeeder extends Seeder
             'sessions',
         ]);
 
-        $this->call(AuthTableSeeder::class);
 
-        $this->call(AdminMenuTableSeeder::class);
+        $this->call(AuthTableSeeder::class);
+        $this->call(AdminTableSeeder::class);
+
 
         Model::reguard();
     }

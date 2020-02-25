@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Auth;
 
-use App\Events\Frontend\Auth\UserLoggedIn;
-use App\Events\Frontend\Auth\UserLoggedOut;
+use App\Events\Backend\Auth\UserLoggedIn;
+use App\Events\Backend\Auth\UserLoggedOut;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
 
 /**
@@ -70,36 +69,26 @@ class LoginController extends Controller
      * @param         $user
      *
      * @throws GeneralException
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse | array
      */
     protected function authenticated(Request $request, $user)
     {
-        // Check to see if the users account is confirmed and active
-        if (! $user->isConfirmed()) {
-            auth()->logout();
-
-            // If the user is pending (account approval is on)
-            if ($user->isPending()) {
-                throw new GeneralException(__('exceptions.frontend.auth.confirmation.pending'));
-            }
-
-            // Otherwise see if they want to resent the confirmation e-mail
-
-            throw new GeneralException(__('exceptions.frontend.auth.confirmation.resend', ['url' => route('frontend.auth.account.confirm.resend', e($user->{$user->getUuidName()}))]));
-        }
-
         if (! $user->isActive()) {
-            auth()->logout();
+            admin()->logout();
 
-            throw new GeneralException(__('exceptions.frontend.auth.deactivated'));
+            throw new GeneralException(__('exceptions.backend.auth.deactivated'));
         }
 
         event(new UserLoggedIn($user));
 
         if (config('access.users.single_login')) {
-            auth()->logoutOtherDevices($request->password);
+            admin()->logoutOtherDevices($request->password);
         }
-
+        if ($request->expectsJson()) { // TODO make RedirectResponse smart return json
+            return [
+                'redirect' => $this->redirectPath()
+            ];
+        }
         return redirect()->intended($this->redirectPath());
     }
 
@@ -124,7 +113,7 @@ class LoginController extends Controller
         $this->guard()->logout();
         $request->session()->invalidate();
 
-        return redirect()->route('frontend.index');
+        return redirect()->route('admin.login');
     }
 
     /**
@@ -134,6 +123,6 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('admin');
+        return admin();
     }
 }

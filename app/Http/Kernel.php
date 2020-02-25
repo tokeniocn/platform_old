@@ -55,7 +55,7 @@ class Kernel extends HttpKernel
         'admin' => [
             'auth:admin',
             'password_expires',
-            'permission:view backend',
+            'admin.permission:view backend',
         ],
     ];
 
@@ -76,6 +76,8 @@ class Kernel extends HttpKernel
         'password_expires' => \App\Http\Middleware\PasswordExpires::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'admin.permission' => \App\Http\Middleware\AdminPermission::class,
+        'admin.role' => \App\Http\Middleware\AdminRole::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

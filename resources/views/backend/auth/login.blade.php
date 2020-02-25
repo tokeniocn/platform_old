@@ -73,16 +73,26 @@
 
         //提交
         form.on('submit(LAY-user-login-submit)', function (obj) {
-
-            $.post('', obj.field, function (res) {
-                if (res.code == 200) { // 成功跳转
-                    location.href = '{:url(\'/admin\', [], false, true)}'
-                } else {
+            $.ajax({
+                url: '',
+                type: 'post',
+                data: obj.field,
+                success: function(res) {
+                    layer.msg('登录成功, 跳转中...', {
+                        offset: '15px'
+                        , icon: 1
+                        , time: 2000
+                        , end: function() {
+                            window.location.href = res.redirect;
+                        }
+                    })
+                },
+                error: function(res) {
                     updateCaptcha()
-                    layer.msg(res.msg || '登录失败', {
+                    layer.msg(res.responseJSON.message || '登录失败', {
                         offset: '15px'
                         , icon: 2
-                        , time: 1000
+                        , time: 2000
                     })
                 }
             })

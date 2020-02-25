@@ -31,10 +31,6 @@
                        class="dropdown-item" name="confirm_item">@lang('buttons.backend.access.users.clear_session')</a>
                 @endif
 
-                @canBeImpersonated($user)
-                    <a href="{{ route('impersonate', $user->id) }}" class="dropdown-item">@lang('buttons.backend.access.users.login_as', ['user' => $user->full_name])</a>
-                @endCanBeImpersonated
-
                 <a href="{{ route('admin.auth.user.change-password', $user) }}" class="dropdown-item">@lang('buttons.backend.access.users.change_password')</a>
 
                 @if ($user->id !== auth()->id())

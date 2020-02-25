@@ -45,6 +45,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'adminUsers'
+        ]
     ],
 
     /*
@@ -70,6 +75,10 @@ return [
             'model' => App\Models\Auth\User::class,
         ],
 
+        'adminUsers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\System\AdminUser::class,
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

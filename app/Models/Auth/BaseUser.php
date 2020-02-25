@@ -10,7 +10,6 @@ use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Lab404\Impersonate\Models\Impersonate;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -20,7 +19,6 @@ abstract class BaseUser extends Authenticatable implements Recordable
 {
     use HasRoles,
         Eventually,
-        Impersonate,
         Notifiable,
         RecordableTrait,
         SendUserPasswordReset,
@@ -85,26 +83,4 @@ abstract class BaseUser extends Authenticatable implements Recordable
         'password',
         'remember_token',
     ];
-
-    /**
-     * Return true or false if the user can impersonate an other user.
-     *
-     * @param void
-     * @return  bool
-     */
-    public function canImpersonate()
-    {
-        return $this->isAdmin();
-    }
-
-    /**
-     * Return true or false if the user can be impersonate.
-     *
-     * @param void
-     * @return  bool
-     */
-    public function canBeImpersonated()
-    {
-        return $this->id !== 1;
-    }
 }

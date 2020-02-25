@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Api\System;
 
 use App\Http\Controllers\Controller;
-use App\Models\Backend\AdminMenu;
+use App\Models\System\AdminMenu;
 
 class MenuController extends Controller
 {

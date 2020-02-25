@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Backend\AdminMenu;
+use App\Models\System\AdminMenu;
 
 /**
  * Class DashboardController.

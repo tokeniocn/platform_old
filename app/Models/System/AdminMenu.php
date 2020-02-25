@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Models\Backend;
+namespace App\Models\System;
 
 use Illuminate\Database\Eloquent\Model;
 
 class AdminMenu extends Model
 {
+
     public static function menu()
     {
         $data = static::where('is_show', 1)

@@ -8,6 +8,7 @@
     <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     {{ style('static/layuiadmin/layui/css/layui.css') }}
     {{ style('static/layuiadmin/style/admin.css') }}
+    {{ style('static/layuiadmin/style/login.css') }}
 </head>
 <body>
 
@@ -19,6 +20,7 @@
             <p>后台管理系统</p>
         </div>
         <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            @csrf
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username"
                        for="LAY-user-login-username"></label>
@@ -37,13 +39,13 @@
                     <div class="layui-col-xs7">
                         <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
                                for="LAY-user-login-vercode"></label>
-                        <input class="layui-input" id="LAY-user-login-vercode" lay-verify="required" name="vercode"
+                        <input class="layui-input" id="LAY-user-login-vercode" lay-verify="required" name="captcha"
                                placeholder="图形验证码" type="text">
                     </div>
                     <div class="layui-col-xs5">
                         <div style="margin-left: 10px;">
                             <img class="layadmin-user-login-codeimg" id="LAY-user-get-vercode"
-                                 src="xxx">
+                                 src="{{ captcha_src() }}">
                         </div>
                     </div>
                 </div>
@@ -63,11 +65,8 @@
 
         var $ = layui.$
             , $body = $('body')
-            , setter = layui.setter
-            , admin = layui.admin
             , form = layui.form
-            , router = layui.router()
-        var captchaUrl = '{:url(\'/admin/captcha\', [], false, true)}'
+        var captchaUrl = '{{ captcha_src() }}'
         var $captcha = $('#LAY-user-get-vercode')
 
         form.render()
@@ -75,7 +74,7 @@
         //提交
         form.on('submit(LAY-user-login-submit)', function (obj) {
 
-            $.post('{:url(\'/admin/login\', [], false, true)}', obj.field, function (res) {
+            $.post('', obj.field, function (res) {
                 if (res.code == 200) { // 成功跳转
                     location.href = '{:url(\'/admin\', [], false, true)}'
                 } else {
@@ -87,7 +86,6 @@
                     })
                 }
             })
-
         })
 
         $body.on('click', '#LAY-user-get-vercode', updateCaptcha)

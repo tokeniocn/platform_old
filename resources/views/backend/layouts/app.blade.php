@@ -15,6 +15,7 @@
     @stack('before-styles')
     {{ style('static/layuiadmin/layui/css/layui.css') }}
     {{ style('static/layuiadmin/style/admin.css') }}
+    {{ style('static/admin/css/admin.css') }}
     @stack('after-styles')
 </head>
 

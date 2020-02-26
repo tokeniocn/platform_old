@@ -20,14 +20,15 @@
             <label class="layui-form-label">选择权限</label>
             <div class="layui-input-block">
                 <div id="toolbarDiv" style="max-height:200px; overflow: auto; padding: 15px 5px; border: 1px  solid #e6e6e6; background-color: #fff; border-radius: 2px;">
-                    <ul id="LAY-auth-permission-tree" data-id="0"></ul>
+                    <ul id="LAY-auth-permission-tree" class="dtree" data-id="0"></ul>
                 </div>
 
             </div>
         </div>
-        <div class="layui-form-item" lay-iframe-hide>
+        <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" type="submit" lay-submit lay-filter="LAY-auth-role-submit">提交</button>
+                <button class="layui-btn" type="submit" lay-submit lay-filter="LAY-auth-tree-submit">提交</button>
+                <button class="layui-btn layui-btn-primary" type="reset">重置</button>
             </div>
         </div>
     </form>
@@ -36,39 +37,13 @@
 
 @push('after-scripts')
     <script>
-        layui.use(['jquery', 'dtree', 'tree', 'form', 'layer', 'treeTable'], function() {
-
+        layui.use(['jquery', 'dtree', 'form', 'layer'], function(){
             var $ = layui.jquery;
+            var dtree = layui.dtree;
             var form = layui.form;
             var layer = layui.layer;
-            var tree = layui.tree;
 
-            function normalizeData(data, idStart = 0) {
-                var result = [];
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].parent_id == idStart) {
-                        data[i].title = data[i].title + ' <small title="权限标识">(' + data[i].name + ')<small>';
-                        data[i].children = normalizeData(data, data[i].id);
-                        data[i].spread = true;
-                        data[i].checked = false;
-                        result.push(data[i]);
-                    }
-                }
-                return result;
-            }
-
-            $.get("{{ route('admin.api.auth.permissions') }}", function(data) {
-                tree.render({
-                    elem: '#LAY-auth-permission-tree'
-                    ,data: normalizeData(data)
-                    ,showCheckbox: true  //是否显示复选框
-                    ,id: 'permissions'
-                })
-            });
-
-
-            // var dtree = layui.dtree;
-            /*dtree.render({
+            dtree.render({
                 elem: "#LAY-auth-permission-tree",
                 url: "{{ route('admin.api.auth.permissions') }}",
                 skin: 'layui',
@@ -202,7 +177,7 @@
                         }
                     }
                 ]
-            });*/
+            });
 
         });
     </script>

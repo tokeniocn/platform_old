@@ -6,7 +6,7 @@ Route::group([
     'prefix' => 'system',
     'as' => 'system.',
     'namespace' => 'System',
-    'middleware' => ['admin', 'role:'.config('access.users.admin_role')],
+    'middleware' => ['admin', 'role:admin'],
 ], function () {
     Route::get('menu', [MenuController::class, 'index'])->name('menu');
 });

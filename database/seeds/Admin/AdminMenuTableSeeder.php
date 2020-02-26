@@ -29,7 +29,7 @@ class AdminMenuTableSeeder extends Seeder
         $role = AdminMenu::create([
             'title' => '角色权限',
             'parent_id' => $system->id,
-            'url' => route('admin.auth.role.index', [], false),
+            'url' => route('admin.auth.roles', [], false),
             'is_show' => 1,
         ]);
     }

@@ -14,16 +14,25 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('parent_id')->default('0');
             $table->string('name');
             $table->string('guard_name');
-            $table->timestamps();
+            $table->string('title');
+            $table->unsignedInteger('sort')->default('0');
+
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->index();
             $table->string('guard_name');
-            $table->timestamps();
+            $table->string('title');
+            $table->string('desc')->nullable();
+            $table->unsignedInteger('sort')->default('0');
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames) {

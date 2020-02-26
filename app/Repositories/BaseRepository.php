@@ -206,11 +206,15 @@ abstract class BaseRepository implements RepositoryContract
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($limit = 25, array $columns = ['*'], $pageName = 'page', $page = null)
+    public function paginate($limit = null, array $columns = ['*'], $pageName = 'page', $page = null)
     {
         $this->newQuery()->eagerLoad()->setClauses()->setScopes();
 
-        $models = $this->query->paginate($limit, $columns, $pageName, $page);
+        if (!$limit) {
+            $limit = request('limit');
+        }
+
+        $models = $this->query->paginate($limit > 100 ? 100 : $limit, $columns, $pageName, $page);
 
         $this->unsetClauses();
 

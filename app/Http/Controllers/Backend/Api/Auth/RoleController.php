@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Auth\Role;
+namespace App\Http\Controllers\Backend\Api\Auth;
 
 use App\Events\Backend\Auth\Role\RoleDeleted;
 use App\Http\Controllers\Controller;
@@ -43,11 +43,15 @@ class RoleController extends Controller
      */
     public function index(ManageRoleRequest $request)
     {
-        return view('backend.auth.role.index')
-            ->withRoles($this->roleRepository
-            ->with('users', 'permissions')
+        return $this->roleRepository
+            ->where('guard_name', 'admin')
             ->orderBy('id')
-            ->paginate());
+            ->paginate();
+    }
+
+    public function withRole(ManageRoleRequest $request, Role $role)
+    {
+        return $role->permissions->pluck('name')->all();
     }
 
     /**

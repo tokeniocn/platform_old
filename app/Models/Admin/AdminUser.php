@@ -17,6 +17,14 @@ class AdminUser extends Authenticatable
     }
 
     /**
+     * @return mixed
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    /**
      * @return bool
      */
     public function isActive()

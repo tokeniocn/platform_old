@@ -22,7 +22,7 @@ Route::group([
         Route::post('login', [LoginController::class, 'login'])->name('login.post');
     });
 
-    Route::group(['prefix' => 'auth', 'middleware' => ['admin', 'role:' . config('access.users.admin_role')]], function () {
+    Route::group(['prefix' => 'auth', 'middleware' => ['admin', 'role:admin']], function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
         // User Management
@@ -76,7 +76,7 @@ Route::group([
 
         // Role Management
         Route::group(['namespace' => 'Role'], function () {
-            Route::get('role', [RoleController::class, 'index'])->name('role.index');
+            Route::get('role', [RoleController::class, 'index'])->name('roles');
             Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
             Route::post('role', [RoleController::class, 'store'])->name('role.store');
 

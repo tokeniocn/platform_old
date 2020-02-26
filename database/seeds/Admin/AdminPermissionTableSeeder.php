@@ -15,13 +15,15 @@ class AdminPermissionTableSeeder extends Seeder
         // Create Roles
         Role::create([
             'name' => 'admin',
-            'guard_name' => 'admin'
+            'guard_name' => 'admin',
+            'title' => '管理员'
         ]);
 
         // Create Permissions
         Permission::create([
             'name' => 'view backend',
-            'guard_name' => 'admin'
+            'guard_name' => 'admin',
+            'title' => '后台访问'
         ]);
 
         // Assign Permissions to other Roles

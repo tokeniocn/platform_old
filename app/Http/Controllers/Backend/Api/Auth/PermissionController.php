@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Auth\Role;
+namespace App\Http\Controllers\Backend\Api\Auth;
 
 use App\Events\Backend\Auth\Role\RoleDeleted;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;
+use App\Http\Requests\Backend\Auth\Permission\ManagePermissionRequest;
 use App\Http\Requests\Backend\Auth\Role\StoreRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\UpdateRoleRequest;
-use App\Models\Auth\Role;
+use App\Models\Auth\Permission;
 use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
+use function GuzzleHttp\Promise\all;
 
 /**
- * Class RoleController.
+ * Class PermissionController.
  */
-class RoleController extends Controller
+class PermissionController extends Controller
 {
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
+
 
     /**
      * @var PermissionRepository
@@ -27,27 +25,25 @@ class RoleController extends Controller
     protected $permissionRepository;
 
     /**
-     * @param RoleRepository       $roleRepository
+
      * @param PermissionRepository $permissionRepository
      */
-    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
+    public function __construct(PermissionRepository $permissionRepository)
     {
-        $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
     }
 
     /**
-     * @param ManageRoleRequest $request
+     * @param ManagePermissionRequest $request
      *
      * @return mixed
      */
-    public function index(ManageRoleRequest $request)
+    public function index(ManagePermissionRequest $request)
     {
-        return view('backend.auth.role.index')
-            ->withRoles($this->roleRepository
-            ->with('users', 'permissions')
-            ->orderBy('id')
-            ->paginate());
+        return $this->permissionRepository
+            ->where('guard_name', $request->get('guard', 'admin'))
+            ->orderBy('sort')
+            ->get();
     }
 
     /**

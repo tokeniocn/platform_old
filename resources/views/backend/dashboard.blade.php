@@ -103,13 +103,13 @@
                                 @if (!empty($item['children']))
                                     <dl class="layui-nav-child">
                                         @foreach($item['children'] as $_k => $_item)
-                                            <dd data-name="{$_k}">
+                                            <dd data-name="{{ $_k }}">
                                                 <a href="javascript:;"
                                                    @if (empty($_item['children']) && !empty($_item['url'])) lay-href="{{ $_item['url'] }}"@endif>{{ $_item['title'] }}</a>
                                                 @if (!empty($_item['children']))
                                                 <dl class="layui-nav-child">
                                                     @foreach ($_item['children'] as $__k => $__item)
-                                                        <dd data-name="{$_k}_{$__k}">
+                                                        <dd data-name="{{ $_k }}_{{ $__k }}">
                                                             <a href="javascript:;"
                                                                @if (empty($__item['children']) && !empty($__item['url'])) lay-href="{{ $__item['url'] }}"@endif>{{ $__item['title'] }}</a>
                                                         </dd>

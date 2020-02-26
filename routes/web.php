@@ -41,7 +41,7 @@ Route::group(['middleware' => 'default_guard:admin'], function() {
      * Backend Api Routes
      * Namespaces indicate folder structure
      */
-    Route::group(['namespace' => 'Backend\Api', 'prefix' => 'admin/api', 'as' => 'admin.api.', 'middleware' => 'admin'], function () {
+    Route::group(['namespace' => 'Backend\Api', 'prefix' => 'admin/api', 'as' => 'admin.api.', 'middleware' => 'api'], function () {
         /*
          * These routes need view-backend permission
          * (good if you want to allow more than one group in the backend,

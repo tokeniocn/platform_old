@@ -69,6 +69,12 @@
         var captchaUrl = '{{ captcha_src() }}'
         var $captcha = $('#LAY-user-get-vercode')
 
+        $(document).keydown(function(event){
+            if(event.keyCode == 13){
+                $("[lay-filter=LAY-user-login-submit]").click();
+            }
+        });
+
         form.render()
 
         //提交

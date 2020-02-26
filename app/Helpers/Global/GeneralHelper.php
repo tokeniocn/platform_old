@@ -30,14 +30,31 @@ if (! function_exists('home_route')) {
      */
     function home_route()
     {
-        if (auth()->check()) {
-            if (auth()->user()->can('view backend')) {
+        if (is_backend()) {
+            if (auth()->check()) {
                 return 'admin.dashboard';
             }
 
+            return 'admin.auth.login';
+        }
+
+        if (auth()->check()) {
             return 'frontend.user.dashboard';
         }
 
         return 'frontend.index';
+    }
+}
+
+
+if (! function_exists('is_backend')) {
+    /**
+     * Return the route to the "home" page depending on authentication/authorization status.
+     *
+     * @return string
+     */
+    function is_backend()
+    {
+        return auth()->getDefaultDriver() == 'admin';
     }
 }

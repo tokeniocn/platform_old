@@ -74,7 +74,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if (! $user->isActive()) {
-            admin()->logout();
+            auth()->logout();
 
             throw new GeneralException(__('exceptions.backend.auth.deactivated'));
         }
@@ -82,7 +82,7 @@ class LoginController extends Controller
         event(new UserLoggedIn($user));
 
         if (config('access.users.single_login')) {
-            admin()->logoutOtherDevices($request->password);
+            auth()->logoutOtherDevices($request->password);
         }
         if ($request->expectsJson()) { // TODO make RedirectResponse smart return json
             return [
@@ -123,6 +123,6 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return admin();
+        return auth('admin');
     }
 }

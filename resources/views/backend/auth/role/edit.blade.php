@@ -50,7 +50,7 @@
                     var permission = permissions[i];
                     if (permission.parent_id == idStart) {
                         permission.title = permission.title + ' <small title="权限标识">(' + permission.name + ')<small>';
-                        permission.children = normalizeData(permissions, permission.id, check);
+                        permission.children = normalizePermissions(permissions, permission.id, check);
                         permission.spread = true;
                         permission.checked = false;
 

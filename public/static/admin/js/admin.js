@@ -12,7 +12,7 @@ layui.config({
   var $ = layui.$;
 
   // iframe 下隐藏
-  if (parent == window) {
+  if (top == window) {
     $('[lay-iframe-hide]').show();
   }
 

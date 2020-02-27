@@ -1,76 +1,226 @@
 @extends('backend.layouts.app')
 
-@section('title', __('labels.backend.access.roles.management') . ' | ' . __('labels.backend.access.roles.edit'))
+@section('title', __('labels.backend.access.roles.management') . ' | ' . __('labels.backend.access.roles.create'))
 
 @section('content')
-{{ html()->modelForm($role, 'PATCH', route('admin.auth.role.update', $role))->class('form-horizontal')->open() }}
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-5">
-                    <h4 class="card-title mb-0">
-                        @lang('labels.backend.access.roles.management')
-                        <small class="text-muted">@lang('labels.backend.access.roles.edit')</small>
-                    </h4>
-                </div><!--col-->
-            </div><!--row-->
-            <!--row-->
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-block">
+                <input class="layui-input" type="text" name="title" value="{{ isset($role) ? $role->title : '' }}" placeholder="请输入角色名称" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色关键字</label>
+            <div class="layui-input-block">
+                <input class="layui-input" type="text" name="name" value="{{ isset($role) ? $role->name : '' }}" placeholder="请输入角色关键字" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择权限</label>
+            <div class="layui-input-block">
+                <div id="toolbarDiv" style="max-height:200px; overflow: auto; padding: 15px 5px; border: 1px  solid #e6e6e6; background-color: #fff; border-radius: 2px;">
+                    <ul id="LAY-auth-permission-tree" data-id="0"></ul>
+                </div>
 
-            <hr />
-
-            <div class="row mt-4">
-                <div class="col">
-                    <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.access.roles.name'))
-                            ->class('col-md-2 form-control-label')
-                            ->for('name') }}
-
-                        <div class="col-md-10">
-                            {{ html()->text('name')
-                                ->class('form-control')
-                                ->placeholder(__('validation.attributes.backend.access.roles.name'))
-                                ->attribute('maxlength', 191)
-                                ->required() }}
-                        </div><!--col-->
-                    </div><!--form-group-->
-
-                    <div class="form-group row">
-                        {{ html()->label(__('validation.attributes.backend.access.roles.associated_permissions'))
-                            ->class('col-md-2 form-control-label')
-                            ->for('permissions') }}
-
-                        <div class="col-md-10">
-                            @if($permissions->count())
-                                @foreach($permissions as $permission)
-                                    <div class="checkbox d-flex align-items-center">
-                                        {{ html()->label(
-                                                html()->checkbox('permissions[]', in_array($permission->name, $rolePermissions), $permission->name)
-                                                        ->class('switch-input')
-                                                        ->id('permission-'.$permission->id)
-                                                    . '<span class="switch-slider" data-checked="on" data-unchecked="off"></span>')
-                                                ->class('switch switch-label switch-pill switch-primary mr-2')
-                                            ->for('permission-'.$permission->id) }}
-                                        {{ html()->label(ucwords($permission->name))->for('permission-'.$permission->id) }}
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div><!--col-->
-                    </div><!--form-group-->
-                </div><!--col-->
-            </div><!--row-->
-        </div><!--card-body-->
-
-        <div class="card-footer">
-            <div class="row">
-                <div class="col">
-                    {{ form_cancel(route('admin.auth.role.index'), __('buttons.general.cancel')) }}
-                </div><!--col-->
-
-                <div class="col text-right">
-                    {{ form_submit(__('buttons.general.crud.update')) }}
-                </div><!--col-->
-            </div><!--row-->
-        </div><!--card-footer-->
-    </div><!--card-->
-{{ html()->closeModelForm() }}
+            </div>
+        </div>
+        <div class="layui-form-item" lay-iframe-hide>
+            <div class="layui-input-block">
+                <button class="layui-btn" type="submit" lay-submit lay-filter="LAY-auth-role-submit">提交</button>
+            </div>
+        </div>
+    </form>
 @endsection
+
+
+@push('after-scripts')
+    <script>
+        layui.use(['jquery', 'dtree', 'tree', 'form', 'layer', 'treeTable'], function() {
+
+            var $ = layui.jquery;
+            var form = layui.form;
+            var layer = layui.layer;
+            var tree = layui.tree;
+
+            function normalizePermissions(permissions, idStart = 0, rolePermissions) {
+
+                var result = [];
+                for (let i = 0; i < permissions.length; i++) {
+                    var permission = permissions[i];
+                    if (permission.parent_id == idStart) {
+                        permission.title = permission.title + ' <small title="权限标识">(' + permission.name + ')<small>';
+                        permission.children = normalizeData(permissions, permission.id, check);
+                        permission.spread = true;
+                        permission.checked = false;
+
+                        $.each(rolePermissions, function(rolePermission) {
+                            if (rolePermission.id == permissions.id) {
+                                permission.checked = true;
+                            }
+                        });
+
+                        result.push(permission);
+                    }
+                }
+                return result;
+            }
+
+            $.get("{{ route('admin.api.auth.permissions') }}", function(permissions) {
+                var options = {
+                    elem: '#LAY-auth-permission-tree',
+                    showCheckbox: true,
+                    id: 'permissions'
+                }
+                @if (isset($role))
+                $.get("{{ route('admin.api.auth.role.permissions', ['role' => $role->name]) }}", function(rolePermissions) {
+                    options.data = normalizePermissions(permissions, 0, rolePermissions)
+                    tree.render(options);
+                });
+                @else
+                options.data = normalizePermissions(permissions, 0, [])
+                tree.render(options);
+                @endif
+            });
+
+
+            // var dtree = layui.dtree;
+            /*dtree.render({
+                elem: "#LAY-auth-permission-tree",
+                url: "{{ route('admin.api.auth.permissions') }}",
+                skin: 'layui',
+                dataFormat: "list",
+                dataStyle: 'layuiStyle',
+                method: 'get',
+                normalizeData: function(res) {
+                    return {
+                        msg: '',
+                        code: 200,
+                        data: res.map(function(data) {
+                            return {
+                                id: data.id,
+                                parentId: data.parent_id,
+                                name: data.name,
+                                title: data.title,
+                                sort: data.sort,
+                                checkArr: [{"type": "0", "checked": "0"}],
+                            }
+                        }),
+                    };
+                },
+                checkbar:true, //开启复选框: true,
+
+                line: true, // 显示树线
+                initLevel: 1,
+                nodeIconArray: {"3": {"open": "dtree-icon-jian", "close": "dtree-icon-jia"}}, // 自定扩展的一级非最后一级图标，从2开始
+                ficon: ["3", "8"], // 使用，3表示使用扩展的图标，7表示最后一级图标使用内置的文件图标
+                menubar: true,
+                menubarTips:{
+                    group: ["moveDown", "moveUp", "refresh"]
+                },
+                formatter: {
+                    title: function(data) { // 文字过滤，返回null,"",undefined之后，都不会改变原有的内容返回。
+                        return data.title + ' <small title="权限标识">' + data.name + '</small>';
+                    }
+                },
+                toolbar: true,
+                scroll:"#toolbarDiv",
+                // toolbarStyle: {
+                //     title: "权限",
+                //     area: ["50%", "400px"]
+                // },
+                // toolbarBtn:[
+                //     [
+                //         {"label": "排序", "name": "sort", "type": "text"},
+                //     ], // 自定义编辑页的内容
+                //     [
+                //         {"label": "排序", "name": "sort", "type": "text"},
+                //     ] // 自定义编辑页的内容
+                // ],
+                toolbarShow: [], // 默认按钮制空
+                toolbarExt: [
+                    {
+                        toolbarId: 'testAdd', icon: 'dtree-icon-wefill', title: '自定义新增', handler: function (node, $div) {
+                            layer.msg(JSON.stringify(node))
+                            // 你可以在此添加一个layer.open，里面天上你需要添加的表单元素，就跟你写新增页面是一样的
+                            layer.open({
+                                success: function (layero, index) {
+                                    form.render()
+                                    form.on('submit(addNode_form)', function (data) {// 假设form的filter为addNode_form
+                                        console.log(data.field)// 从form中取值，数据来源由你自己定
+
+                                        var json = {
+                                            'id': data.field.addId,
+                                            'title': data.field.addNodeName,
+                                            'parentId': node.nodeId
+                                        }
+                                        var arr = [{
+                                            'id': data.field.addId,
+                                            'title': data.field.addNodeName,
+                                            'parentId': node.nodeId
+                                        }]
+                                        //DTree5.partialRefreshAdd($div); // 省略第二个参数，则会加载url
+                                        //DTree5.partialRefreshAdd($div, json); // 如果是json对象，则会追加元素
+                                        //DTree5.partialRefreshAdd($div, arr); //如果是json数组，则会重载节点中的全部子节点
+
+                                        layer.close(index)
+                                        return false
+                                    })
+                                }
+                            })
+                        }
+                    },
+                    {
+                        toolbarId: 'editPermission',
+                        icon: 'dtree-icon-bianji',
+                        title: '编辑权限',
+                        handler: function (node, $div) {
+                            console.log(node);
+                            layer.open({
+                                type:"1",
+                                content: '<div class="dtree-toolbar-tool">' +
+                                    '<form class="layui-form layui-form-pane" lay-filter="dtree_editNode_form">' +
+                                    '<div class="layui-form-item">' +
+                                    '  <label class="layui-form-label" title="编辑权限">权限标识：</label>' +
+                                    '  <div class="layui-input-block f-input-par">' +
+                                    '  <input type="text" class="layui-input f-input" value="'+ node.context +'" placeholder="" lay-verify="required" name="title">' +
+                                    ' </div>' +
+                                    '</div>' +
+                                    '<div class="layui-form-item">' +
+                                    '<div class="layui-input-block" style="margin-left:0px;text-align:center;">' +
+                                    '<button type="button" class="layui-btn layui-btn-normal btn-w100" lay-submit="" lay-filter="dtree_editNode_form">提交</button>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</form>' +
+                                    '</div>',
+                                success: function(layero, index){
+                                    form.render();
+                                    form.on("submit(dtree_editNode_form)",function(data){
+                                        console.log(data.field);
+
+                                        var json = {"id":"123123123123","title": data.field.editNodeName,"parentId": node.nodeId};
+
+                                        var str = data.field.editNodeName;
+                                        DTree5.partialRefreshEdit($div, json);
+                                        layer.close(index);
+                                        return false;
+                                    });
+                                }
+                            })
+                        }
+                    },
+                    {
+                        toolbarId: 'testDel',
+                        icon: 'dtree-icon-roundclose',
+                        title: '自定义删除',
+                        handler: function (node, $div) {
+                            layer.msg(JSON.stringify(node))
+                            DTree5.partialRefreshDel($div) // 这样即可删除节点
+                        }
+                    }
+                ]
+            });*/
+
+        });
+    </script>
+@endpush

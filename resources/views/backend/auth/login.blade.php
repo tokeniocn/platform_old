@@ -63,6 +63,11 @@
 {!! script('static/admin/js/admin.js') !!}
 <script>
     layui.use(['index', 'user'], function () {
+        // 强制父窗口跳转登录界面
+        if (window != top) {
+            top.location.href = location.href;
+        }
+
 
         var $ = layui.$
             , $body = $('body')

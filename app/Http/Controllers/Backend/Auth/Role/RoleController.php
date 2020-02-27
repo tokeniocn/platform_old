@@ -43,11 +43,7 @@ class RoleController extends Controller
      */
     public function index(ManageRoleRequest $request)
     {
-        return view('backend.auth.role.index')
-            ->withRoles($this->roleRepository
-            ->with('users', 'permissions')
-            ->orderBy('id')
-            ->paginate());
+        return view('backend.auth.role.index');
     }
 
     /**
@@ -57,22 +53,7 @@ class RoleController extends Controller
      */
     public function create(ManageRoleRequest $request)
     {
-        return view('backend.auth.role.create')
-            ->withPermissions($this->permissionRepository->get());
-    }
-
-    /**
-     * @param  StoreRoleRequest  $request
-     *
-     * @return mixed
-     * @throws \App\Exceptions\GeneralException
-     * @throws \Throwable
-     */
-    public function store(StoreRoleRequest $request)
-    {
-        $this->roleRepository->create($request->only('name', 'associated-permissions', 'permissions', 'sort'));
-
-        return redirect()->route('admin.auth.roles')->withFlashSuccess(__('alerts.backend.roles.created'));
+        return view('backend.auth.role.edit');
     }
 
     /**
@@ -83,29 +64,9 @@ class RoleController extends Controller
      */
     public function edit(ManageRoleRequest $request, Role $role)
     {
-        if ($role->isAdmin()) {
-            return redirect()->route('admin.auth.roles')->withFlashDanger('You can not edit the administrator role.');
-        }
 
         return view('backend.auth.role.edit')
-            ->withRole($role)
-            ->withRolePermissions($role->permissions->pluck('name')->all())
-            ->withPermissions($this->permissionRepository->get());
-    }
-
-    /**
-     * @param  UpdateRoleRequest  $request
-     * @param  Role  $role
-     *
-     * @return mixed
-     * @throws \App\Exceptions\GeneralException
-     * @throws \Throwable
-     */
-    public function update(UpdateRoleRequest $request, Role $role)
-    {
-        $this->roleRepository->update($role, $request->only('name', 'permissions'));
-
-        return redirect()->route('admin.auth.roles')->withFlashSuccess(__('alerts.backend.roles.updated'));
+            ->withRole($role);
     }
 
     /**

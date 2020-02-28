@@ -23,6 +23,7 @@
         "laravel/framework": "^6.3",
         "laravel/socialite": "^4.1",
         "mews/captcha": "^3.0",
+        "nwidart/laravel-modules": "^6.2",
         "spatie/laravel-html": "^2.22",
         "spatie/laravel-permission": "^3.0",
         "torann/geoip": "^1.0"
@@ -52,7 +53,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Modules\\": "Modules/"
         }
     },
     "autoload-dev": {

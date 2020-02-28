@@ -76,15 +76,9 @@ Route::group([
 
         // Role Management
         Route::group(['namespace' => 'Role'], function () {
-            Route::get('role', [RoleController::class, 'index'])->name('roles');
-            Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
-            Route::post('role', [RoleController::class, 'store'])->name('role.store');
-
-            Route::group(['prefix' => 'role/{role}'], function () {
-                Route::get('edit', [RoleController::class, 'edit'])->name('role.edit');
-                Route::patch('/', [RoleController::class, 'update'])->name('role.update');
-                Route::delete('/', [RoleController::class, 'destroy'])->name('role.destroy');
-            });
+            Route::get('roles', [RoleController::class, 'index'])->name('roles');
+            Route::get('roles/create', [RoleController::class, 'create'])->name('role.create');
+            Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('role.edit');
         });
     });
 });

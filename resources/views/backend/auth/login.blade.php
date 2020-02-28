@@ -91,10 +91,9 @@
                 data: obj.field,
                 success: function(res) {
                     layer.msg('登录成功, 跳转中...', {
-                        offset: '15px'
-                        , icon: 1
-                        , time: 2000
-                        , end: function() {
+                        offset: '15px',
+                        time: 2000,
+                        end: function() {
                             window.location.href = res.redirect;
                         }
                     })
@@ -102,9 +101,8 @@
                 error: function(res) {
                     updateCaptcha()
                     layer.msg(res.responseJSON.message || '登录失败', {
-                        offset: '15px'
-                        , icon: 2
-                        , time: 2000
+                        offset: '15px',
+                        time: 2000
                     })
                 }
             })

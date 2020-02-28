@@ -58,6 +58,7 @@
             }
 
             $.get("{{ route('admin.api.auth.permissions') }}", function(data) {
+
                 tree.render({
                     elem: '#LAY-auth-permission-tree'
                     ,data: normalizeData(data)

@@ -8,8 +8,8 @@ use App\Http\Requests\Backend\Auth\Role\ManageRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\StoreRoleRequest;
 use App\Http\Requests\Backend\Auth\Role\UpdateRoleRequest;
 use App\Models\Auth\Role;
-use App\Repositories\Backend\Auth\PermissionRepository;
 use App\Repositories\Backend\Auth\RoleRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class RoleController.
@@ -22,18 +22,11 @@ class RoleController extends Controller
     protected $roleRepository;
 
     /**
-     * @var PermissionRepository
-     */
-    protected $permissionRepository;
-
-    /**
      * @param RoleRepository       $roleRepository
-     * @param PermissionRepository $permissionRepository
      */
-    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
+    public function __construct(RoleRepository $roleRepository)
     {
         $this->roleRepository = $roleRepository;
-        $this->permissionRepository = $permissionRepository;
     }
 
     /**
@@ -44,14 +37,9 @@ class RoleController extends Controller
     public function index(ManageRoleRequest $request)
     {
         return $this->roleRepository
-            ->where('guard_name', 'admin')
-            ->orderBy('id')
+            ->where('guard_name', $request->get('guard', Auth::getDefaultDriver()))
+            ->orderBy('sort')
             ->paginate();
-    }
-
-    public function withRole(ManageRoleRequest $request, Role $role)
-    {
-        return $role->permissions->pluck('name')->all();
     }
 
     /**
@@ -59,10 +47,10 @@ class RoleController extends Controller
      *
      * @return mixed
      */
-    public function create(ManageRoleRequest $request)
+    public function withPermissions(ManageRoleRequest $request, Role $role)
     {
-        return view('backend.auth.role.create')
-            ->withPermissions($this->permissionRepository->get());
+        $role->permissions;
+        return $role;
     }
 
     /**
@@ -74,28 +62,9 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        $this->roleRepository->create($request->only('name', 'associated-permissions', 'permissions', 'sort'));
-
-        return redirect()->route('admin.auth.roles')->withFlashSuccess(__('alerts.backend.roles.created'));
+        return $this->roleRepository->create($request->only('name', 'title', 'permissions', 'sort'));
     }
 
-    /**
-     * @param ManageRoleRequest $request
-     * @param Role              $role
-     *
-     * @return mixed
-     */
-    public function edit(ManageRoleRequest $request, Role $role)
-    {
-        if ($role->isAdmin()) {
-            return redirect()->route('admin.auth.roles')->withFlashDanger('You can not edit the administrator role.');
-        }
-
-        return view('backend.auth.role.edit')
-            ->withRole($role)
-            ->withRolePermissions($role->permissions->pluck('name')->all())
-            ->withPermissions($this->permissionRepository->get());
-    }
 
     /**
      * @param  UpdateRoleRequest  $request
@@ -107,9 +76,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        $this->roleRepository->update($role, $request->only('name', 'permissions'));
-
-        return redirect()->route('admin.auth.roles')->withFlashSuccess(__('alerts.backend.roles.updated'));
+        return $this->roleRepository->update($role, $request->only('name', 'title', 'permissions', 'sort'));
     }
 
     /**
@@ -121,14 +88,11 @@ class RoleController extends Controller
      */
     public function destroy(ManageRoleRequest $request, Role $role)
     {
-        if ($role->isAdmin()) {
-            return redirect()->route('admin.auth.roles')->withFlashDanger(__('exceptions.backend.access.roles.cant_delete_admin'));
-        }
 
         $this->roleRepository->deleteById($role->id);
 
         event(new RoleDeleted($role));
 
-        return redirect()->route('admin.auth.roles')->withFlashSuccess(__('alerts.backend.roles.deleted'));
+        return [];
     }
 }

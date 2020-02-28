@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 
-class ResponseJson
+class ForceResponseJson
 {
     /**
      * Change the Request headers to accept "application/json" first

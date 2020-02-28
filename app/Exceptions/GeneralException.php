@@ -34,19 +34,4 @@ class GeneralException extends Exception
     {
         //
     }
-
-    /**
-     * Render the exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request)
-    {
-        // All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
-        return redirect()
-            ->back()
-            ->withInput()
-            ->withFlashDanger($this->message);
-    }
 }

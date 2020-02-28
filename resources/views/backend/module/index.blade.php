@@ -58,7 +58,7 @@
                         , btn: ['确定', '取消']
                         , yes: function (index, layero) {
                             var iframeWindow = window['layui-layer-iframe' + index]
-                                submit = layero.find('iframe').contents().find('#LAY-auth-role-submit');
+                            submit = layero.find('iframe').contents().find('#LAY-auth-role-submit');
 
                             //监听提交
                             iframeWindow.layui.onevent('submitted', 'form', function (data) {

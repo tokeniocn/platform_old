@@ -32,5 +32,12 @@ class AdminMenuTableSeeder extends Seeder
             'url' => route('admin.auth.roles', [], false),
             'is_show' => 1,
         ]);
+
+        $module = AdminMenu::create([
+            'title' => '模块管理',
+            'parent_id' => $system->id,
+            'url' => route('admin.module.modules', [], false),
+            'is_show' => 1,
+        ]);
     }
 }

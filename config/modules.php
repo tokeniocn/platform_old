@@ -25,8 +25,8 @@ return [
     */
 
     'stubs' => [
-        'enabled' => false,
-        'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'enabled' => true,
+        'path' => resource_path('stubs/module'),
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
@@ -203,7 +203,7 @@ return [
     'activators' => [
         'file' => [
             'class' => FileActivator::class,
-            'statuses-file' => base_path('modules_statuses.json'),
+            'statuses-file' => base_path('modules.json'),
             'cache-key' => 'activator.installed',
             'cache-lifetime' => 604800,
         ],

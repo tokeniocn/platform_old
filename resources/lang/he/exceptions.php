@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'already_exists' => 'כבר יש תפקיד בשם הזה. נסו שם אחר.',

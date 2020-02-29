@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'roles' => [
             'created' => 'De rol is succesvol aangemaakt.',
             'deleted' => 'De rol is succesvol verwijderd.',

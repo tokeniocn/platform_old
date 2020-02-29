@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'already_exists' => 'Rolle findes allerede. Vælg et andet navn.',

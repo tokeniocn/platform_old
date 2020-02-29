@@ -118,7 +118,7 @@ return [
     */
 
     'attributes' => [
-        'backend' => [
+        'admin' => [
             'access' => [
                 'permissions' => [
                     'associated_roles' => 'İlişkilendirilmiş Roller',

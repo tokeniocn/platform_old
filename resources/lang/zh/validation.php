@@ -145,7 +145,7 @@ return [
     */
 
     'attributes' => [
-        'backend' => [
+        'admin' => [
             'access' => [
                 'permissions' => [
                     'associated_roles' => '关联的角色',

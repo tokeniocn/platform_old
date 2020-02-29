@@ -34,7 +34,7 @@ return [
         'more' => 'Mais',
         'none' => 'Nenhuma',
     ],
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Criar Papel',

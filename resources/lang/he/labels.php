@@ -31,7 +31,7 @@ return [
         'toggle_navigation' => 'Toggle Navigation',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Create Role',

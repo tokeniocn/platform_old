@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Composers\Backend\SidebarComposer;
+use App\Http\Composers\Admin\SidebarComposer;
 use App\Http\Composers\GlobalComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -26,10 +26,10 @@ class ComposerServiceProvider extends ServiceProvider
 
         // Frontend
 
-        // Backend
+        // Admin
         View::composer(
             // This binds items like number of users pending approval when account approval is set to true
-            'backend.includes.sidebar',
+            'admin.includes.sidebar',
             SidebarComposer::class
         );
     }

@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'ナビゲーション切り替え',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'ロール作成',

@@ -30,7 +30,7 @@ if (! function_exists('home_route')) {
      */
     function home_route()
     {
-        if (is_backend()) {
+        if (in_admin()) {
             if (auth()->check()) {
                 return 'admin.dashboard';
             }
@@ -47,13 +47,13 @@ if (! function_exists('home_route')) {
 }
 
 
-if (! function_exists('is_backend')) {
+if (! function_exists('in_admin')) {
     /**
      * Return the route to the "home" page depending on authentication/authorization status.
      *
      * @return string
      */
-    function is_backend()
+    function in_admin()
     {
         return auth()->getDefaultDriver() == 'admin';
     }

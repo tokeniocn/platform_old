@@ -34,7 +34,7 @@ return [
         'more' => 'More',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Rol Yarat',

@@ -13,7 +13,7 @@ return [
       |--------------------------------------------------------------------------
      */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'already_exists' => 'Esse papel já existe. Por favor, escolha um nome diferente.',

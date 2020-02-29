@@ -1,5 +1,5 @@
 /**
- * This bootstrap file is used for both frontend and backend
+ * This bootstrap file is used for both frontend and admin
  */
 
 import _ from 'lodash'

@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'users' => [
                 'delete_user_confirm' => 'Bu kullanıcıyı kalıcı olarak silmek istediğinize emin misiniz? Bu kullanıcı IDsini referans alan yerlerde hata oluşma ihtimali vardır. Sonuçlar kendi sorumluluğunuzdadır. İşlem geri alınamaz.',

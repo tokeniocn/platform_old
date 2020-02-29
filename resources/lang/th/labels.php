@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'เปิด/ปิด เมนูนำทาง',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'สร้างบทบาท',

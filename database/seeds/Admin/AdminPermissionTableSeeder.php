@@ -21,14 +21,14 @@ class AdminPermissionTableSeeder extends Seeder
 
         // Create Permissions
         Permission::create([
-            'name' => 'view backend',
+            'name' => 'view admin',
             'guard_name' => 'admin',
             'title' => '后台访问'
         ]);
 
         // Assign Permissions to other Roles
         // Note: Admin (User 1) Has all permissions via a gate in the AuthServiceProvider
-        // $user->givePermissionTo('view backend');
+        // $user->givePermissionTo('view admin');
 
         $this->enableForeignKeys();
     }

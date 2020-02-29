@@ -17,13 +17,13 @@ mix.setPublicPath('public')
     //     processCssUrls: false,
     // })
     .sass('resources/sass/frontend/app.scss', 'css/frontend.css')
-    .sass('resources/sass/backend/app.scss', 'css/backend.css')
+    .sass('resources/sass/admin/app.scss', 'css/admin.css')
     .js('resources/js/frontend/app.js', 'js/frontend.js')
     .js([
-        'resources/js/backend/before.js',
-        'resources/js/backend/app.js',
-        'resources/js/backend/after.js'
-    ], 'js/backend.js')
+        'resources/js/admin/before.js',
+        'resources/js/admin/app.js',
+        'resources/js/admin/after.js'
+    ], 'js/admin.js')
     .extract([
         // Extract packages from node_modules to vendor.js
         'jquery',

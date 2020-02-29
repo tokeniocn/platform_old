@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'users' => [
                 'delete_user_confirm' => '您確定要永久刪除此用戶嗎？引用此用戶ID的應用程序中的任何地方都很可能是錯誤。繼續自行承擔風險。這不能被撤消。 ',

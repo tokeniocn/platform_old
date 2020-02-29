@@ -4,7 +4,7 @@ use App\Http\Controllers\LanguageController;
 
 /*
  * Global Routes
- * Routes that are used between both frontend and backend.
+ * Routes that are used between both frontend and admin.
  */
 
 // Switch between the included languages
@@ -21,36 +21,36 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
 Route::group(['middleware' => 'default_guard:admin'], function() {
     /*
-     * Backend Routes
+     * Admin Routes
      * Namespaces indicate folder structure
      */
-    Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
         /*
-         * These routes need view-backend permission
-         * (good if you want to allow more than one group in the backend,
-         * then limit the backend features by different roles or permissions)
+         * These routes need view-admin permission
+         * (good if you want to allow more than one group in the admin,
+         * then limit the admin features by different roles or permissions)
          *
          * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
          * These routes can not be hit if the password is expired
          */
-        include_route_files(__DIR__.'/web/backend/');
+        include_route_files(__DIR__.'/web/admin/');
     });
 
 
     /*
-     * Backend Api Routes
+     * Admin Api Routes
      * Namespaces indicate folder structure
      */
-    Route::group(['namespace' => 'Backend\Api', 'prefix' => 'admin/api', 'as' => 'admin.api.', 'middleware' => 'api'], function () {
+    Route::group(['namespace' => 'Admin\Api', 'prefix' => 'admin/api', 'as' => 'admin.api.', 'middleware' => 'api'], function () {
         /*
-         * These routes need view-backend permission
-         * (good if you want to allow more than one group in the backend,
-         * then limit the backend features by different roles or permissions)
+         * These routes need view-admin permission
+         * (good if you want to allow more than one group in the admin,
+         * then limit the admin features by different roles or permissions)
          *
          * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
          * These routes can not be hit if the password is expired
          */
-        include_route_files(__DIR__.'/api/backend/');
+        include_route_files(__DIR__.'/api/admin/');
     });
 });
 

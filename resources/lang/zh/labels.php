@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => '切换导航',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => '新建角色',

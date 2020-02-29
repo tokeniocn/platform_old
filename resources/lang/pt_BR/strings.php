@@ -13,7 +13,7 @@ return [
       |--------------------------------------------------------------------------
      */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'users' => [
                 'no_deactivated' => 'Não há usuários desativados.',

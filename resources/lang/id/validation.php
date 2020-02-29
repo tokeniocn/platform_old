@@ -144,7 +144,7 @@ return [
     */
 
     'attributes' => [
-        'backend' => [
+        'admin' => [
             'access' => [
                 'permissions' => [
                     'associated_roles' => 'Asosiasi Peran',

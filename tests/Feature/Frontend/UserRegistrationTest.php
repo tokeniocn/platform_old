@@ -7,7 +7,7 @@ use App\Events\Frontend\Auth\UserRegistered;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
-use App\Repositories\Backend\Auth\UserRepository;
+use App\Repositories\Admin\Auth\UserRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;

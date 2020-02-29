@@ -143,7 +143,7 @@ return [
     */
 
     'attributes' => [
-        'backend' => [
+        'admin' => [
             'access' => [
                 'permissions' => [
                     'associated_roles' => 'Ruoli associati',

@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'users' => [
                 'delete_user_confirm' => 'Apakah Anda yakin ingin menghapus pengguna ini secara permanen? Di mana saja di aplikasi yang merujuk id pengguna ini kemungkinan besar akan error. Lanjutkan risiko Anda sendiri. Ini tidak dapat dibatalkan.',

@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'already_exists' => 'บทบาทนี้มีอยู่แล้ว กรุณาเลือกชื่ออื่นที่แตกต่าง',

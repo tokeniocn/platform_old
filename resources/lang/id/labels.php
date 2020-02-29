@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'Alihkan Navigasi',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Buat Peran',

@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'Navigasyon Açık',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Rol Oluştur',

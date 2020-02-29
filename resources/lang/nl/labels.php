@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'Navigatie omschakelen',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Rol Creëren',

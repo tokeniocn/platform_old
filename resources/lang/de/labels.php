@@ -32,7 +32,7 @@ return [
         'greate_new' => 'Neue erstellen',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Rolle erstellen',

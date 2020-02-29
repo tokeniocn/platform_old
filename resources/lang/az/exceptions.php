@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'already_exists' => 'Bu rol hazırda mövcuddur. Xahiş olunur başqa ad seçin.',

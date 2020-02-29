@@ -32,7 +32,7 @@
                        aria-haspopup="true" aria-expanded="false">{{ $logged_in_user->name }}</a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
-                        @can('view backend')
+                        @can('view admin')
                             <a href="{{ route('admin.dashboard') }}" class="dropdown-item">@lang('navs.frontend.user.administration')</a>
                         @endcan
 

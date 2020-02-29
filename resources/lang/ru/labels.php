@@ -32,7 +32,7 @@ return [
         'toggle_navigation' => 'Навигация',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Создать новую роль',

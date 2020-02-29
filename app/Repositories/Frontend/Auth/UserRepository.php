@@ -61,7 +61,7 @@ class UserRepository extends BaseRepository
             return $user;
         }
 
-        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
+        throw new GeneralException(__('exceptions.admin.access.users.not_found'));
     }
 
     /**
@@ -80,7 +80,7 @@ class UserRepository extends BaseRepository
             return $user;
         }
 
-        throw new GeneralException(__('exceptions.backend.access.users.not_found'));
+        throw new GeneralException(__('exceptions.admin.access.users.not_found'));
     }
 
     /**

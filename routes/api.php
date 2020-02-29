@@ -24,9 +24,9 @@ use Illuminate\Http\Request;
  */
 Route::group(['namespace' => 'Frontend\Api', 'prefix' => 'api', 'as' => 'api.'], function () {
     /*
-     * These routes need view-backend permission
-     * (good if you want to allow more than one group in the backend,
-     * then limit the backend features by different roles or permissions)
+     * These routes need view-admin permission
+     * (good if you want to allow more than one group in the admin,
+     * then limit the admin features by different roles or permissions)
      *
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      * These routes can not be hit if the password is expired

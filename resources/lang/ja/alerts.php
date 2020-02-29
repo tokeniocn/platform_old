@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'roles' => [
             'created' => 'ロールが正常に作成されました。',
             'deleted' => 'ロールが削除されました。',

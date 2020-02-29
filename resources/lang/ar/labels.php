@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'تبديل شريط التنقل',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'إنشاء دور جديد',

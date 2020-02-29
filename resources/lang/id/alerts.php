@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'roles' => [
             'created' => 'Peran telah berhasil dibuat.',
             'deleted' => 'Peran telah berhasil dihapus.',

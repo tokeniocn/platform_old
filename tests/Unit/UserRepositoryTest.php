@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Events\Backend\Auth\User\UserCreated;
-use App\Events\Backend\Auth\User\UserUpdated;
+use App\Events\Admin\Auth\User\UserCreated;
+use App\Events\Admin\Auth\User\UserUpdated;
 use App\Models\Auth\Role;
 use App\Models\Auth\User;
-use App\Repositories\Backend\Auth\UserRepository;
+use App\Repositories\Admin\Auth\UserRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;

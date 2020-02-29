@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'title' => 'Адміністрування',
             'roles' => [

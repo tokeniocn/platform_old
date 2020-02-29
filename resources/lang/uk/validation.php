@@ -178,7 +178,7 @@ return [
         'time' => 'Час',
         'available' => 'Доступно',
         'size' => 'Розмір',
-        'backend' => [
+        'admin' => [
             'access' => [
                 'permissions' => [
                     'associated_roles' => 'Зв\'язок з ролями',

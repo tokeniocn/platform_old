@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('admin.layouts.app')
 
 @push('after-styles')
     @include('log-viewer::_template.style')
@@ -15,7 +15,7 @@
 
     <div class="card">
         <div class="card-header">
-            {{ __('menus.backend.log-viewer.logs') }}
+            {{ __('menus.admin.log-viewer.logs') }}
         </div><!-- box-header -->
 
         <div class="card-body">

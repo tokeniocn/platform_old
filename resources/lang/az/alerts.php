@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'roles' => [
             'created' => 'Rol uğurla yaradıldı.',
             'deleted' => 'Rol uğurla silindi.',

@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'roles' => [
             'created' => '角色已成功创建。',
             'deleted' => '角色已成功删除。',

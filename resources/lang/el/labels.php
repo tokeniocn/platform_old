@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'Αλλαγή περιήγησης',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Δημιουργία ρόλου',

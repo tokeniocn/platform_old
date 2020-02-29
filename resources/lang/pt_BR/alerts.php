@@ -13,7 +13,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'backend' => [
+    'admin' => [
         'roles' => [
             'created' => 'O papel foi criado com sucesso.',
             'updated' => 'O papel foi atualizado com sucesso.',

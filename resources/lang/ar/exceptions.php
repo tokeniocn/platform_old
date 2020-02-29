@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'already_exists' => 'هذا الدور موجود مسبقا. برجاء إختيار إسم آخر.',

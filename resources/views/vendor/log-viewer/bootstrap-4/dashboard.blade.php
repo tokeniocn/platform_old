@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('admin.layouts.app')
 
 @push('after-styles')
     @include('log-viewer::_template.style')

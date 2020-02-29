@@ -31,7 +31,7 @@ return [
         'toggle_navigation' => 'تغییر ناوبری',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'ایجاد نقش',

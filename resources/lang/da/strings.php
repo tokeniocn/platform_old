@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'users' => [
                 'delete_user_confirm' => 'Er du sikker på at du vil slette denne bruger permanent? Alle steder hvor denne bruger er refereret vil sandsynligvis give en fejl. Fortsæt på eget ansvar. Denne handling kan ikke fortrydes.',

@@ -31,7 +31,7 @@ return [
         'toggle_navigation' => 'Abrir/Cerrar menú de navegación',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Crear Rol',

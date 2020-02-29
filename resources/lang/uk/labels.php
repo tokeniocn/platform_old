@@ -35,7 +35,7 @@ return [
         'none' => 'Немає',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Створити нову роль',

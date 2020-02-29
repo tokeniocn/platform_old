@@ -26,7 +26,7 @@ abstract class TestCase extends BaseTestCase
         }
 
         $adminRole = factory(Role::class)->create(['name' => config('access.users.admin_role')]);
-        $adminRole->givePermissionTo(factory(Permission::class)->create(['name' => 'view backend']));
+        $adminRole->givePermissionTo(factory(Permission::class)->create(['name' => 'view admin']));
 
         return $adminRole;
     }

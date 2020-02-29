@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'users' => [
                 'delete_user_confirm' => '¿Está seguro de querer eliminar este Usuario de forma permanente? Esto puede producir un error grave en aquellas partes de la aplicación que hagan referencia al mismo. Proceda con cautela. Esta operación no puede deshacerse.',

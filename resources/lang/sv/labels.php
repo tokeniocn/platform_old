@@ -30,7 +30,7 @@ return [
         'toggle_navigation' => 'Växla navigering',
     ],
 
-    'backend' => [
+    'admin' => [
         'access' => [
             'roles' => [
                 'create' => 'Skapa roll',

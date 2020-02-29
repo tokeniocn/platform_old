@@ -18,8 +18,23 @@ class ModuleController extends Controller
                     'description' => $module->getDescription(),
                     'keywords' => $module->get('keywords'),
                     'enabled' => $module->isEnabled(),
+                    'can_disable' => true
                 ];
             })->toArray();
         return array_values($modules);
     }
+
+    public function enable($module)
+    {
+        Module::enable($module);
+        return [];
+    }
+
+    public function disable($module)
+    {
+        Module::disable($module);
+        return [];
+    }
+
+
 }

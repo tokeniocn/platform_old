@@ -11,4 +11,9 @@ Route::group([
 
     Route::get('/', [ModuleController::class, 'index'])->name('modules');
 
+    Route::group(['prefix' => '{module}'], function () {
+        Route::post('/enable', [ModuleController::class, 'enable'])->name('enable');
+        Route::post('/disable', [ModuleController::class, 'disable'])->name('disable');
+    });
+
 });

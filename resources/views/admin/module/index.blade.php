@@ -3,10 +3,17 @@
 @section('content')
     <div class="layui-card">
         <div class="layui-card-body">
-            <table id="LAY-user-back-role" lay-filter="LAY-user-back-role"></table>
+            <table id="LAY-module" lay-filter="LAY-module"></table>
             <script type="text/html" id="table-useradmin-admin">
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
-                        class="layui-icon layui-icon-delete"></i>禁用</a>
+                @{{# if(d.enabled) { }}
+                    @{{# if(d.can_disable) { }}
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable"><i class="layui-icon layui-icon-delete" ></i>禁用</a>
+                    @{{# } else { }}
+                        <a class="layui-btn layui-btn-disabled layui-btn-xs"><i class="layui-icon layui-icon-delete" ></i>禁用</a>
+                    @{{# } }}
+                @{{# } else { }}
+                    <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="enable"><i class="layui-icon layui-icon-delete" ></i>启用</a>
+                @{{# } }}
             </script>
         </div>
     </div>
@@ -22,52 +29,38 @@
                 , table = layui.table;
 
             var events = {
-                del: function (data) {
-                    layer.confirm('确定删除吗？', function () {
-                        var url = '{{ route('admin.api.auth.role.destroy', ['role' => '!role!']) }}'.replace('!role!', data.name);
+                disable: function (data) {
+                    layer.confirm('确定禁用该模块吗？', function () {
+                        var url = '{{ route('admin.api.module.disable', ['module' => '!module!']) }}'.replace('!module!', data.name);
                         $.ajax({
                             url: url,
-                            type: 'delete',
+                            type: 'post',
                             success: function() {
-                                table.reload('LAY-user-back-role')
-                                layer.msg('删除成功', {
+                                table.reload('LAY-module')
+                                layer.msg('模块已禁用', {
                                     offset: '15px',
                                 });
                             }
                         });
                     });
                 },
-                add: function () {
-                    events.edit();
-                },
-                edit: function(data) {
-                    var url = data ? '{{ route('admin.auth.role.edit', ['role' => '!role!']) }}'.replace('!role!', data.name) :
-                        '{{ route('admin.auth.role.create') }}';
-                    layer.open({
-                        type: 2
-                        , title: '添加新角色'
-                        , content: url
-                        , area: ['500px', '480px']
-                        , btn: ['确定', '取消']
-                        , yes: function (index, layero) {
-                            var iframeWindow = window['layui-layer-iframe' + index]
-                            submit = layero.find('iframe').contents().find('#LAY-auth-role-submit');
-
-                            //监听提交
-                            iframeWindow.layui.onevent('submitted', 'form', function (data) {
-                                console.log(data);
-                                table.reload('LAY-user-back-role')
-                                layer.close(index) //关闭弹层
-                            })
-
-                            submit.trigger('click')
+                enable: function(data) {
+                    var url = '{{ route('admin.api.module.enable', ['module' => '!module!']) }}'.replace('!module!', data.name);
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        success: function() {
+                            table.reload('LAY-module')
+                            layer.msg('模块启用成功', {
+                                offset: '15px',
+                            });
                         }
-                    })
+                    });
                 }
             };
 
             table.render({
-                elem: '#LAY-user-back-role',
+                elem: '#LAY-module',
                 url: '{{ route('admin.api.module.modules') }}',
                 parseData: function (res) { //res 即为原始返回的数据
                     return {
@@ -93,9 +86,11 @@
                     fixed: 'right',
                     toolbar: '#table-useradmin-admin'
                 }]],
-                text: '对不起，加载出现异常！',
+                text: {
+                    none: '没有可用模块'
+                },
             });
-            table.on("tool(LAY-user-back-role)", function(e) {
+            table.on("tool(LAY-module)", function(e) {
                 if (events[e.event]) {
                     events[e.event].call(this, e.data);
                 }

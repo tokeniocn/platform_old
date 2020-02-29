@@ -5,8 +5,6 @@
         <div class="layui-card-body">
             <table id="LAY-user-back-role" lay-filter="LAY-user-back-role"></table>
             <script type="text/html" id="table-useradmin-admin">
-                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
-                        class="layui-icon layui-icon-edit"></i>编辑</a>
                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
                         class="layui-icon layui-icon-delete"></i>禁用</a>
             </script>

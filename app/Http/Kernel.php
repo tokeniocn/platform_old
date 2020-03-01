@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
         ],
 
         'admin' => [
+            'default_guard:admin',
             'auth:admin',
             'password_expires',
             'permission:view admin',

@@ -15,26 +15,23 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->uuid('uuid');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('email')->unique();
-            $table->string('avatar_type')->default('gravatar');
-            $table->string('avatar_location')->nullable();
-            $table->string('password')->nullable();
-            $table->timestamp('password_changed_at')->nullable();
-            $table->unsignedTinyInteger('active')->default(1);
-            $table->string('confirmation_code')->nullable();
-            $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
-            $table->string('timezone')->nullable();
-            $table->timestamp('last_login_at')->nullable();
+            $table->string('username', 50)->unique()->default('')->comment('用户名');
+            $table->string('email')->default('')->comment('登录邮箱');
+            $table->dateTime('email_verified_at')->nullable()->comment('邮箱验证时间');
+            $table->string('password', 60)->default('')->comment('登录密码');
+            $table->dateTime('password_changed_at')->nullable()->comment('密码最后修改时间');
+            $table->string('mobile')->default('')->comment('绑定手机号');
+            $table->string('mobile_verified_at')->default('')->comment('手机号验证时间');
+            $table->string('avatar')->default('')->comment('头像地址');
+            $table->unsignedTinyInteger('active')->default(0)->comment('是否启用');
+            $table->dateTime('last_login_at')->nullable()->comment('最后登录时间');
             $table->string('last_login_ip')->nullable();
-            $table->boolean('to_be_logged_out')->default(false);
-            $table->rememberToken();
+            $table->rememberToken()->comment('remember me token');
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
-            $table->softDeletes();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

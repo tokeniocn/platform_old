@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConfigTable extends Migration
+class CreateSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class CreateConfigTable extends Migration
      */
     public function up()
     {
-        Schema::create('config', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('key', 100)->default('')->unique()->comment('设置名称');
             $table->json('value')->comment('设置内容');
             $table->string('module', 100)->default('')->comment('专属模块名,默认空表示全局');
@@ -29,6 +30,6 @@ class CreateConfigTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('config');
+        Schema::dropIfExists('settings');
     }
 }

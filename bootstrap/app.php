@@ -42,10 +42,8 @@ $app->singleton(
 );
 
 $app->bind(
-  'config',
-  function($app) {
-      return new App\Config\Repository();
-  }
+    Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
+    App\Config\Bootstrap\LoadConfiguration::class
 );
 /*
 |--------------------------------------------------------------------------

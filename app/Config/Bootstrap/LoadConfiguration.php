@@ -3,8 +3,8 @@
 namespace App\Config\Bootstrap;
 
 use App\Config\Repository;
-use Symfony\Component\Finder\Finder;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Bootstrap\BootProviders;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 class LoadConfiguration extends BaseLoadConfiguration
@@ -37,7 +37,9 @@ class LoadConfiguration extends BaseLoadConfiguration
             $this->loadConfigurationFiles($app, $config);
         }
 
-        $config->loadSettingsData();
+        $app->events->listen('bootstrapped: ' . BootProviders::class, function() use ($config) {
+            $config->loadSettingsData();
+        });
 
         // Finally, we will set the application's environment based on the configuration
         // values that were loaded. We will pass a callback which will be used to get

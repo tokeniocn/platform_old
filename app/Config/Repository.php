@@ -3,10 +3,9 @@
 namespace App\Config;
 
 use App\Models\Setting;
-use Illuminate\Config\Repository as ConfigRepository;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
+use Illuminate\Config\Repository as ConfigRepository;
 
 class Repository extends ConfigRepository
 {
@@ -32,12 +31,12 @@ class Repository extends ConfigRepository
 
     public function loadSettingsData($force = false)
     {
-        $settingsFile = storage_path('framework/settings.php');
-        if ($force || !file_exists($settingsFile)) {
-            $this->updateSettingsCacheFile();
+        if ($force || is_null($data = cache('config_settings'))) {
+            $this->updateSettingsCache();
+            $data = cache('config_settings', []);
         }
-        // TODO cached file support
-        Arr::set($this->items, 'settings', require $settingsFile);
+
+        Arr::set($this->items, 'settings', $data);
     }
 
     protected function recordSettingsChanged($key, $value)
@@ -70,7 +69,7 @@ class Repository extends ConfigRepository
         if ( ! empty($this->settingsChanged)) {
             $this->storeSettingsChanged();
 
-            $this->updateSettingsCacheFile();
+            $this->updateSettingsCache();
         }
     }
 
@@ -81,22 +80,15 @@ class Repository extends ConfigRepository
         }
     }
 
-    public function updateSettingsCacheFile()
+    public function updateSettingsCache()
     {
-        /** @var Filesystem $files */
-        $files = app(Filesystem::class);
         $items = Setting::all()
             ->keyBy('key')
             ->map(function($setting) {
                 return $setting->value;
             })
             ->toArray();
-        $files->put(
-            storage_path('framework/settings.php'),
-            '<?php return ' . var_export($items, true) . ';' . PHP_EOL,
-            true
-        );
-        // TODO error update cache file
 
+        cache(['config_settings' => $items]);
     }
 }

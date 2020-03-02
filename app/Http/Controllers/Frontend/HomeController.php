@@ -9,11 +9,9 @@ use App\Http\Controllers\Controller;
  */
 class HomeController extends Controller
 {
-    /**
-     * @return \Illuminate\View\View
-     */
+
     public function index()
     {
-        return view('frontend.index');
+        return 'hello world!';
     }
 }

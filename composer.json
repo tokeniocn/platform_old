@@ -13,7 +13,7 @@
         "altek/accountant": "^1.2",
         "altek/eventually": "^1.0",
         "arcanedev/log-viewer": "^5.0",
-        "creativeorange/gravatar": "~1.0",
+        "darkaonline/l5-swagger": "^6.0",
         "facade/ignition": "^1.11",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^1.0",
@@ -24,7 +24,6 @@
         "laravel/socialite": "^4.1",
         "mews/captcha": "^3.0",
         "nwidart/laravel-modules": "^6.2",
-        "spatie/laravel-html": "^2.22",
         "spatie/laravel-permission": "^3.0",
         "torann/geoip": "^1.0"
     },

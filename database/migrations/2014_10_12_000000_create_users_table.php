@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->default('')->comment('头像地址');
             $table->unsignedTinyInteger('active')->default(0)->comment('是否启用');
             $table->dateTime('last_login_at')->nullable()->comment('最后登录时间');
-            $table->string('last_login_ip')->nullable();
+            $table->string('last_login_ip')->nullable()->comment('最后登录IP');
             $table->rememberToken()->comment('remember me token');
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();

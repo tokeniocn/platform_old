@@ -11,6 +11,16 @@ class AdminUser extends Authenticatable
 {
     use HasApiTokens, Notifiable, HasRoles;
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

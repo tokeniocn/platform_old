@@ -68,11 +68,9 @@
                             <cite>{{ $logged_in_user->name }}</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            {{--<dd><a lay-href="/admin/admin_info"></a></dd>--}}
                             <hr>
                             <dd style="text-align: center;">
-                                <!--                            <a lay-href="/admin/login_out">退出</a>-->
-                                <a onclick="logout()">退出</a>
+                                <a href="{{ route('admin.auth.logout') }}">退出</a>
                             </dd>
                         </dl>
                     </li>

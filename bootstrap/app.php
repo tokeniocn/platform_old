@@ -41,6 +41,12 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->bind(
+  'config',
+  function($app) {
+      return new App\Config\Repository();
+  }
+);
 /*
 |--------------------------------------------------------------------------
 | Return The Application

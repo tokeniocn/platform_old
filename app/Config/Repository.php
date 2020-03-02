@@ -33,7 +33,7 @@ class Repository extends ConfigRepository
     public function loadSettingsData($force = false)
     {
         $settingsFile = storage_path('framework/settings.php');
-        if (!file_exists($settingsFile) || $force) {
+        if ($force || !file_exists($settingsFile)) {
             $this->updateSettingsCacheFile();
         }
         // TODO cached file support

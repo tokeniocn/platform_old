@@ -4,7 +4,7 @@ namespace App\Config\Bootstrap;
 
 use App\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Foundation\Bootstrap\BootProviders;
+use Illuminate\Foundation\Bootstrap\RegisterProviders;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 class LoadConfiguration extends BaseLoadConfiguration
@@ -37,7 +37,7 @@ class LoadConfiguration extends BaseLoadConfiguration
             $this->loadConfigurationFiles($app, $config);
         }
 
-        $app->events->listen('bootstrapped: ' . BootProviders::class, function() use ($config) {
+        $app->events->listen('bootstrapped: ' . RegisterProviders::class, function() use ($config) {
             $config->loadSettingsData();
         });
 

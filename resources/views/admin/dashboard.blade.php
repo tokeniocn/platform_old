@@ -65,10 +65,9 @@
 
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:;">
-                            <cite>{{ $logged_in_user->name }}</cite>
+                            <cite>{{ $logged_in_user->username }}</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <hr>
                             <dd style="text-align: center;">
                                 <a href="{{ route('admin.auth.logout') }}">退出</a>
                             </dd>

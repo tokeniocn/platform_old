@@ -10,7 +10,7 @@
             @if(config('locale.status') && count(config('locale.languages')) > 1)
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownLanguageLink" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">@lang('menus.language-picker.language') ({{ strtoupper(app()->getLocale()) }})</a>
+                       aria-haspopup="true" aria-expanded="false">语言 ({{ strtoupper(app()->getLocale()) }})</a>
 
                     @include('includes.partials.lang')
                 </li>

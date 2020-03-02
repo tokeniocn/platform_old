@@ -11,7 +11,7 @@
                 </div><!--card-header-->
 
                 <div class="card-body">
-                    {{ html()->form('POST', route('frontend.auth.login.post'))->open() }}
+                    {{ html()->form('POST', route('frontend.api.auth.login.post'))->open() }}
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
@@ -47,9 +47,9 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             {{ html()->password('captcha')
-                                                            ->class('form-control')
-                                                            ->placeholder('请输入验证码')
-                                                            ->required() }}
+                                                ->class('form-control')
+                                                ->placeholder('请输入验证码')
+                                                ->required() }}
                                         </div>
                                         <div class="col-auto">
                                             <img src="{{ captcha_src() }}">

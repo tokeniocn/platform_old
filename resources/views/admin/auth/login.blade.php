@@ -86,7 +86,7 @@
         //提交
         form.on('submit(LAY-user-login-submit)', function (obj) {
             $.ajax({
-                url: '',
+                url: '{{ route('admin.api.auth.login') }}',
                 type: 'post',
                 data: obj.field,
                 success: function(res) {
@@ -94,7 +94,7 @@
                         offset: '15px',
                         time: 2000,
                         end: function() {
-                            window.location.href = res.redirect;
+                            window.location.href = '{{ route('admin.dashboard') }}';
                         }
                     })
                 },

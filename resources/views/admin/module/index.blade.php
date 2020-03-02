@@ -95,7 +95,6 @@
                     events[e.event].call(this, e.data);
                 }
             });
-            util.event('lay-demo', events);
         })
     </script>
 @endpush

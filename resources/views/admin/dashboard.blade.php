@@ -69,7 +69,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd style="text-align: center;">
-                                <a href="{{ route('admin.auth.logout') }}">退出</a>
+                                <a lay-event="logout">退出</a>
                             </dd>
                         </dl>
                     </li>
@@ -163,13 +163,24 @@
     {!! script('static/layuiadmin/layui/layui.js') !!}
     {!! script('static/admin/js/admin.js') !!}
     <script>
-        layui.use('index');
-
-        function logout () {
-            layer.confirm('真的退出不？', function (index) {
-                window.location.href = '/admin/login_out'
-            })
-        }
+        layui.use(['index', 'util'], function() {
+            var $ = layui.$;
+            var util = layui.util;
+            var events = {
+                logout: function() {
+                    layer.confirm('确定退出当前账号吗？', function () {
+                        $.ajax({
+                            url: '{{ route('admin.api.auth.logout') }}',
+                            type: 'post',
+                            success: function() {
+                                window.location.href = '{{ route('admin.auth.login') }}'
+                            }
+                        });
+                    });
+                }
+            }
+            util.event('lay-event', events);
+        });
     </script>
 </body>
 </html>

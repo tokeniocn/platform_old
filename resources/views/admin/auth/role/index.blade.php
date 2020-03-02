@@ -17,7 +17,7 @@
 @push('after-scripts')
     <script type="text/html" id="tableToolbar">
         <div class="layui-btn-container">
-            <button class="layui-btn layuiadmin-btn-role" lay-demo="add">添加角色</button>
+            <button class="layui-btn layuiadmin-btn-role" lay-event="add">添加角色</button>
         </div>
     </script>
     <script>
@@ -112,7 +112,7 @@
                     events[e.event].call(this, e.data);
                 }
             });
-            util.event('lay-demo', events);
+            util.event('lay-event', events);
         })
     </script>
 @endpush

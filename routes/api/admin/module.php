@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\Api\Module\ModuleController;
 Route::group([
     'namespace' => 'Module',
     'as'        => 'module.',
-    'prefix'    => 'modules'
+    'prefix'    => 'v1/modules'
 ], function () {
 
     Route::get('/', [ModuleController::class, 'index'])->name('modules');

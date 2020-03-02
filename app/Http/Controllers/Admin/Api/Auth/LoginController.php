@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Auth;
+namespace App\Http\Controllers\Admin\Api\Auth;
 
-use App\Events\Frontend\Auth\UserLoggedIn;
-use App\Events\Frontend\Auth\UserLoggedOut;
+use App\Events\Admin\Auth\UserLoggedIn;
+use App\Events\Admin\Auth\UserLoggedOut;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -18,31 +18,13 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @return string
-     */
-    public function redirectPath()
-    {
-        return route(home_route());
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showLoginForm()
-    {
-        return view('frontend.auth.login');
-    }
-
-    /**
      * Get the login username to be used by the controller.
      *
      * @return string
      */
     public function username()
     {
-        return config('access.users.username');
+        return 'username';
     }
 
     /**
@@ -69,28 +51,14 @@ class LoginController extends Controller
      * @param         $user
      *
      * @throws GeneralException
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse | array
      */
     protected function authenticated(Request $request, $user)
     {
-        // Check to see if the users account is confirmed and active
-        if (! $user->isConfirmed()) {
-            auth()->logout();
-
-            // If the user is pending (account approval is on)
-            if ($user->isPending()) {
-                throw new GeneralException(__('exceptions.frontend.auth.confirmation.pending'));
-            }
-
-            // Otherwise see if they want to resent the confirmation e-mail
-
-            throw new GeneralException(__('exceptions.frontend.auth.confirmation.resend', ['url' => route('frontend.auth.account.confirm.resend', e($user->{$user->getUuidName()}))]));
-        }
-
         if (! $user->isActive()) {
             auth()->logout();
 
-            throw new GeneralException(__('exceptions.frontend.auth.deactivated'));
+            throw new GeneralException(__('exceptions.admin.auth.deactivated'));
         }
 
         event(new UserLoggedIn($user));
@@ -99,7 +67,7 @@ class LoginController extends Controller
             auth()->logoutOtherDevices($request->password);
         }
 
-        return redirect()->intended($this->redirectPath());
+        return $user;
     }
 
     /**
@@ -123,6 +91,16 @@ class LoginController extends Controller
         $this->guard()->logout();
         $request->session()->invalidate();
 
-        return redirect()->route('frontend.index');
+        return [];
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return auth('admin');
     }
 }

@@ -1,14 +1,12 @@
 @extends('frontend.layouts.app')
 
-@section('title', app_name() . ' | ' . __('labels.frontend.auth.login_box_title'))
-
 @section('content')
     <div class="row justify-content-center align-items-center">
         <div class="col col-sm-8 align-self-center">
             <div class="card">
                 <div class="card-header">
                     <strong>
-                        @lang('labels.frontend.auth.login_box_title')
+                       登录
                     </strong>
                 </div><!--card-header-->
 
@@ -17,11 +15,11 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    {{ html()->label(__('validation.attributes.frontend.email'))->for('email') }}
+                                    {{ html()->label('邮箱')->for('email') }}
 
                                     {{ html()->email('email')
                                         ->class('form-control')
-                                        ->placeholder(__('validation.attributes.frontend.email'))
+                                        ->placeholder('请输入邮箱地址')
                                         ->attribute('maxlength', 191)
                                         ->required() }}
                                 </div><!--form-group-->
@@ -31,11 +29,11 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    {{ html()->label(__('validation.attributes.frontend.password'))->for('password') }}
+                                    {{ html()->label('密码')->for('password') }}
 
                                     {{ html()->password('password')
                                         ->class('form-control')
-                                        ->placeholder(__('validation.attributes.frontend.password'))
+                                        ->placeholder('请输入密码')
                                         ->required() }}
                                 </div><!--form-group-->
                             </div><!--col-->
@@ -44,9 +42,40 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <div class="checkbox">
-                                        {{ html()->label(html()->checkbox('remember', true, 1) . ' ' . __('labels.frontend.auth.remember_me'))->for('remember') }}
+                                    {{ html()->label('验证码')->for('captcha') }}
+
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            {{ html()->password('captcha')
+                                                            ->class('form-control')
+                                                            ->placeholder('请输入验证码')
+                                                            ->required() }}
+                                        </div>
+                                        <div class="col-auto">
+                                            <img src="{{ captcha_src() }}">
+                                        </div>
                                     </div>
+
+                                </div><!--form-group-->
+                            </div><!--col-->
+                        </div><!--row-->
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="checkbox">
+                                                {{ html()->label(html()->checkbox('remember', true, 1) . ' 记住我')->for('remember') }}
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <div class="checkbox">
+                                                <a href="{{ route('frontend.auth.password.reset') }}">忘记密码?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div><!--form-group-->
                             </div><!--col-->
                         </div><!--row-->
@@ -54,27 +83,12 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group clearfix">
-                                    {{ form_submit(__('labels.frontend.auth.login_button')) }}
+                                    {{ form_submit('登录', 'btn btn-success btn-block') }}
+
                                 </div><!--form-group-->
                             </div><!--col-->
                         </div><!--row-->
 
-                        @if(config('access.captcha.login'))
-                            <div class="row">
-                                <div class="col">
-                                    @captcha
-                                    {{ html()->hidden('captcha_status', 'true') }}
-                                </div><!--col-->
-                            </div><!--row-->
-                        @endif
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group text-right">
-                                    <a href="{{ route('frontend.auth.password.reset') }}">@lang('labels.frontend.passwords.forgot_password')</a>
-                                </div><!--form-group-->
-                            </div><!--col-->
-                        </div><!--row-->
                     {{ html()->form()->close() }}
 
                     <div class="row">
@@ -91,7 +105,5 @@
 @endsection
 
 @push('after-scripts')
-    @if(config('access.captcha.login'))
-        @captchaScripts
-    @endif
+
 @endpush

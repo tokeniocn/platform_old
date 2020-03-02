@@ -5,6 +5,7 @@ namespace App\Config;
 use App\Models\Setting;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
 
 class Repository extends ConfigRepository
@@ -20,7 +21,6 @@ class Repository extends ConfigRepository
     public function __construct(array $items = [])
     {
         parent::__construct($items);
-
     }
 
     public function set($key, $value = null)
@@ -28,6 +28,16 @@ class Repository extends ConfigRepository
         parent::set($key, $value);
 
         $this->recordSettingsChanged($key, $value);
+    }
+
+    public function loadSettingsData()
+    {
+        $settingsFile = storage_path('framework/settings.php');
+        if (!file_exists($settingsFile)) {
+            $this->updateSettingsCacheFile();
+        }
+        // TODO cached file support
+        Arr::set($this->items, 'settings', require $settingsFile);
     }
 
     protected function recordSettingsChanged($key, $value)
@@ -83,7 +93,7 @@ class Repository extends ConfigRepository
             ->toArray();
         $files->put(
             storage_path('framework/settings.php'),
-            '<?php return ' . var_export($items, true) . '; ',
+            '<?php return ' . var_export($items, true) . ';' . PHP_EOL,
             true
         );
         // TODO error update cache file

@@ -37,6 +37,8 @@ class LoadConfiguration extends BaseLoadConfiguration
             $this->loadConfigurationFiles($app, $config);
         }
 
+        $config->loadSettingsData();
+
         // Finally, we will set the application's environment based on the configuration
         // values that were loaded. We will pass a callback which will be used to get
         // the environment in a web context where an "--env" switch is not present.
@@ -47,28 +49,5 @@ class LoadConfiguration extends BaseLoadConfiguration
         date_default_timezone_set($config->get('app.timezone', 'UTC'));
 
         mb_internal_encoding('UTF-8');
-    }
-
-    protected function getConfigurationFiles(Application $app)
-    {
-        $files = [];
-
-        $configPath = realpath($app->configPath());
-
-        foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
-            $directory = $this->getNestedDirectory($file, $configPath);
-
-            $files[$directory.basename($file->getRealPath(), '.php')] = $file->getRealPath();
-        }
-
-        // TODO add default settings.php when is not exists
-        $settingsPath = storage_path('framework/settings.php');
-        if (file_exists($settingsPath)) {
-            $files['settings'] = $settingsPath;
-        }
-
-        ksort($files, SORT_NATURAL);
-
-        return $files;
     }
 }

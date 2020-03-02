@@ -30,10 +30,10 @@ class Repository extends ConfigRepository
         $this->recordSettingsChanged($key, $value);
     }
 
-    public function loadSettingsData()
+    public function loadSettingsData($force = false)
     {
         $settingsFile = storage_path('framework/settings.php');
-        if (!file_exists($settingsFile)) {
+        if (!file_exists($settingsFile) || $force) {
             $this->updateSettingsCacheFile();
         }
         // TODO cached file support

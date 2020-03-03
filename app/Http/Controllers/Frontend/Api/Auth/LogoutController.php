@@ -18,14 +18,13 @@ class LogoutController extends Controller
      */
     public function logout(Request $request)
     {
-        // Fire event, Log out user, Redirect
-        event(new UserLoggedOut($request->user()));
+        /** @var User $user */
+        $user = $request->user();
 
-        // Laravel specific logic
-        $this->guard()->logout();
+        event(new UserLoggedOut($user));
+
+        $user->currentAccessToken()->delete();
 
         return [];
     }
-
-
 }

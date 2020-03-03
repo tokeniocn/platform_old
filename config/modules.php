@@ -203,7 +203,7 @@ return [
     'activators' => [
         'file' => [
             'class' => FileActivator::class,
-            'statuses-file' => base_path('modules.json'),
+            'statuses-file' => base_path('modules/modules.json'),
             'cache-key' => 'activator.installed',
             'cache-lifetime' => 604800,
         ],

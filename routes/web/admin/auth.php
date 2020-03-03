@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\LoginController;
-
 use App\Http\Controllers\Admin\Auth\Role\RoleController;
 use App\Http\Controllers\Admin\Auth\User\UserConfirmationController;
 use App\Http\Controllers\Admin\Auth\User\UserController;
@@ -19,9 +18,12 @@ Route::group([
     // These routes require no user to be logged in
     Route::group(['middleware' => 'guest'], function () {
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('login', [LoginController::class, 'login'])->name('login.post');
     });
 
     Route::group(['prefix' => 'auth', 'middleware' => ['admin', 'role:admin']], function () {
+
+        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
         // User Management
         Route::group(['namespace' => 'User'], function () {

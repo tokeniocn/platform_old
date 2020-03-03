@@ -86,7 +86,7 @@
         //提交
         form.on('submit(LAY-user-login-submit)', function (obj) {
             $.ajax({
-                url: '{{ route('admin.api.auth.login') }}',
+                url: '{{ route('admin.auth.login.post') }}',
                 type: 'post',
                 data: obj.field,
                 success: function(res) {

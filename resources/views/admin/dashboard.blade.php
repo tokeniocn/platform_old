@@ -170,7 +170,7 @@
                 logout: function() {
                     layer.confirm('确定退出当前账号吗？', function () {
                         $.ajax({
-                            url: '{{ route('admin.api.auth.logout') }}',
+                            url: '{{ route('admin.auth.logout') }}',
                             type: 'post',
                             success: function() {
                                 window.location.href = '{{ route('admin.auth.login') }}'

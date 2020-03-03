@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Api\Auth\LoginController;
 use App\Http\Controllers\Admin\Api\Auth\RoleController;
 use App\Http\Controllers\Admin\Api\Auth\PermissionController;
 
@@ -12,13 +11,7 @@ Route::group([
     'prefix'    => 'v1/auth',
 ], function () {
 
-    // These routes require no user to be logged in
-    Route::group(['middleware' => 'guest'], function () {
-        Route::post('login', [LoginController::class, 'login'])->name('login');
-    });
-
     Route::group(['middleware' => ['admin', 'role:admin']], function () {
-        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');
 

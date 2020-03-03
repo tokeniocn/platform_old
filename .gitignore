@@ -31,3 +31,5 @@ coverage.xml
 /coverage
 .phpunit.result.cache
 
+/.settings
+.buildpath

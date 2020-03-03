@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Frontend\Api\Auth;
 
+use Str;
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
-use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Auth\TokenGuard;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\ValidationException;
 use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
 
 /**
@@ -19,7 +23,7 @@ use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
  */
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
+    use ThrottlesLogins;
 
     /**
      * Get the login username to be used by the controller.
@@ -28,7 +32,23 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return config('access.users.username');
+        return 'username';
+    }
+
+    public function guard()
+    {
+        return Auth::guard('api');
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'password');
     }
 
     /**
@@ -51,6 +71,45 @@ class LoginController extends Controller
         }
 
         $request->validate($rules);
+    }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        $credentials = $this->credentials($request);
+
+        $guard = $this->guard();
+
+        /** @var TokenGuard $provider */
+        $provider = $guard->getProvider();
+
+        $user = $provider->retrieveByCredentials($credentials);
+
+        $validated = ! is_null($user) && $provider->validateCredentials($user, $credentials);
+
+        if ($validated) {
+
+            $remember = $request->filled('remember');
+
+            if ($remember) {
+                if (empty($user->getRememberToken())) {
+                    $user->setRememberToken($token = Str::random(60));
+
+                    $provider->updateRememberToken($user, $token);
+                }
+            }
+
+            $guard->setUser($user);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -89,21 +148,100 @@ class LoginController extends Controller
      *     ),
      * )
      */
-    protected function authenticated(Request $request, $user)
-    {
-        if (! $user->isActive()) {
-            auth()->logout();
 
-            throw new GeneralException(__('exceptions.frontend.auth.deactivated'));
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
         }
+
+        if ($this->attemptLogin($request)) {
+
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Redirect the user after determining they are locked out.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendLockoutResponse(Request $request)
+    {
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        throw ValidationException::withMessages([
+            $this->username() => [Lang::get('auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
+            ])],
+        ])->status(Response::HTTP_TOO_MANY_REQUESTS);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $user = $this->guard()->user();
+
+//        if (! $user->isActive()) {
+//            auth()->logout();
+//
+//            throw new GeneralException(__('exceptions.frontend.auth.deactivated'));
+//        }
 
         event(new UserLoggedIn($user));
 
-        if (config('access.users.single_login')) {
-            auth()->logoutOtherDevices($request->password);
-        }
+        $this->clearLoginAttempts($request);
 
+        $token = $user->createToken($this->username());
+
+        return ['access_token' => $token->plainTextToken];;
     }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
+    }
+
 
     /**
      * Log the user out of the application.
@@ -119,8 +257,9 @@ class LoginController extends Controller
 
         // Laravel specific logic
         $this->guard()->logout();
-        $request->session()->invalidate();
 
         return [];
     }
+
+
 }

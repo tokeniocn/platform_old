@@ -19,7 +19,7 @@ class Repository extends ConfigRepository
      */
     public function __construct(array $items = [])
     {
-        parent::__construct(array_merge($items, $this->loadData()));
+        parent::__construct(array_merge($this->loadData(), $items));
     }
 
     /**

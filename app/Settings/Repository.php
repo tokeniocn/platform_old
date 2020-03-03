@@ -44,7 +44,7 @@ class Repository extends ConfigRepository
     public function loadData($force = false)
     {
         if ($force || is_null($data = Cache::get('config_settings'))) {
-            $this->refreshSettingsCache();
+            $this->refreshSettingsCache(); // TODO  解决 composer install时的刷新找不到数据库问题
             $data = Cache::get('config_settings', []);
         }
 

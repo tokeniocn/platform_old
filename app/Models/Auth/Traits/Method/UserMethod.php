@@ -49,4 +49,28 @@ trait UserMethod
 
         return false;
     }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPending()
+    {
+        return config('access.users.requires_approval') && ! $this->confirmed;
+    }
 }

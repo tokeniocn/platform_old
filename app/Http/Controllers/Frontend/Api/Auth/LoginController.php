@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend\Api\Auth;
 
+use App\Exceptions\Frontend\Auth\UserEmailVerifyException;
+use App\Exceptions\Frontend\Auth\UserMobileVerifyException;
 use Str;
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
@@ -26,8 +28,6 @@ class LoginController extends Controller
     use ThrottlesLogins;
 
     /**
-     * Get the login username to be used by the controller.
-     *
      * @return string
      */
     public function username()
@@ -41,14 +41,26 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the needed authorization credentials from the request.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password');
+        $key = $this->username();
+
+        $credentials = $request->only($key, 'password');
+
+        if (is_numeric($credentials[$key]) && count($credentials[$key]) != 11 && $key !== 'mobile') {
+            $credentials['mobile'] = $credentials[$key];
+            unset($credentials[$key]);
+        } elseif (filter_var( $credentials[$key], FILTER_VALIDATE_EMAIL ) && $key !== 'email') {
+            $credentials['email'] = $credentials[$key];
+            unset($credentials[$key]);
+        } else {
+            $credentials = $request->only($key, 'password');
+        }
+
+        return $credentials;
     }
 
     /**
@@ -62,7 +74,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $rules = [
-            'username' => 'required|string',
+            $this->username() => 'required|string',
             'password' => PasswordRules::login(),
         ];
 
@@ -94,10 +106,20 @@ class LoginController extends Controller
 
         if ($validated) {
 
+//            if (isset($credentials['email']) && !$user->isEmailVerified()) {
+//
+//                throw new UserEmailVerifyException();
+//
+//            } elseif (isset($credentials['mobile']) && !$user->isMobileverified()) {
+//
+//                throw new UserMobileVerifyException();
+//            }
+
             $remember = $request->filled('remember');
 
             if ($remember) {
                 if (empty($user->getRememberToken())) {
+
                     $user->setRememberToken($token = Str::random(60));
 
                     $provider->updateRememberToken($user, $token);

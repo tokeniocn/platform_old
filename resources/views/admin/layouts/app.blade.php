@@ -22,7 +22,6 @@
 <body>
 
     <div class="layui-fluid">
-        @include('includes.partials.messages')
         @yield('content')
     </div><!--layui-fluid-->
 

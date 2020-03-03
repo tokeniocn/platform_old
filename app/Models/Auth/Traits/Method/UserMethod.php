@@ -73,4 +73,15 @@ trait UserMethod
     {
         return config('access.users.requires_approval') && ! $this->confirmed;
     }
+
+
+    public function isEmailVerified()
+    {
+        return $this->email_verified_at != null;
+    }
+
+    public function isMobileVerified()
+    {
+        return $this->mobile_verified_at != null;
+    }
 }

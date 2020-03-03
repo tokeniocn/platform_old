@@ -41,7 +41,7 @@ class Repository extends ConfigRepository
         }
     }
 
-    protected function loadData($force = false)
+    public function loadData($force = false)
     {
         if ($force || is_null($data = Cache::get('config_settings'))) {
             $this->refreshSettingsCache();

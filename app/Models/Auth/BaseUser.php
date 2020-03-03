@@ -10,6 +10,7 @@ use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Airlock\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -17,7 +18,8 @@ use Spatie\Permission\Traits\HasRoles;
  */
 abstract class BaseUser extends Authenticatable implements Recordable
 {
-    use HasRoles,
+    use HasApiTokens,
+        HasRoles,
         Eventually,
         Notifiable,
         RecordableTrait,

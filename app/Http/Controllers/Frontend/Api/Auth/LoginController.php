@@ -8,6 +8,7 @@ use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
 
 /**
@@ -40,11 +41,16 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request)
     {
-        $request->validate([
+        $rules = [
             'username' => 'required|string',
             'password' => PasswordRules::login(),
-            'captcha' => 'required|captcha'
-        ]);
+        ];
+
+        if (!config('app.debug')) {
+            $rules['captcha'] = 'required|captcha_api:captcha';
+        }
+
+        $request->validate($rules);
     }
 
     /**
@@ -71,7 +77,7 @@ class LoginController extends Controller
      *                 ),
      *                 @OA\Property(
      *                     property="captcha",
-     *                     description="验证码",
+     *                     description="图片验证码",
      *                     type="string",
      *                 ),
      *             ),

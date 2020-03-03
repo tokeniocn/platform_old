@@ -4,6 +4,7 @@
 /public/images
 /public/vendor
 /storage/*.key
+/storage/api-docs
 /vendor
 /.idea
 /.vagrant

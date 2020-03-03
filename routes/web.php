@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 });
 
 
-Route::group(['middleware' => 'default_guard:admin'], function() {
+Route::group(['middleware' => 'use_guard:admin'], function() {
     /*
      * Admin Routes
      * Namespaces indicate folder structure

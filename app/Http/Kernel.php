@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
         ],
 
         'admin' => [
-            'default_guard:admin',
+            'use_guard:admin',
             'auth:admin',
             'password_expires',
             'permission:view admin',
@@ -80,7 +80,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'default_guard' => \App\Http\Middleware\DefaultGuard::class,
+        'use_guard' => \App\Http\Middleware\UseGuard::class,
     ];
 
     /**

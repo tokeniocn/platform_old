@@ -12,7 +12,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        settings('a');
         return 'hello world!';
     }
 }

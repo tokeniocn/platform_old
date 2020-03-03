@@ -40,11 +40,11 @@ class AdminMenuTableSeeder extends Seeder
             'is_show' => 1,
         ]);
 
-        $queue = AdminMenu::create([
-            'title' => '队列监控',
-            'parent_id' => $system->id,
-            'url' => route('horizon.index', ['view' => 'dashboard'], false),
-            'is_show' => 1,
-        ]);
+//        $queue = AdminMenu::create([
+//            'title' => '队列监控',
+//            'parent_id' => $system->id,
+//            'url' => route('horizon.index', ['view' => 'dashboard'], false),
+//            'is_show' => 1,
+//        ]);
     }
 }

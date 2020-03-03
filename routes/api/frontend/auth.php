@@ -3,6 +3,7 @@
 //use App\Http\Controllers\Frontend\Auth\ConfirmAccountController;
 //use App\Http\Controllers\Frontend\Auth\ForgotPasswordController;
 use App\Http\Controllers\Frontend\Api\Auth\LoginController;
+use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
 //use App\Http\Controllers\Frontend\Auth\PasswordExpiredController;
 //use App\Http\Controllers\Frontend\Auth\RegisterController;
 //use App\Http\Controllers\Frontend\Auth\ResetPasswordController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\Frontend\Api\Auth\LoginController;
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
     // These routes require the user to be logged in
     Route::group(['middleware' => 'auth:airlock'], function () {
-        Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+        Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout');
 
 //        // These routes can not be hit if the password is expired
 //        Route::group(['middleware' => 'password_expires'], function () {

@@ -12,7 +12,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        return route('frontend.api.auth.login');
         return 'hello world!';
     }
 }

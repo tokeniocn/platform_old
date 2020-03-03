@@ -41,10 +41,6 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-$app->bind(
-    Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
-    App\Config\Bootstrap\LoadConfiguration::class
-);
 /*
 |--------------------------------------------------------------------------
 | Return The Application

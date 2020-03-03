@@ -106,14 +106,15 @@ class LoginController extends Controller
 
         if ($validated) {
 
-//            if (isset($credentials['email']) && !$user->isEmailVerified()) {
-//
-//                throw new UserEmailVerifyException();
-//
-//            } elseif (isset($credentials['mobile']) && !$user->isMobileverified()) {
-//
-//                throw new UserMobileVerifyException();
-//            }
+            if (isset($credentials['email']) && !$user->isEmailVerified()) {
+
+                throw new UserEmailVerifyException();
+
+            } elseif (isset($credentials['mobile']) && !$user->isMobileverified()) {
+
+                throw new UserMobileVerifyException();
+
+            }
 
             $remember = $request->filled('remember');
 

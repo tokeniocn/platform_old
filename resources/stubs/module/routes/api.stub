@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+// use $MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers\Api\DefaultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,5 @@ Route::group([
     'middle' => ['auth:airlock']
 ], function() {
 
-    Route::get('v1/user', function (Request $request) {
-        return $request->user();
-    })->name('user');
+    // Route::get('v1/default', [DefaultController::class, 'index'])->name('home');
 });

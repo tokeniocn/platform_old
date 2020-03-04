@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use $MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers\$STUDLY_NAME$Controller;
+// use $MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers\Admin\DefaultController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,7 @@ use Illuminate\Http\Request;
 */
 
 // 前台路由
-Route::get('/', '$STUDLY_NAME$Controller@index')->name('index');
+Route::get('/', [$STUDLY_NAME$Controller::class, 'index'])->name('index');
 
 // 后台路由
 /*
@@ -23,9 +25,7 @@ Route::group([
     'as' => 'admin.'
 ], function() {
 
-    Route::get('/', function(Request $request) {
-        return $request->user();
-    })->('index');
+    Route::get('/default', [DefaultController::class, 'index'])->name('home');
 
 });
 */

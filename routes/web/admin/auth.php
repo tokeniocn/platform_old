@@ -9,21 +9,24 @@ use App\Http\Controllers\Admin\Auth\User\UserSessionController;
 use App\Http\Controllers\Admin\Auth\User\UserSocialController;
 use App\Http\Controllers\Admin\Auth\User\UserStatusController;
 
+// These routes require no user to be logged in
+Route::group(['middleware' => ['use_guard:admin', 'guest']], function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login'])->name('login.post');
+});
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+});
 
 // All route names are prefixed with 'admin.auth'.
 Route::group([
     'namespace' => 'Auth',
     'as'        => 'auth.',
 ], function () {
-    // These routes require no user to be logged in
-    Route::group(['middleware' => ['use_guard:admin', 'guest']], function () {
-        Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('login', [LoginController::class, 'login'])->name('login.post');
-    });
 
-    Route::group(['prefix' => 'auth', 'middleware' => ['admin', 'role:admin']], function () {
 
-        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::group(['prefix' => 'auth', 'middleware' => ['admin']], function () {
 
         // User Management
         Route::group(['namespace' => 'User'], function () {

@@ -54,7 +54,7 @@ class Kernel extends HttpKernel
 
         'admin' => [
             'use_guard:admin',
-            'auth:admin',
+            'auth:admin,admin_api',
             'password_expires',
             'permission:view admin',
         ],

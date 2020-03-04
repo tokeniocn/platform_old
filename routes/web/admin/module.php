@@ -7,7 +7,7 @@ Route::group([
     'namespace'  => 'Module',
     'as'         => 'module.',
     'prefix'     => 'modules',
-    'middleware' => ['admin', 'role:admin'],
+    'middleware' => ['admin'],
 ], function () {
 
     Route::get('/', [ModuleController::class, 'index'])->name('modules');

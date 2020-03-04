@@ -138,11 +138,7 @@ class LoginController extends Controller
         event(new UserLoggedIn($user));
 
         return [
-            'access_token' => $user->createToken($request->device_name ?: $username)->plainTextToken
+            'access_token' => $user->createToken($request->device_name ?: 'frontend')->plainTextToken
         ];
     }
-
-
-
-
 }

@@ -48,7 +48,12 @@ return [
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'adminUsers'
+            'provider' => 'admin_users'
+        ],
+
+        'admin_api' => [
+            'driver' => 'airlock',
+            'provider' => 'admin_users'
         ]
     ],
 
@@ -75,7 +80,7 @@ return [
             'model' => App\Models\Auth\User::class,
         ],
 
-        'adminUsers' => [
+        'admin_users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin\AdminUser::class,
         ]

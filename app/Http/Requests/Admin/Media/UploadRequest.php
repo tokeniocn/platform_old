@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Admin\Media;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class UploadRequest extends Request
+class UploadRequest extends FormRequest
 {
 
     /**

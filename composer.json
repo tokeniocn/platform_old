@@ -18,7 +18,7 @@
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^1.0",
         "langleyfoxall/laravel-nist-password-rules": "^4.0",
-        "laravel/airlock": "^0.2.1",
+        "laravel/airlock": "^1.0",
         "laravel/framework": "^6.3",
         "laravel/socialite": "^4.1",
         "maatwebsite/excel": "^3.1",

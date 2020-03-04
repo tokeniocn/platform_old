@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/', function (Request $request) {
-    return $request->user();
+// 前台API路由
+Route::group([
+    'middle' => ['auth:airlock']
+], function() {
+
+    Route::get('v1/user', function (Request $request) {
+        return $request->user();
+    })->name('user');
 });

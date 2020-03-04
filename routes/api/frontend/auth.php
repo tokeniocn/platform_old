@@ -16,7 +16,7 @@ use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
  */
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
     // These routes require the user to be logged in
-    Route::group(['middleware' => 'auth:airlock'], function () {
+    Route::group(['middleware' => ['auth:airlock']], function () {
         Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout');
 
 //        // These routes can not be hit if the password is expired

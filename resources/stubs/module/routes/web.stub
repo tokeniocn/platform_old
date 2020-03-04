@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,4 +13,19 @@
 |
 */
 
-Route::get('/', '$STUDLY_NAME$Controller@index');
+// 前台路由
+Route::get('/', '$STUDLY_NAME$Controller@index')->name('index');
+
+// 后台路由
+/*
+Route::group([
+    'middleware' => ['admin']
+    'as' => 'admin.'
+], function() {
+
+    Route::get('/', function(Request $request) {
+        return $request->user();
+    })->('index');
+
+});
+*/

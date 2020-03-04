@@ -3,7 +3,6 @@
 namespace $NAMESPACE$;
 
 use Illuminate\Support\Str;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -36,6 +35,7 @@ class $CLASS$ extends ServiceProvider
     public function map()
     {
         Route::group([
+            'prefix' => 'modules/' . Str::snake('$MODULE$')
         ], function() {
             $this->mapApiRoutes();
 

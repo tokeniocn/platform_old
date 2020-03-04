@@ -16,7 +16,7 @@ Route::group([
     'as'        => 'auth.',
 ], function () {
     // These routes require no user to be logged in
-    Route::group(['middleware' => 'guest'], function () {
+    Route::group(['middleware' => ['use_guard:admin', 'guest']], function () {
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('login.post');
     });

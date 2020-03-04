@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "altek/accountant",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/altek/accountant.git",
-                "reference": "f7389f98d68d67e8fd35f5593193ee18f3b9a7c2"
+                "reference": "0271e608bf56ebb45f495853f9d67e5075e64bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/altek%2Faccountant/repository/archive.zip?sha=f7389f98d68d67e8fd35f5593193ee18f3b9a7c2",
-                "reference": "f7389f98d68d67e8fd35f5593193ee18f3b9a7c2",
+                "url": "https://gitlab.com/api/v4/projects/altek%2Faccountant/repository/archive.zip?sha=0271e608bf56ebb45f495853f9d67e5075e64bed",
+                "reference": "0271e608bf56ebb45f495853f9d67e5075e64bed",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                     "email": "quetzyg@altek.org"
                 }
             ],
-            "description": "Accountability package for the Eloquent ORM.",
+            "description": "The auditing & accountability package for Laravel's Eloquent ORM.",
             "homepage": "https://altek.gitlab.io/accountant/",
             "keywords": [
                 "Accountability",
@@ -82,29 +82,29 @@
                 "lumen",
                 "record"
             ],
-            "time": "2019-11-16T10:35:48+00:00"
+            "time": "2020-03-03T19:05:24+00:00"
         },
         {
             "name": "altek/eventually",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/altek/eventually.git",
-                "reference": "0414e7485c5af1f02bc63d534e316571c45bdd3b"
+                "reference": "f189d2ec034c5aa6474260f8e6755fbc1c86f18b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/altek%2Feventually/repository/archive.zip?sha=0414e7485c5af1f02bc63d534e316571c45bdd3b",
-                "reference": "0414e7485c5af1f02bc63d534e316571c45bdd3b",
+                "url": "https://gitlab.com/api/v4/projects/altek%2Feventually/repository/archive.zip?sha=f189d2ec034c5aa6474260f8e6755fbc1c86f18b",
+                "reference": "f189d2ec034c5aa6474260f8e6755fbc1c86f18b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "^5.5 || ^6.0",
+                "illuminate/database": "^5.5 || ^6.0 || ^7.0",
                 "php": "^7.1.3"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "^3.8 || ^4.1",
+                "orchestra/testbench": "^3.8 || ^4.0 || ^5.0",
                 "roave/security-advisories": "dev-master"
             },
             "type": "package",
@@ -145,7 +145,7 @@
                 "toggle",
                 "update"
             ],
-            "time": "2020-02-18T12:52:49+00:00"
+            "time": "2020-03-03T16:45:40+00:00"
         },
         {
             "name": "arcanedev/log-viewer",
@@ -3460,16 +3460,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "3.10.0",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "e3a95d2a954b4608c256095db5c8c0c416bcb71e"
+                "reference": "e90ed6242a8fa29735529160b9c21cb77b233e7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/e3a95d2a954b4608c256095db5c8c0c416bcb71e",
-                "reference": "e3a95d2a954b4608c256095db5c8c0c416bcb71e",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/e90ed6242a8fa29735529160b9c21cb77b233e7f",
+                "reference": "e90ed6242a8fa29735529160b9c21cb77b233e7f",
                 "shasum": ""
             },
             "require": {
@@ -3477,11 +3477,11 @@
                 "illuminate/container": "^5.8|^6.0|^7.0",
                 "illuminate/contracts": "^5.8|^6.0|^7.0",
                 "illuminate/database": "^5.8|^6.0|^7.0",
-                "php": "^7.2"
+                "php": "^7.2.5"
             },
             "require-dev": {
                 "orchestra/testbench": "^3.8|^4.0|^5.0",
-                "phpunit/phpunit": "^8.0",
+                "phpunit/phpunit": "^8.0|^9.0",
                 "predis/predis": "^1.1"
             },
             "type": "library",
@@ -3524,7 +3524,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2020-03-02T21:32:49+00:00"
+            "time": "2020-03-03T21:31:02+00:00"
         },
         {
             "name": "swagger-api/swagger-ui",
@@ -8083,12 +8083,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "5f81a65d531dc88975b8fe32331cfb8a79c34fe3"
+                "reference": "f0eca1ac3194cc94726f0bb366672f38629272b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5f81a65d531dc88975b8fe32331cfb8a79c34fe3",
-                "reference": "5f81a65d531dc88975b8fe32331cfb8a79c34fe3",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f0eca1ac3194cc94726f0bb366672f38629272b4",
+                "reference": "f0eca1ac3194cc94726f0bb366672f38629272b4",
                 "shasum": ""
             },
             "conflict": {
@@ -8139,8 +8139,8 @@
                 "ezsystems/ezplatform-admin-ui": ">=1.3,<1.3.5|>=1.4,<1.4.6",
                 "ezsystems/ezplatform-admin-ui-assets": ">=4,<4.2",
                 "ezsystems/ezplatform-user": ">=1,<1.0.1",
-                "ezsystems/ezpublish-kernel": ">=5.3,<5.3.12.1|>=5.4,<5.4.13.1|>=6,<6.7.9.1|>=6.8,<6.13.5.1|>=7,<7.2.4.1|>=7.3,<7.3.2.1",
-                "ezsystems/ezpublish-legacy": ">=5.3,<5.3.12.6|>=5.4,<5.4.12.3|>=2011,<2017.12.4.3|>=2018.6,<2018.6.1.4|>=2018.9,<2018.9.1.3",
+                "ezsystems/ezpublish-kernel": ">=5.3,<5.3.12.1|>=5.4,<5.4.14.1|>=6,<6.7.9.1|>=6.8,<6.13.6.2|>=7,<7.2.4.1|>=7.3,<7.3.2.1|>=7.5,<7.5.6.2",
+                "ezsystems/ezpublish-legacy": ">=5.3,<5.3.12.6|>=5.4,<5.4.14.1|>=2011,<2017.12.7.2|>=2018.6,<2018.6.1.4|>=2018.9,<2018.9.1.3|>=2019.3,<2019.3.4.2",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1",
                 "ezyang/htmlpurifier": "<4.1.1",
                 "firebase/php-jwt": "<2",
@@ -8335,7 +8335,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-03-02T07:11:48+00:00"
+            "time": "2020-03-03T17:52:54+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

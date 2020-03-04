@@ -35,7 +35,7 @@ class $CLASS$ extends ServiceProvider
     public function map()
     {
         Route::group([
-            'prefix' => 'modules/' . Str::snake('$MODULE$')
+            'prefix' => 'm/' . Str::snake('$MODULE$')
         ], function() {
             $this->mapApiRoutes();
 

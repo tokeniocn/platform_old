@@ -79,7 +79,7 @@
                 url: '{{ route('admin.api.auth.roles') }}',
                 parseData: function (res) { //res 即为原始返回的数据
                     return {
-                        'code': res.message ? 400 : 200, //解析接口状态
+                        'code': res.message ? 400 : 0, //解析接口状态
                         'msg': res.message || '操作失败', //解析提示文本
                         'count': res.total || 0, //解析数据长度
                         'data': res.data || [] //解析数据列表

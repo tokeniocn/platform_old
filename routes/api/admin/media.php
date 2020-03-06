@@ -8,5 +8,5 @@ Route::group([
     'namespace' => 'Media',
     'middleware' => ['admin']
 ], function () {
-    Route::post('upload', [UploadController::class, 'index'])->name('upload');
+    Route::post('/', [UploadController::class, 'index'])->name('upload');
 });

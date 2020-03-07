@@ -2,10 +2,12 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Traits\TableName;
 use Illuminate\Database\Eloquent\Model;
 
 class AdminMenu extends Model
 {
+    use TableName;
 
     public static function menu()
     {

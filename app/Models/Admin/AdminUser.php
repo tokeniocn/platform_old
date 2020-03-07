@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Traits\TableName;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Airlock\HasApiTokens;
@@ -9,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class AdminUser extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasRoles;
+    use TableName, HasApiTokens, Notifiable, HasRoles;
 
     /**
      * The attributes that should be hidden for arrays.

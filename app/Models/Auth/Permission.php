@@ -4,6 +4,7 @@ namespace App\Models\Auth;
 
 use Altek\Accountant\Contracts\Recordable;
 use Altek\Accountant\Recordable as RecordableTrait;
+use App\Models\Traits\TableName;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
 /**
@@ -11,7 +12,8 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
  */
 class Permission extends SpatiePermission implements Recordable
 {
-    use RecordableTrait;
+    use TableName,
+        RecordableTrait;
 
     /**
      * Get the route key for the model.

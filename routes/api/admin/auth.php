@@ -10,16 +10,21 @@ use App\Http\Controllers\Admin\Api\Auth\PermissionController;
 Route::group([
     'namespace' => 'Auth',
     'as'        => 'auth.',
-    'prefix'    => 'v1/auth',
 ], function () {
 
     Route::group(['middleware' => 'guest'], function () {
-        Route::post('login', [LoginController::class, 'login'])->name('login'); // 密码登录
+        Route::post('v1/login', [LoginController::class, 'login'])->name('login'); // 密码登录
     });
 
     Route::group(['middleware' => ['admin']], function () {
-        Route::post('logout', [LogoutController::class, 'logout'])->name('logout'); // 退出登录
+        Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout'); // 退出登录
 
+    });
+
+    Route::group([
+        'prefix' => 'auth',
+        'middleware' => ['admin']
+    ], function () {
         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');
 
         Route::get('roles', [RoleController::class, 'index'])->name('roles');

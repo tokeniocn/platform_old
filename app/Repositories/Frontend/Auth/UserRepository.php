@@ -90,35 +90,17 @@ class UserRepository extends BaseRepository
      * @throws \Throwable
      * @return \Illuminate\Database\Eloquent\Model|mixed
      */
-    public function create(array $data)
+    public function create(array $data): User
     {
         return DB::transaction(function () use ($data) {
             $user = $this->model::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'confirmation_code' => md5(uniqid(mt_rand(), true)),
-                'active' => true,
+                'username' => $data['username'],
                 'password' => $data['password'],
-                // If users require approval or needs to confirm email
-                'confirmed' => ! (config('access.users.requires_approval') || config('access.users.confirm_email')),
             ]);
 
             if ($user) {
                 // Add the default site role to the new user
                 $user->assignRole(config('access.users.default_role'));
-            }
-
-            /*
-             * If users have to confirm their email and this is not a social account,
-             * and the account does not require admin approval
-             * send the confirmation email
-             *
-             * If this is a social account they are confirmed through the social provider by default
-             */
-            if (config('access.users.confirm_email')) {
-                // Pretty much only if account approval is off, confirm email is on, and this isn't a social account.
-                $user->notify(new UserNeedsConfirmation($user->confirmation_code));
             }
 
             // Return the user object

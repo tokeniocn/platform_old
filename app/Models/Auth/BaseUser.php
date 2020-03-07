@@ -6,6 +6,7 @@ use Altek\Accountant\Contracts\Recordable;
 use Altek\Accountant\Recordable as RecordableTrait;
 use Altek\Eventually\Eventually;
 use App\Models\Auth\Traits\SendUserPasswordReset;
+use App\Models\Traits\TableName;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,7 +19,8 @@ use Spatie\Permission\Traits\HasRoles;
  */
 abstract class BaseUser extends Authenticatable implements Recordable
 {
-    use HasApiTokens,
+    use TableName,
+        HasApiTokens,
         HasRoles,
         Eventually,
         Notifiable,
@@ -72,5 +74,6 @@ abstract class BaseUser extends Authenticatable implements Recordable
     protected $hidden = [
         'password',
         'remember_token',
+        'deleted_at'
     ];
 }

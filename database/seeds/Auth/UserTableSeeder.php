@@ -19,9 +19,9 @@ class UserTableSeeder extends Seeder
 
         // Add the master administrator, user id of 1
         User::create([
-            'username' => 'test',
-            'email' => 'test@test.com',
-            'password' => 'test',
+            'username' => 'user',
+            'email' => 'user@user.com',
+            'password' => 'user',
         ]);
 
         $this->enableForeignKeys();

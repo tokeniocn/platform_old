@@ -35,10 +35,15 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 //        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset.form');
 //        Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
     });
-
     Route::group(['middleware' => ['auth:airlock']], function () {
-        Route::get('/', [UserController::class, 'info'])->name('info'); // 登录会员信息
-        Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout'); // 退出登录
+        Route::post('logout', [LogoutController::class, 'logout'])->name('logout'); // 退出登录
+    });
+
+    Route::group([
+        'prefix' => 'v1/auth',
+        'middleware' => ['auth:airlock']
+    ], function () {
+        Route::get('info', [UserController::class, 'info'])->name('info'); // 登录会员信息
 
 //        // These routes can not be hit if the password is expired
 //        Route::group(['middleware' => 'password_expires'], function () {

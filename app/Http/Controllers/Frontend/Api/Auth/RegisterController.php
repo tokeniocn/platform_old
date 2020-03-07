@@ -62,10 +62,10 @@ class RegisterController extends Controller
     {
         abort_unless(config('access.registration'), 404);
 
-        $user = $this->userRepository->create($request->only('username', 'email', 'password'));
+        $user = $this->userRepository->create($request->only('username', 'password'));
 
         event(new UserRegistered($user));
 
-        return redirect($this->redirectPath());
+        return $this->userRepository->findByUuid($user->uuid);
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Models\Auth;
 
 use App\Models\RecordingModel;
+use App\Models\Traits\TableName;
 
 /**
  * Class SocialAccount.
  */
 class SocialAccount extends RecordingModel
 {
+    use TableName;
     /**
      * The database table used by the model.
      *

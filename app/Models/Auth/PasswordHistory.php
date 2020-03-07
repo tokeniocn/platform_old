@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Models\Traits\TableName;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PasswordHistory extends Model
 {
+    use TableName;
     /**
      * The database table used by the model.
      *

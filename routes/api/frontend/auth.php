@@ -2,7 +2,8 @@
 
 
 use App\Http\Controllers\Frontend\Api\Auth\LoginController;
-use App\Http\Controllers\Frontend\Auth\RegisterController;
+use App\Http\Controllers\Frontend\Api\Auth\RegisterController;
+use App\Http\Controllers\Frontend\Api\Auth\UserController;
 use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
 
 /*
@@ -10,26 +11,10 @@ use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
  * All route names are prefixed with 'frontend.auth'.
  */
 Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
-    // These routes require the user to be logged in
-    Route::group(['middleware' => ['auth:airlock']], function () {
-        Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout');
-
-//        // These routes can not be hit if the password is expired
-//        Route::group(['middleware' => 'password_expires'], function () {
-//            // Change Password Routes
-//            Route::patch('password/update', [UpdatePasswordController::class, 'update'])->name('password.update');
-//        });
-//
-//        // Password expired routes
-//        Route::get('password/expired', [PasswordExpiredController::class, 'expired'])->name('password.expired');
-//        Route::patch('password/expired', [PasswordExpiredController::class, 'update'])->name('password.expired.update');
-    });
-
-    // These routes require no user to be logged in
     Route::group(['middleware' => 'guest'], function () {
 
         Route::post('v1/login', [LoginController::class, 'login'])->name('login'); // 密码登录
-        Route::post('v1/register', [RegisterController::class, 'register'])->name('register');
+        Route::post('v1/register', [RegisterController::class, 'register'])->name('register'); // 用户注册
 //
 //        // Socialite Routes
 //        Route::get('login/{provider}', [SocialLoginController::class, 'login'])->name('social.login');
@@ -49,5 +34,20 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 //
 //        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset.form');
 //        Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
+    });
+
+    Route::group(['middleware' => ['auth:airlock']], function () {
+        Route::get('/', [UserController::class, 'info'])->name('info'); // 登录会员信息
+        Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout'); // 退出登录
+
+//        // These routes can not be hit if the password is expired
+//        Route::group(['middleware' => 'password_expires'], function () {
+//            // Change Password Routes
+//            Route::patch('password/update', [UpdatePasswordController::class, 'update'])->name('password.update');
+//        });
+//
+//        // Password expired routes
+//        Route::get('password/expired', [PasswordExpiredController::class, 'expired'])->name('password.expired');
+//        Route::patch('password/expired', [PasswordExpiredController::class, 'update'])->name('password.expired.update');
     });
 });

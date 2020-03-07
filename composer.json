@@ -27,6 +27,7 @@
         "nwidart/laravel-modules": "^6.2",
         "overtrue/easy-sms": "^1.1",
         "plank/laravel-mediable": "^4.1",
+        "simplesoftwareio/simple-qrcode": "^2.0",
         "spatie/laravel-permission": "^3.0",
         "torann/geoip": "^1.0"
     },

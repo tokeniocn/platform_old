@@ -85,7 +85,7 @@ class LoginController extends Controller
         $request->validate([
             $key => 'required|string',
             'password' => 'required',
-            'device_name' => 'string'
+            'device' => 'string'
         ]);
 
         if ($this->hasTooManyLoginAttempts($request)) {
@@ -138,7 +138,7 @@ class LoginController extends Controller
         event(new UserLoggedIn($user));
 
         return [
-            'access_token' => $user->createToken($request->device_name ?: 'frontend')->plainTextToken
+            'access_token' => $user->createToken($request->device ?: 'frontend')->plainTextToken
         ];
     }
 }

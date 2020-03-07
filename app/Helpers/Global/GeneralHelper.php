@@ -25,7 +25,7 @@ if (! function_exists('home_route')) {
                 return 'admin.dashboard';
             }
 
-            return 'admin.login';
+            return 'admin.auth.login';
         }
 
         if (auth()->check()) {

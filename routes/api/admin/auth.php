@@ -4,15 +4,7 @@ use App\Http\Controllers\Admin\Api\Auth\LogoutController;
 use App\Http\Controllers\Admin\Api\Auth\RoleController;
 use App\Http\Controllers\Admin\Api\Auth\PermissionController;
 
-// These routes require no user to be logged in
-Route::group(['middleware' => 'guest'], function () {
-    // Authentication Routes
-    Route::post('v1/login', [LoginController::class, 'login'])->name('login');
-});
 
-Route::group(['middleware' => ['admin']], function () {
-    Route::post('v1/logout', [LogoutController::class, 'logout'])->name('logout');
-});
 
 // All route names are prefixed with 'admin.api.auth'.
 Route::group([
@@ -21,8 +13,12 @@ Route::group([
     'prefix'    => 'v1/auth',
 ], function () {
 
+    Route::group(['middleware' => 'guest'], function () {
+        Route::post('login', [LoginController::class, 'login'])->name('login'); // 密码登录
+    });
 
     Route::group(['middleware' => ['admin']], function () {
+        Route::post('logout', [LogoutController::class, 'logout'])->name('logout'); // 退出登录
 
         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');
 

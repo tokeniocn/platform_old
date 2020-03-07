@@ -1,14 +1,9 @@
 <?php
 
-//use App\Http\Controllers\Frontend\Auth\ConfirmAccountController;
-//use App\Http\Controllers\Frontend\Auth\ForgotPasswordController;
+
 use App\Http\Controllers\Frontend\Api\Auth\LoginController;
+use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
-//use App\Http\Controllers\Frontend\Auth\PasswordExpiredController;
-//use App\Http\Controllers\Frontend\Auth\RegisterController;
-//use App\Http\Controllers\Frontend\Auth\ResetPasswordController;
-//use App\Http\Controllers\Frontend\Auth\SocialLoginController;
-//use App\Http\Controllers\Frontend\Auth\UpdatePasswordController;
 
 /*
  * Frontend Access Controllers
@@ -32,8 +27,9 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
 
     // These routes require no user to be logged in
     Route::group(['middleware' => 'guest'], function () {
-        // Authentication Routes
-        Route::post('v1/login', [LoginController::class, 'login'])->name('login');
+
+        Route::post('v1/login', [LoginController::class, 'login'])->name('login'); // 密码登录
+        Route::post('v1/register', [RegisterController::class, 'register'])->name('register');
 //
 //        // Socialite Routes
 //        Route::get('login/{provider}', [SocialLoginController::class, 'login'])->name('social.login');

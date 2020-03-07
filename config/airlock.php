@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'stateful' => explode(',', env('AIRLOCK_STATEFUL_DOMAINS', $_SERVER['HTTP_HOST'] ?: 'localhost')),
+    'stateful' => explode(',', env('AIRLOCK_STATEFUL_DOMAINS', $_SERVER['HTTP_HOST'] ?? 'localhost')),
 
     /*
     |--------------------------------------------------------------------------

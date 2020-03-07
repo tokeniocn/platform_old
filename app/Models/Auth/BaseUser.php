@@ -64,6 +64,8 @@ abstract class BaseUser extends Authenticatable implements Recordable
     protected $dates = [
         'last_login_at',
         'password_changed_at',
+        'mobile_verified_at',
+        'email_verified_at',
     ];
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Config\Traits;
 
+use InvalidArgumentException;
 use App\Models\Setting;
 use Illuminate\Filesystem\Filesystem;
 
@@ -67,6 +68,9 @@ trait SettingStore
         $modelClass = $this->getModel();
 
         foreach ($keys as $key => $value) {
+            if (strpos($key, '.') !== false) {
+                throw new InvalidArgumentException('Config only support store one-level settings(key without ".").');
+            }
             list($module, $key) = explode('::', $key);
 
             $model = $modelClass::firstOrNew([

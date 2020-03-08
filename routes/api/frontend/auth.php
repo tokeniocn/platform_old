@@ -5,16 +5,21 @@ use App\Http\Controllers\Frontend\Api\Auth\LoginController;
 use App\Http\Controllers\Frontend\Api\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Api\Auth\UserController;
 use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
+use App\Http\Controllers\Frontend\Api\Auth\VerifyController;
 
 /*
  * Frontend Access Controllers
  * All route names are prefixed with 'frontend.auth'.
  */
-Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
+Route::group([
+    'namespace' => 'Auth',
+    'as' => 'auth.'
+], function () {
     Route::group(['middleware' => 'guest'], function () {
 
         Route::post('v1/login', [LoginController::class, 'login'])->name('login'); // 密码登录
         Route::post('v1/register', [RegisterController::class, 'register'])->name('register'); // 用户注册
+
 //
 //        // Socialite Routes
 //        Route::get('login/{provider}', [SocialLoginController::class, 'login'])->name('social.login');
@@ -43,7 +48,19 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         'prefix' => 'v1/auth',
         'middleware' => ['auth:airlock']
     ], function () {
-        Route::get('info', [UserController::class, 'info'])->name('info'); // 登录会员信息
+        Route::get('user/info', [UserController::class, 'info'])->name('user.info'); // 登录会员信息
+
+        Route::post('verify/email', [VerifyController::class, 'verifyEmail'])->name('verify.email'); // 验证邮箱请求
+
+        Route::get('verify/mobile', [VerifyController::class, 'verifyMobile'])->name('verify.mobile'); // 修改手机号
+        Route::post('verify/mobile', [VerifyController::class, 'verifyMobile'])->name('verify.mobile'); // 修改手机号
+
+
+        Route::get('reset/password', [VerifyController::class, 'resetPassword'])->name('reset.mail'); //
+        Route::post('reset/password', [VerifyController::class, 'resetPassword'])->name('reset.mail'); //
+
+        Route::get('reset/pay_password', [VerifyController::class, 'resetPayPassword'])->name('verify.mobile'); // 修改手机号
+        Route::post('reset/pay_password', [VerifyController::class, 'resetPayPassword'])->name('verify.mobile'); // 修改手机号
 
 //        // These routes can not be hit if the password is expired
 //        Route::group(['middleware' => 'password_expires'], function () {

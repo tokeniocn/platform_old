@@ -7,8 +7,10 @@ use App\Events\Frontend\Auth\UserProviderRegistered;
 use App\Exceptions\GeneralException;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
+use App\Models\Auth\UserVerify;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -317,5 +319,23 @@ class UserRepository extends BaseRepository
         }
 
         return $result;
+    }
+
+    public function addVerify(array $data)
+    {
+        UserVerify::create([
+            'key' => $key,
+            'type' => $type,
+            'token' => $token,
+            'expired_at' => is_numeric($expire) ? Carbon::now()->addSeconds($expire) : $expire,
+            'type' => UserVerify::TYPE_VERIFY_EMAIL,
+        ]);
+    }
+
+    public function getVerify($type, $key, $token = null)
+    {
+        return UserVerify::where('key', $key)
+            ->where('type', $type)
+            ->first();
     }
 }

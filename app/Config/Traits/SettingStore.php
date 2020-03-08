@@ -52,9 +52,17 @@ trait SettingStore
             ->put($path, '<?php return ' . var_export($items, true) . ';' . PHP_EOL);
     }
 
-    public function store($key, $value, $refreshCache = true)
+    public function store($key, $value = null, $refreshCache = true)
     {
-        $keys = is_array($key) ? $key : [$key => $value];
+        if (is_array($key)) {
+            $keys = $key;
+
+            if ($value != null) {
+                $refreshCache = boolval($value);
+            }
+        } else {
+            $keys = [$key => $value];
+        }
 
         $modelClass = $this->getModel();
 

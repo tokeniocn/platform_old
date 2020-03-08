@@ -2,7 +2,10 @@
 
 namespace App\Config;
 
-class Repository extends \Illuminate\Config\Repository
-{
+use App\Config\Traits\SettingStore;
+use Illuminate\Config\Repository as ConfigRepository;
 
+class Repository extends ConfigRepository
+{
+    use SettingStore;
 }

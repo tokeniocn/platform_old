@@ -4,6 +4,7 @@ namespace App\Config\Bootstrap;
 
 use App\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Config\Repository as RepositoryContract;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as BaseLoadConfiguration;
 
 
@@ -36,6 +37,8 @@ class LoadConfiguration extends BaseLoadConfiguration
         if (! isset($loadedFromCache)) {
             $this->loadConfigurationFiles($app, $config);
         }
+
+        $config->loadSettingsFromCachedFile();
 
         // Finally, we will set the application's environment based on the configuration
         // values that were loaded. We will pass a callback which will be used to get

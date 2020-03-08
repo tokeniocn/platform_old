@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6b4d2e3b440ddb215f034bde0a380f9",
+    "content-hash": "c386f2d3447bce325250d9356d34300d",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -2267,6 +2267,54 @@
                 "twitter"
             ],
             "time": "2016-08-17T00:36:58+00:00"
+        },
+        {
+            "name": "leonis/easysms-notification-channel",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yl/easysms-notification-channel.git",
+                "reference": "f2f340526dd6df494fe0748c08802d3d93d2fbd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yl/easysms-notification-channel/zipball/f2f340526dd6df494fe0748c08802d3d93d2fbd1",
+                "reference": "f2f340526dd6df494fe0748c08802d3d93d2fbd1",
+                "shasum": ""
+            },
+            "require": {
+                "overtrue/easy-sms": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Leonis\\Notifications\\EasySms\\EasySmsChannelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Leonis\\Notifications\\EasySms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yangliu",
+                    "email": "yangliulnn@163.com"
+                }
+            ],
+            "description": "EasySms Notification Channel for Laravel.",
+            "keywords": [
+                "easysms",
+                "laravel",
+                "notifications"
+            ],
+            "time": "2020-01-06T05:52:03+00:00"
         },
         {
             "name": "maatwebsite/excel",

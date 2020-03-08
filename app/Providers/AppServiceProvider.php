@@ -87,6 +87,5 @@ class AppServiceProvider extends ServiceProvider
             return session()->has($session_identifier);
         });
 
-        $this->app->singleton('settings', \App\Settings\Repository::class);
     }
 }

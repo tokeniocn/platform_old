@@ -22,6 +22,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
+        config()->store('a::test', '1');
         return view('admin.auth.login');
     }
 

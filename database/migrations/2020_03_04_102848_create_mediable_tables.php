@@ -27,9 +27,9 @@ class CreateMediableTables extends Migration
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
 
-            $table->index(['disk', 'directory']);
-            $table->unique(['disk', 'directory', 'filename', 'extension']);
-            $table->index('aggregate_type');
+            $table->index(['disk', 'directory'], 'disk_directory');
+            $table->unique(['disk', 'directory', 'filename', 'extension'], 'disk_file');
+            $table->index('aggregate_type', 'aggregate_type');
         });
 
         Schema::create('mediables', function (Blueprint $table) {
@@ -41,8 +41,8 @@ class CreateMediableTables extends Migration
 
             $table->primary(['media_id', 'mediable_type', 'mediable_id', 'tag'], 'mediable');
             $table->index(['mediable_id', 'mediable_type'], 'media_type');
-            $table->index('tag');
-            $table->index('order');
+            $table->index('tag', 'tag');
+            $table->index('order', 'order');
             $table->foreign('media_id', 'media_foreign')
                 ->references('id')->on('media')
                 ->onDelete('cascade');

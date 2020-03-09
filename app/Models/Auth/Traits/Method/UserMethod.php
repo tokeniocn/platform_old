@@ -2,6 +2,8 @@
 
 namespace App\Models\Auth\Traits\Method;
 
+use Carbon\Carbon;
+
 /**
  * Trait UserMethod.
  */
@@ -58,23 +60,6 @@ trait UserMethod
         return $this->active;
     }
 
-    /**
-     * @return bool
-     */
-    public function isConfirmed()
-    {
-        return $this->confirmed;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPending()
-    {
-        return config('access.users.requires_approval') && ! $this->confirmed;
-    }
-
-
     public function isEmailVerified()
     {
         return $this->email_verified_at != null;
@@ -83,5 +68,21 @@ trait UserMethod
     public function isMobileVerified()
     {
         return $this->mobile_verified_at != null;
+    }
+
+    public function setEmailVerified($email)
+    {
+        $this->email = $email;
+        $this->email_verified_at = Carbon::now();
+
+        return $this;
+    }
+
+    public function setMobileVerified($email)
+    {
+        $this->mobile = $email;
+        $this->mobile_verified_at = Carbon::now();
+
+        return $this;
     }
 }

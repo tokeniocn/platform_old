@@ -50,11 +50,10 @@ Route::group([
     ], function () {
         Route::get('user/info', [UserController::class, 'info'])->name('user.info'); // 登录会员信息
 
-        Route::post('verify/email', [VerifyController::class, 'verifyEmail'])->name('verify.email'); // 验证邮箱请求
+        Route::post('verify/email', [VerifyController::class, 'requestVerifyEmail'])->name('verify.email'); // 验证邮箱请求
 
-        Route::get('verify/mobile', [VerifyController::class, 'verifyMobile'])->name('verify.mobile'); // 修改手机号
+        Route::post('verify/mobile', [VerifyController::class, 'requestVerifyMobile'])->name('verify.mobile'); // 修改手机号请求
         Route::post('verify/mobile', [VerifyController::class, 'verifyMobile'])->name('verify.mobile'); // 修改手机号
-
 
         Route::get('reset/password', [VerifyController::class, 'resetPassword'])->name('reset.mail'); //
         Route::post('reset/password', [VerifyController::class, 'resetPassword'])->name('reset.mail'); //

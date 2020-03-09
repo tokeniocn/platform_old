@@ -7,11 +7,5 @@ namespace App\Models\Auth\Traits\Method;
  */
 trait RoleMethod
 {
-    /**
-     * @return mixed
-     */
-    public function isAdmin()
-    {
-        return $this->name === 'admin';
-    }
+
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyMailRequest extends FormRequest
+class VerifyMobileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,14 @@ class VerifyMailRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'GET') { // 请求绑定邮箱
+        if ($this->method() == 'POST') { // 请求绑定
             return [
-                'token' => ['require', 'string'],
+                'mobile' => ['regex:/^1[3456789]\d{9}$/'],
             ];
         }
 
         return [
-            'email' => ['email'],
+            'code' => ['required'],
         ];
     }
 

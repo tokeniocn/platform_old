@@ -18,7 +18,7 @@ return [
 
         // 默认可用的发送网关
         'gateways' => [
-            'yunpian',
+            'duanxinbao',
             'errorlog',
         ],
     ],
@@ -30,16 +30,16 @@ return [
             'channel' => 'smslog',
         ],
 
-        // 云片
-        'yunpian' => [
-            'api_key' => 'efabf**********************20fd3',
-        ],
-
-        // ...
+        'duanxinbao' => [
+//            'endpoint' => env('SMS_DUANXINBAO_ENDPOINT'),
+            'user' => env('SMS_DUANXINBAO_USER'),
+            'pass' => env('SMS_DUANXINBAO_PASS'),
+            'sign' => env('SMS_DUANXINBAO_SIGN'),
+        ]
     ],
 
     'custom_gateways' => [
         'errorlog' => \Leonis\Notifications\EasySms\Gateways\ErrorLogGateway::class,
-        'winic' => \Leonis\Notifications\EasySms\Gateways\WinicGateway::class,
+        'duanxinbao' => \App\Gateways\Sms\DuanXinBaoGateway::class,
     ],
 ];

@@ -2,17 +2,16 @@
 
 namespace App\Models\Auth;
 
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
-use Altek\Eventually\Eventually;
-use App\Models\Auth\Traits\SendUserPasswordReset;
 use App\Models\Traits\TableName;
 use App\Models\Traits\Uuid;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Airlock\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Altek\Eventually\Eventually;
+use Altek\Accountant\Contracts\Recordable;
+use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * Class User.
@@ -25,7 +24,6 @@ abstract class BaseUser extends Authenticatable implements Recordable
         Eventually,
         Notifiable,
         RecordableTrait,
-        SendUserPasswordReset,
         SoftDeletes,
         Uuid;
 

@@ -3,15 +3,18 @@
 namespace App\Notifications\Frontend\Auth;
 
 use App\Models\Auth\UserVerify;
+use App\Messages\Frontend\UserVerifyMobileMessage;
+use App\Notifications\Middleware\BeforeSend;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Leonis\Notifications\EasySms\Channels\EasySmsChannel;
 
 class UserMobileVerify extends Notification implements ShouldQueue
 {
     use Queueable;
+
+
 
     /**
      * @var UserVerify
@@ -27,6 +30,18 @@ class UserMobileVerify extends Notification implements ShouldQueue
     public function __construct(UserVerify $userVerify)
     {
         $this->userVerify = $userVerify;
+    }
+
+    public function middleware()
+    {
+        return [
+            BeforeSend::class
+        ];
+    }
+
+    public function beforeSend($notifiable)
+    {
+        $notifiable->withNotificationMobile($this->userVerify->key);
     }
 
     /**
@@ -50,9 +65,6 @@ class UserMobileVerify extends Notification implements ShouldQueue
      */
     public function toEasySms($notifiable)
     {
-        return (new MailMessage())
-            ->subject('邮件确认')
-            ->line('请点击下面按钮完成邮箱确认')
-            ->action('验证邮箱', route('frontend.auth.email.verify', ['token' => $this->userVerify->token]));
+        return new UserVerifyMobileMessage($this->userVerify);
     }
 }

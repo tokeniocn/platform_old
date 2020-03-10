@@ -9,21 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Airlock\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Altek\Eventually\Eventually;
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
 
 /**
  * Class User.
  */
-abstract class BaseUser extends Authenticatable implements Recordable
+abstract class BaseUser extends Authenticatable
 {
     use TableName,
         HasApiTokens,
         HasRoles,
-        Eventually,
         Notifiable,
-        RecordableTrait,
         SoftDeletes,
         Uuid;
 

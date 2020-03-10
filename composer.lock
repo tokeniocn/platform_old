@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c386f2d3447bce325250d9356d34300d",
+    "content-hash": "6b9932075ab178424e57e227fa3643a4",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -46,147 +46,6 @@
             "description": "Aliyun OSS SDK for PHP",
             "homepage": "http://www.aliyun.com/product/oss/",
             "time": "2019-11-15T11:05:42+00:00"
-        },
-        {
-            "name": "altek/accountant",
-            "version": "v1.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://gitlab.com/altek/accountant.git",
-                "reference": "0271e608bf56ebb45f495853f9d67e5075e64bed"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/altek%2Faccountant/repository/archive.zip?sha=0271e608bf56ebb45f495853f9d67e5075e64bed",
-                "reference": "0271e608bf56ebb45f495853f9d67e5075e64bed",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/console": "^5.2 || ^6.0",
-                "illuminate/database": "^5.2 || ^6.0",
-                "illuminate/filesystem": "^5.2 || ^6.0",
-                "php": "^7.1.3"
-            },
-            "require-dev": {
-                "altek/eventually": "^1.0",
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "^3.8 || ^4.1",
-                "roave/security-advisories": "dev-master"
-            },
-            "suggest": {
-                "altek/eventually": "Required for keeping track of BelongsToMany and MorphToMany relations.",
-                "laravelista/lumen-vendor-publish": "Required to publish the package config file in Lumen."
-            },
-            "type": "package",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Altek\\Accountant\\AccountantServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Altek\\Accountant\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Quetzy Garcia",
-                    "email": "quetzyg@altek.org"
-                }
-            ],
-            "description": "The auditing & accountability package for Laravel's Eloquent ORM.",
-            "homepage": "https://altek.gitlab.io/accountant/",
-            "keywords": [
-                "Accountability",
-                "Audit",
-                "accountable",
-                "accountant",
-                "auditing",
-                "changes",
-                "eloquent",
-                "history",
-                "laravel",
-                "ledger",
-                "liable",
-                "log",
-                "logging",
-                "lumen",
-                "record"
-            ],
-            "time": "2020-03-03T19:05:24+00:00"
-        },
-        {
-            "name": "altek/eventually",
-            "version": "v1.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://gitlab.com/altek/eventually.git",
-                "reference": "f189d2ec034c5aa6474260f8e6755fbc1c86f18b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/altek%2Feventually/repository/archive.zip?sha=f189d2ec034c5aa6474260f8e6755fbc1c86f18b",
-                "reference": "f189d2ec034c5aa6474260f8e6755fbc1c86f18b",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^5.5 || ^6.0 || ^7.0",
-                "php": "^7.1.3"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "orchestra/testbench": "^3.8 || ^4.0 || ^5.0",
-                "roave/security-advisories": "dev-master"
-            },
-            "type": "package",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Altek\\Eventually\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Quetzy Garcia",
-                    "email": "quetzyg@altek.org"
-                }
-            ],
-            "description": "The missing many-to-many Eloquent events.",
-            "homepage": "https://altek.gitlab.io/eventually",
-            "keywords": [
-                "attach",
-                "detach",
-                "eloquent",
-                "events",
-                "eventually",
-                "laravel",
-                "lumen",
-                "many-to-many",
-                "pivot",
-                "relations",
-                "sync",
-                "toggle",
-                "update"
-            ],
-            "time": "2020-03-03T16:45:40+00:00"
         },
         {
             "name": "arcanedev/log-viewer",
@@ -567,26 +426,26 @@
         },
         {
             "name": "divineomega/laravel-password-exposed-validation-rule",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DivineOmega/laravel-password-exposed-validation-rule.git",
-                "reference": "9489ca42bfeefe89ba6e2ab207315da277582080"
+                "reference": "a8964d56caf9b502aea15dcee59703662226c3ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DivineOmega/laravel-password-exposed-validation-rule/zipball/9489ca42bfeefe89ba6e2ab207315da277582080",
-                "reference": "9489ca42bfeefe89ba6e2ab207315da277582080",
+                "url": "https://api.github.com/repos/DivineOmega/laravel-password-exposed-validation-rule/zipball/a8964d56caf9b502aea15dcee59703662226c3ca",
+                "reference": "a8964d56caf9b502aea15dcee59703662226c3ca",
                 "shasum": ""
             },
             "require": {
                 "divineomega/password_exposed": "^3.0.1",
-                "illuminate/contracts": "^5.1||^6.0",
+                "illuminate/contracts": "^5.1||^6.0||^7.0",
                 "php": "^7.1"
             },
             "require-dev": {
                 "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^7.0||^8.0"
+                "phpunit/phpunit": "^7.0||^8.0||^9.0"
             },
             "type": "library",
             "autoload": {
@@ -605,7 +464,7 @@
                 }
             ],
             "description": "Laravel validation rule that checks if a password has been exposed in a data breach",
-            "time": "2019-09-06T11:16:03+00:00"
+            "time": "2020-03-04T21:43:32+00:00"
         },
         {
             "name": "divineomega/password_exposed",
@@ -1077,16 +936,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "1.16.0",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "37f094775814b68d0c6cc8b8ff3c3be243f20725"
+                "reference": "af05ac5ee8587395d7474ec0681c08776a2cb09d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/37f094775814b68d0c6cc8b8ff3c3be243f20725",
-                "reference": "37f094775814b68d0c6cc8b8ff3c3be243f20725",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/af05ac5ee8587395d7474ec0681c08776a2cb09d",
+                "reference": "af05ac5ee8587395d7474ec0681c08776a2cb09d",
                 "shasum": ""
             },
             "require": {
@@ -1113,7 +972,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "v2.x-dev"
+                    "dev-master": "1.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1144,7 +1003,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2020-01-21T17:46:02+00:00"
+            "time": "2020-03-05T12:39:07+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -2123,16 +1982,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.64",
+            "version": "1.0.65",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "d13c43dbd4b791f815215959105a008515d1a2e0"
+                "reference": "8f17b3ba67097aafb8318cd5c553b1acf7c891c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/d13c43dbd4b791f815215959105a008515d1a2e0",
-                "reference": "d13c43dbd4b791f815215959105a008515d1a2e0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8f17b3ba67097aafb8318cd5c553b1acf7c891c8",
+                "reference": "8f17b3ba67097aafb8318cd5c553b1acf7c891c8",
                 "shasum": ""
             },
             "require": {
@@ -2203,7 +2062,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2020-02-05T18:14:17+00:00"
+            "time": "2020-03-08T18:53:20+00:00"
         },
         {
             "name": "league/oauth1-client",
@@ -3519,23 +3378,23 @@
         },
         {
             "name": "plank/laravel-mediable",
-            "version": "4.1.0",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/plank/laravel-mediable.git",
-                "reference": "2456af4888c873b46a743a3accd9ee580e448372"
+                "reference": "078beb6b8249a13b9aa99a831289aa8e5c7ac1b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/plank/laravel-mediable/zipball/2456af4888c873b46a743a3accd9ee580e448372",
-                "reference": "2456af4888c873b46a743a3accd9ee580e448372",
+                "url": "https://api.github.com/repos/plank/laravel-mediable/zipball/078beb6b8249a13b9aa99a831289aa8e5c7ac1b6",
+                "reference": "078beb6b8249a13b9aa99a831289aa8e5c7ac1b6",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
-                "illuminate/database": "^5.6|^6.0",
-                "illuminate/filesystem": "^5.6|^6.0",
-                "illuminate/support": "^5.6|^6.0",
+                "illuminate/database": "^5.6|^6.0|^7.0",
+                "illuminate/filesystem": "^5.6|^6.0|^7.0",
+                "illuminate/support": "^5.6|^6.0|^7.0",
                 "league/flysystem": "~1.0.23",
                 "php": ">=7.2.0",
                 "psr/http-message": "^1.0"
@@ -3545,9 +3404,9 @@
                 "guzzlehttp/guzzle": "^6.3",
                 "guzzlehttp/promises": "^1.3",
                 "league/flysystem-aws-s3-v3": "~1.0.23",
-                "orchestra/testbench": "^3.3|^4.0",
+                "orchestra/testbench": "^3.3|^4.0|^5.0",
                 "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^8.0",
+                "phpunit/phpunit": "^8.0|^9.0",
                 "vlucas/phpdotenv": "^3.3"
             },
             "type": "library",
@@ -3584,7 +3443,7 @@
                 "media",
                 "uploader"
             ],
-            "time": "2020-02-29T21:13:26+00:00"
+            "time": "2020-03-07T01:56:04+00:00"
         },
         {
             "name": "psr/cache",
@@ -5849,28 +5708,28 @@
         },
         {
             "name": "torann/geoip",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Torann/laravel-geoip.git",
-                "reference": "280b83871ee85a6462b5c782f3ae5563773cff3b"
+                "reference": "0797818058a4c565ada4b29d0ea2b9761bebfb9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Torann/laravel-geoip/zipball/280b83871ee85a6462b5c782f3ae5563773cff3b",
-                "reference": "280b83871ee85a6462b5c782f3ae5563773cff3b",
+                "url": "https://api.github.com/repos/Torann/laravel-geoip/zipball/0797818058a4c565ada4b29d0ea2b9761bebfb9c",
+                "reference": "0797818058a4c565ada4b29d0ea2b9761bebfb9c",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "~5.5|^6.0",
-                "illuminate/support": "~5.5|^6.0",
-                "php": "^7.1"
+                "illuminate/console": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2"
             },
             "require-dev": {
                 "geoip2/geoip2": "~2.1",
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^7.0",
-                "vlucas/phpdotenv": "^3.5"
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^8.0",
+                "vlucas/phpdotenv": "^4.0"
             },
             "suggest": {
                 "geoip2/geoip2": "Required to use the MaxMind database or web service with GeoIP (~2.1).",
@@ -5915,11 +5774,10 @@
                 "geolocation",
                 "infoDB",
                 "laravel",
-                "laravel 5",
                 "location",
                 "maxmind"
             ],
-            "time": "2020-02-12T19:59:27+00:00"
+            "time": "2020-03-09T13:42:06+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -6493,16 +6351,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "1.9.3",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "1291a16ce3f48bfdeca39d64fca4875098af4d7b"
+                "reference": "472c917b2a083ec7d2fa25c55fd099d1300e2515"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/1291a16ce3f48bfdeca39d64fca4875098af4d7b",
-                "reference": "1291a16ce3f48bfdeca39d64fca4875098af4d7b",
+                "url": "https://api.github.com/repos/composer/composer/zipball/472c917b2a083ec7d2fa25c55fd099d1300e2515",
+                "reference": "472c917b2a083ec7d2fa25c55fd099d1300e2515",
                 "shasum": ""
             },
             "require": {
@@ -6515,17 +6373,17 @@
                 "psr/log": "^1.0",
                 "seld/jsonlint": "^1.4",
                 "seld/phar-utils": "^1.0",
-                "symfony/console": "^2.7 || ^3.0 || ^4.0",
-                "symfony/filesystem": "^2.7 || ^3.0 || ^4.0",
-                "symfony/finder": "^2.7 || ^3.0 || ^4.0",
-                "symfony/process": "^2.7 || ^3.0 || ^4.0"
+                "symfony/console": "^2.7 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/filesystem": "^2.7 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/finder": "^2.7 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/process": "^2.7 || ^3.0 || ^4.0 || ^5.0"
             },
             "conflict": {
                 "symfony/console": "2.8.38"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7",
-                "phpunit/phpunit-mock-objects": "^2.3 || ^3.0"
+                "phpspec/prophecy": "^1.10",
+                "symfony/phpunit-bridge": "^3.4"
             },
             "suggest": {
                 "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -6538,7 +6396,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.10-dev"
                 }
             },
             "autoload": {
@@ -6569,7 +6427,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2020-02-04T11:58:49+00:00"
+            "time": "2020-03-10T13:08:05+00:00"
         },
         {
             "name": "composer/semver",
@@ -8333,16 +8191,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.10.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9"
+                "reference": "451c3cd1418cf640de218914901e51b064abb093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/451c3cd1418cf640de218914901e51b064abb093",
+                "reference": "451c3cd1418cf640de218914901e51b064abb093",
                 "shasum": ""
             },
             "require": {
@@ -8392,7 +8250,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2020-01-20T15:57:02+00:00"
+            "time": "2020-03-05T15:02:03+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -9773,16 +9631,16 @@
         },
         {
             "name": "spatie/laravel-web-tinker",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-web-tinker.git",
-                "reference": "4b3843eac38c012bbf849ed54c03280481f21f92"
+                "reference": "be6f2dedf85beede027112dee630b391c8dd49ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-web-tinker/zipball/4b3843eac38c012bbf849ed54c03280481f21f92",
-                "reference": "4b3843eac38c012bbf849ed54c03280481f21f92",
+                "url": "https://api.github.com/repos/spatie/laravel-web-tinker/zipball/be6f2dedf85beede027112dee630b391c8dd49ee",
+                "reference": "be6f2dedf85beede027112dee630b391c8dd49ee",
                 "shasum": ""
             },
             "require": {
@@ -9831,30 +9689,30 @@
                 "spatie",
                 "web-tinker"
             ],
-            "time": "2020-03-03T14:34:41+00:00"
+            "time": "2020-03-04T20:02:26+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.4.5",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd"
+                "reference": "3afadc0f57cd74f86379d073e694b0f2cda2a88c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/266c9540b475f26122b61ef8b23dd9198f5d1cfd",
-                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/3afadc0f57cd74f86379d073e694b0f2cda2a88c",
+                "reference": "3afadc0f57cd74f86379d073e694b0f2cda2a88c",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
+                "php": "^7.2.5",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.4-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -9881,7 +9739,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-21T08:20:44+00:00"
+            "time": "2020-01-21T08:40:24+00:00"
         },
         {
             "name": "symfony/options-resolver",

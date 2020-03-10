@@ -45,9 +45,15 @@ class UserVerify extends Model
      */
     public function makeOtherExpired()
     {
-        return static::where('type', $this->type)
-            ->where('uid', $this->uid)
-            ->where('id', '<>', $this->id)
+        $query = static::where('uid', $this->uid)
+            ->where('type', $this->type)
+            ->where('id', '<>', $this->id);
+
+        if (config('user.verify.remove_expired', true)) {
+            return $query->delete();
+        }
+
+        return $query
             ->notExpired()
             ->update([
                 'expired_at' => Carbon::now(),

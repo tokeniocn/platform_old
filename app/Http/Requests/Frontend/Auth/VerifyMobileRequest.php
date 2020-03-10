@@ -23,7 +23,7 @@ class VerifyMobileRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method() == 'POST') { // 请求绑定
+        if ($this->method() == 'GET') { // 请求绑定
             return [
                 'mobile' => ['regex:/^1[3456789]\d{9}$/'],
             ];

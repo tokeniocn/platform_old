@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Frontend\Api\Auth;
 
+use App\Events\Frontend\Auth\UserMobileVerified;
 use Str;
 use Carbon\Carbon;
 use App\Models\Auth\User;
 use App\Models\Auth\UserVerify;
 use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\Auth\UserRepository;
-use App\Notifications\Frontend\Auth\UserEmailVerify;
 use App\Http\Requests\Frontend\Auth\VerifyEmailRequest;
 use App\Http\Requests\Frontend\Auth\VerifyMobileRequest;
 use Illuminate\Validation\ValidationException;
@@ -84,7 +84,7 @@ class VerifyController extends Controller
             'uid' => $user->id,
             'key' => $mobile,
             'type' => UserVerify::TYPE_VERIFY_MOBILE,
-            'token' => Str::uuid(),
+            'token' => random_int(100000, 999999),
             'expired_at' => Carbon::now()->addSeconds(config('user.verify.expires.mobile', 300)),
         ]);
 
@@ -95,9 +95,29 @@ class VerifyController extends Controller
         return [];
     }
 
-    public function verifyMobile()
+    public function verifyMobile(VerifyMobileRequest $request)
     {
-        
+        /** @var User $user */
+        $user = $request->user();
+
+        /** @var UserVerify $verify */
+        $verify = UserVerify::where('uid', $user->id)
+            ->where('token', $request->code)
+            ->where('type', UserVerify::TYPE_VERIFY_MOBILE)
+            ->notExpired()
+            ->with(['user'])
+            ->firstOrFail();
+
+        $verify->setExpired()
+               ->save();
+
+        $verify->user
+            ->setMobileVerified($verify->key)
+            ->save();
+
+        event(new UserMobileVerified($verify->user));
+
+        return [];
     }
 
     public function requestResetPassword()

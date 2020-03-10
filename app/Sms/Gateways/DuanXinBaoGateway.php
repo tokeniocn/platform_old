@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Gateways\Sms;
+namespace App\Sms\Gateways;
 
+use Overtrue\EasySms\Exceptions\GatewayErrorException;
 use Overtrue\EasySms\Support\Config;
 use Overtrue\EasySms\Gateways\Gateway;
 use Overtrue\EasySms\Traits\HasHttpRequest;
@@ -12,12 +13,12 @@ class DuanXinBaoGateway extends Gateway
 {
     use HasHttpRequest;
 
-    const ENDPOINT_URL = 'http://api.smsbao.com';
+    const ENDPOINT_URL = 'http://api.smsbao.com/sms';
 
     /**
      * @var array
      */
-    protected $statusStr = [
+    protected $statuses = [
         "0" => "短信发送成功",
         "-1" => "参数不全",
         "-2" => "服务器空间不支持,请确认支持curl或者fsocket，联系您的空间商解决或者更换空间！",
@@ -32,19 +33,19 @@ class DuanXinBaoGateway extends Gateway
     public function send(PhoneNumberInterface $to, MessageInterface $message, Config $config)
     {
         $endpoint = $config->get('endpoint', static::ENDPOINT_URL);
+        $user = $config->get('user');
+        $pass = md5($config->get('pass'));
+        $phone = $to;
+        $content = urlencode($message->getContent($this));
+        $url = $endpoint . "?u=" . $user . "&p=" . $pass . "&m=" . $phone . "&c=" . $content;
 
-        $result = $this->get($endpoint, [
-            'u' => $config->get('user'),
-            'p' =>  md5($config->get('pass')),
-            'm' => $to,
-            'c' => $message->getContent($this)
-        ]);
+        $result = file_get_contents($url);
 
-        $response = [
-            'status' => $result,
-            'message' => $this->statusStr[$result] ?? 'error',
-        ];
+        if ($result != 0) {
+            throw new GatewayErrorException($this->statuses[$result] ?? 'error', $result, $result);
+        }
 
-        return $response;
+
+        return $result;
     }
 }

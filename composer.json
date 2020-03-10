@@ -10,8 +10,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "altek/accountant": "^1.2",
-        "altek/eventually": "^1.0",
         "arcanedev/log-viewer": "^5.0",
         "darkaonline/l5-swagger": "^6.0",
         "facade/ignition": "^1.11",

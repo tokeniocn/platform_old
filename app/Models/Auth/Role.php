@@ -2,8 +2,6 @@
 
 namespace App\Models\Auth;
 
-use Altek\Accountant\Contracts\Recordable;
-use Altek\Accountant\Recordable as RecordableTrait;
 use App\Models\Auth\Traits\Method\RoleMethod;
 use App\Models\Traits\TableName;
 use Spatie\Permission\Models\Role as SpatieRole;
@@ -11,10 +9,9 @@ use Spatie\Permission\Models\Role as SpatieRole;
 /**
  * Class Role.
  */
-class Role extends SpatieRole implements Recordable
+class Role extends SpatieRole
 {
     use TableName,
-        RecordableTrait,
         RoleMethod;
 
     /**

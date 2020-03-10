@@ -31,7 +31,6 @@ return [
         ],
 
         'duanxinbao' => [
-//            'endpoint' => env('SMS_DUANXINBAO_ENDPOINT'),
             'user' => env('SMS_DUANXINBAO_USER'),
             'pass' => env('SMS_DUANXINBAO_PASS'),
             'sign' => env('SMS_DUANXINBAO_SIGN'),
@@ -40,6 +39,6 @@ return [
 
     'custom_gateways' => [
         'errorlog' => \Leonis\Notifications\EasySms\Gateways\ErrorLogGateway::class,
-        'duanxinbao' => \App\Gateways\Sms\DuanXinBaoGateway::class,
+        'duanxinbao' => \App\Sms\Gateways\DuanXinBaoGateway::class,
     ],
 ];

@@ -13,9 +13,8 @@ class UploadController extends Controller
     {
         $media = tap(MediaUploader::fromSource($request->file('file')), function ($uploader) use ($request) {
             $uploader->beforeSave(function ($model, $source) use ($uploader, $request) {
-                $model->uid = $request->user()->id;
+                $model->user_id = $request->user()->id;
                 $model->original_filename = str_replace(['#', '?', '\\', '/'], '-', $source->filename());
-
             });
         })
             ->useHashForFilename()

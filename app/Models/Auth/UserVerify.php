@@ -13,7 +13,7 @@ class UserVerify extends Model
     const UPDATED_AT = null;
 
     public $fillable = [
-        'uid',
+        'user_id',
         'key',
         'token',
         'type',
@@ -37,7 +37,7 @@ class UserVerify extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'uid', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -45,7 +45,7 @@ class UserVerify extends Model
      */
     public function makeOtherExpired()
     {
-        $query = static::where('uid', $this->uid)
+        $query = static::where('user_id', $this->user_id)
             ->where('type', $this->type)
             ->where('id', '<>', $this->id);
 

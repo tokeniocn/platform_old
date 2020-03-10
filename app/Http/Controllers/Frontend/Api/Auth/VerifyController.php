@@ -46,7 +46,7 @@ class VerifyController extends Controller
 
         /** @var UserVerify $verify */
         $verify = UserVerify::create([
-            'uid' => $user->id,
+            'user_id' => $user->id,
             'key' => $email,
             'type' => UserVerify::TYPE_VERIFY_EMAIL,
             'token' => Str::uuid(),
@@ -81,7 +81,7 @@ class VerifyController extends Controller
 
         /** @var UserVerify $verify */
         $verify = UserVerify::create([
-            'uid' => $user->id,
+            'user_id' => $user->id,
             'key' => $mobile,
             'type' => UserVerify::TYPE_VERIFY_MOBILE,
             'token' => random_int(100000, 999999),
@@ -101,7 +101,7 @@ class VerifyController extends Controller
         $user = $request->user();
 
         /** @var UserVerify $verify */
-        $verify = UserVerify::where('uid', $user->id)
+        $verify = UserVerify::where('user_id', $user->id)
             ->where('token', $request->code)
             ->where('type', UserVerify::TYPE_VERIFY_MOBILE)
             ->notExpired()

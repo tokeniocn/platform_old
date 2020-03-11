@@ -1,4 +1,6 @@
 <?php
+use App\Models\Auth\User;
+use App\Models\Admin\AdminUser;
 
 if (! function_exists('app_name')) {
     /**
@@ -46,5 +48,34 @@ if (! function_exists('in_admin')) {
     function in_admin()
     {
         return auth()->getDefaultDriver() == 'admin';
+    }
+}
+
+if (! function_exists('with_admin_user')) {
+    /**
+     * @return AdminUser
+     */
+    function with_admin_user($userIdOrUser)
+    {
+        if ($userIdOrUser instanceof AdminUser) {
+            return $userIdOrUser;
+        }
+
+        return AdminUser::first($userIdOrUser);
+    }
+}
+
+if (! function_exists('with_user')) {
+    /**
+     *
+     * @return User
+     */
+    function with_user($userIdOrUser)
+    {
+        if ($userIdOrUser instanceof User) {
+            return $userIdOrUser;
+        }
+
+        return User::first($userIdOrUser);
     }
 }

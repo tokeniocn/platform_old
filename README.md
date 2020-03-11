@@ -1,5 +1,6 @@
 # TokenIO.cn 
 
+##数据迁移 `php artisan migrate --seed`
 
 ##模块
 

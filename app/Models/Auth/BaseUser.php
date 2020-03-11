@@ -2,8 +2,9 @@
 
 namespace App\Models\Auth;
 
-use App\Models\Traits\TableName;
 use App\Models\Traits\Uuid;
+use App\Models\Traits\TableName;
+use App\Models\Auth\Traits\Relationship\DynamicRelationship;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,6 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 abstract class BaseUser extends Authenticatable
 {
     use TableName,
+        DynamicRelationship,
         HasApiTokens,
         HasRoles,
         Notifiable,

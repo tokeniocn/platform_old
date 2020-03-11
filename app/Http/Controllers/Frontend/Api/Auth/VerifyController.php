@@ -8,23 +8,12 @@ use Carbon\Carbon;
 use App\Models\Auth\User;
 use App\Models\Auth\UserVerify;
 use App\Http\Controllers\Controller;
-use App\Repositories\Frontend\Auth\UserRepository;
 use App\Http\Requests\Frontend\Auth\VerifyEmailRequest;
 use App\Http\Requests\Frontend\Auth\VerifyMobileRequest;
 use Illuminate\Validation\ValidationException;
 
 class VerifyController extends Controller
 {
-    /**
-     * @var UserRepository
-     */
-    protected $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
     public function requestVerifyEmail(VerifyEmailRequest $request)
     {
         /** @var User $user */

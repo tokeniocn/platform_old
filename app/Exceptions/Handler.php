@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use Throwable;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -31,18 +31,6 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * @param Exception $exception
-     *
-     * @throws Exception
-     * @return mixed|void
-     */
-    public function report(Exception $exception)
-    {
-        parent::report($exception);
-    }
 
     /**
      * Render an exception into an HTTP response.
@@ -53,15 +41,15 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $e)
     {
-        if ($exception instanceof UnauthorizedException) {
+        if ($e instanceof UnauthorizedException) {
             return redirect()
                 ->route(home_route())
                 ->withFlashDanger(__('auth.general_error'));
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 
     /**

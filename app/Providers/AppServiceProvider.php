@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Schema;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Blade;
+use App\Captcha\Captcha;
+use Illuminate\Validation\Factory;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -27,6 +27,18 @@ class AppServiceProvider extends ServiceProvider
             // Load third party local aliases
             $loader->alias('Debugbar', \Barryvdh\Debugbar\Facade::class);
         }
+
+        // Bind captcha
+        $this->app->bind('captcha', function ($app) {
+            return new Captcha(
+                $app['Illuminate\Filesystem\Filesystem'],
+                $app['Illuminate\Contracts\Config\Repository'],
+                $app['Intervention\Image\ImageManager'],
+                $app['Illuminate\Session\Store'],
+                $app['Illuminate\Hashing\BcryptHasher'],
+                $app['Illuminate\Support\Str']
+            );
+        });
     }
 
     /**
@@ -40,5 +52,18 @@ class AppServiceProvider extends ServiceProvider
         /*if ($this->app->environment() === 'production') {
             URL::forceScheme('https');
         }*/
+
+        /* @var Factory $validator */
+        $validator = $this->app['validator'];
+
+        // Validator extensions
+        $validator->extend('captcha', function ($attribute, $value, $parameters) {
+            return \Captcha::check($value);
+        });
+
+        // Validator extensions
+        $validator->extend('captcha_api', function ($attribute, $value, $parameters) {
+            return \Captcha::check_api($value, $parameters[0]);
+        });
     }
 }

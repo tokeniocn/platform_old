@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('captcha/{config?}', 'CaptchaController@captchaApi')->name('captcha');
+
 /*
  * Frontend Routes
  * Namespaces indicate folder structure

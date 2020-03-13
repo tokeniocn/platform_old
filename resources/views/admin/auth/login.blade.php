@@ -46,7 +46,7 @@
                     <div class="layui-col-xs5">
                         <div style="margin-left: 10px;">
                             <img class="layadmin-user-login-codeimg" id="LAY-user-get-vercode"
-                                 src="{{ captcha_src() }}">
+                                 src="{{ Captcha::src() }}">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
         var $ = layui.$
             , $body = $('body')
             , form = layui.form
-        var captchaUrl = '{{ captcha_src() }}'
+        var captchaUrl = '{{ Captcha::src() }}'
         var $captcha = $('#LAY-user-get-vercode')
 
         $(document).keydown(function(event){

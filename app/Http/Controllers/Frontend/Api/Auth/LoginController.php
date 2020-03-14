@@ -114,7 +114,7 @@ class LoginController extends Controller
         /** @var User $user */
         $user = $query->first();
 
-        if (! $user || ! Hash::check($request->password, $user->getAuthPassword())) {
+        if (! $user || ! $user->checkPassword($request->password)) {
 
             $this->incrementLoginAttempts($request);
 

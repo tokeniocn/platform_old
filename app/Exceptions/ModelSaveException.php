@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class SaveFailedException extends Exception
+class ModelSaveException extends Exception
 {
 
 }

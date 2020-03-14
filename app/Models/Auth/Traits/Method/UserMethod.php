@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth\Traits\Method;
 
+use Hash;
 use Carbon\Carbon;
 
 /**
@@ -84,5 +85,15 @@ trait UserMethod
         $this->mobile_verified_at = Carbon::now();
 
         return $this;
+    }
+
+    public function checkPassword($password)
+    {
+        return Hash::check($password, $this->getAuthPassword());
+    }
+
+    public function checkPayPassword($payPassword)
+    {
+        return Hash::check($payPassword, $this->pay_password);
     }
 }

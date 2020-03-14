@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\Api\Auth\RegisterController;
 use App\Http\Controllers\Frontend\Api\Auth\UserController;
 use App\Http\Controllers\Frontend\Api\Auth\LogoutController;
 use App\Http\Controllers\Frontend\Api\Auth\VerifyController;
+use App\Http\Controllers\Frontend\Api\Auth\ResetController;
 
 /*
  * Frontend Access Controllers
@@ -50,16 +51,11 @@ Route::group([
     ], function () {
         Route::get('user/info', [UserController::class, 'info'])->name('user.info'); // 登录会员信息
 
-        Route::get('verify/email', [VerifyController::class, 'requestVerifyEmail'])->name('verify.email'); // 验证邮箱请求
-
-        Route::get('verify/mobile', [VerifyController::class, 'requestVerifyMobile'])->name('verify.mobile'); // 修改手机号请求
+        Route::get('reset/email', [ResetController::class, 'requestResetEmail'])->name('reset.email'); // 验证邮箱请求
+        Route::get('reset/mobile', [ResetController::class, 'requestResetMobile'])->name('reset.mobile'); // 修改手机号请求
         Route::post('verify/mobile', [VerifyController::class, 'verifyMobile'])->name('verify.mobile'); // 修改手机号
-
-        Route::get('reset/password', [VerifyController::class, 'resetPassword'])->name('reset.mail'); //
-        Route::post('reset/password', [VerifyController::class, 'resetPassword'])->name('reset.mail'); //
-
-        Route::get('reset/pay_password', [VerifyController::class, 'resetPayPassword'])->name('verify.mobile'); // 修改手机号
-        Route::post('reset/pay_password', [VerifyController::class, 'resetPayPassword'])->name('verify.mobile'); // 修改手机号
+        Route::post('reset/password', [ResetController::class, 'resetPassword'])->name('reset.password.post'); //
+        Route::post('reset/pay_password', [ResetController::class, 'resetPayPassword'])->name('reset.pay_password.post'); // 修改手机号
 
 //        // These routes can not be hit if the password is expired
 //        Route::group(['middleware' => 'password_expires'], function () {

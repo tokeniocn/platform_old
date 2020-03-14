@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyMobileRequest extends FormRequest
+class ResetPayPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class VerifyMobileRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => ['required'],
+            'password' => ['regex:/^1[3456789]\d{9}$/'],
         ];
     }
 

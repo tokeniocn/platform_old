@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Schema;
 use App\Captcha\Captcha;
-use Illuminate\Validation\Factory;
+use Illuminate\Validation\Factory as ValidationFactory;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -53,15 +53,15 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }*/
 
-        /* @var Factory $validator */
-        $validator = $this->app['validator'];
+        $this->extendValidator($this->app['validator']);
+    }
 
-        // Validator extensions
+    protected function extendValidator(ValidationFactory $validator)
+    {
         $validator->extend('captcha', function ($attribute, $value, $parameters) {
             return \Captcha::check($value);
         });
 
-        // Validator extensions
         $validator->extend('captcha_api', function ($attribute, $value, $parameters) {
             return \Captcha::check_api($value, $parameters[0]);
         });

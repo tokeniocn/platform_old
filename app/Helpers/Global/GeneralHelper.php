@@ -1,6 +1,7 @@
 <?php
 use App\Models\Auth\User;
 use App\Models\Admin\AdminUser;
+use App\Services\Frontend\UserService;
 
 if (! function_exists('app_name')) {
     /**
@@ -53,7 +54,9 @@ if (! function_exists('in_admin')) {
 
 if (! function_exists('with_admin_user')) {
     /**
-     * @return AdminUser
+     * @param $userIdOrUser
+     *
+     * @return mixed
      */
     function with_admin_user($userIdOrUser)
     {
@@ -67,6 +70,7 @@ if (! function_exists('with_admin_user')) {
 
 if (! function_exists('with_user')) {
     /**
+     * @param $userIdOrUser
      *
      * @return User
      */
@@ -76,6 +80,6 @@ if (! function_exists('with_user')) {
             return $userIdOrUser;
         }
 
-        return User::first($userIdOrUser);
+        return app(UserService::class)->getUserById($userIdOrUser);
     }
 }

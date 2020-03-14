@@ -9,10 +9,21 @@ use Illuminate\Support\Facades\Hash;
  */
 trait UserAttribute
 {
+    public function setPayPasswordAttribute($payPassword): void
+    {
+        $this->attributes['pay_password'] = $this->generateHashByPassword($payPassword);
+    }
+
     /**
      * @param $password
      */
     public function setPasswordAttribute($password): void
+    {
+        // Note: Password Histories are logged from the \App\Observer\User\UserObserver class
+        $this->attributes['password'] = $this->generateHashByPassword($password);
+    }
+
+    protected function generateHashByPassword($password)
     {
         // If password was accidentally passed in already hashed, try not to double hash it
         if (
@@ -24,8 +35,7 @@ trait UserAttribute
             $hash = Hash::make($password);
         }
 
-        // Note: Password Histories are logged from the \App\Observer\User\UserObserver class
-        $this->attributes['password'] = $hash;
+        return $hash;
     }
 
     /**

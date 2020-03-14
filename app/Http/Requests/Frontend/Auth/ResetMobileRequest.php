@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyEmailRequest extends FormRequest
+class ResetMobileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class VerifyEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['email'],
+            'mobile' => ['regex:/^1[3456789]\d{9}$/'],
         ];
     }
 

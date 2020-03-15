@@ -30,9 +30,9 @@ class Role extends SpatieRole
      * @param  mixed  $value
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function resolveRouteBinding($value)
+    public function resolveRouteBinding($value, $field = null)
     {
-        return $this->where($this->getRouteKeyName(), $value)
+        return $this->where($field ?? $this->getRouteKeyName(), $value)
             ->where('guard_name', $this->getDefaultGuardName())
             ->first();
     }

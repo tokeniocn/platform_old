@@ -6,11 +6,16 @@ use App\Models\Traits\TableName;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Airlock\HasApiTokens;
+use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 
 class AdminUser extends Authenticatable
 {
-    use TableName, HasApiTokens, Notifiable, HasRoles;
+    use TableName,
+        HasRoles,
+        HasApiTokens,
+        Notifiable,
+        Mediable;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -47,4 +52,6 @@ class AdminUser extends Authenticatable
     {
         return true;
     }
+
+
 }

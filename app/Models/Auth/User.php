@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Airlock\HasApiTokens;
+use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -29,7 +30,8 @@ class User extends Authenticatable
         SoftDeletes,
         Uuid;
 
-    use UserScope,
+    use Mediable,
+        UserScope,
         UserMethod,
         UserAttribute,
         UserRelationship,

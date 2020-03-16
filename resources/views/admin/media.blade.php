@@ -15,21 +15,7 @@
         </div>
         <div class="layui-card-body">
             <div class="layui-row">
-                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-                    移动：6/12 | 平板：6/12 | 桌面：4/12
-                </div>
-                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-                    移动：6/12 | 平板：6/12 | 桌面：4/12
-                </div>
-                <div class="layui-col-xs4 layui-col-sm12 layui-col-md4">
-                    移动：4/12 | 平板：12/12 | 桌面：4/12
-                </div>
-                <div class="layui-col-xs4 layui-col-sm7 layui-col-md8">
-                    移动：4/12 | 平板：7/12 | 桌面：8/12
-                </div>
-                <div class="layui-col-xs4 layui-col-sm5 layui-col-md4">
-                    移动：4/12 | 平板：5/12 | 桌面：4/12
-                </div>
+                <div id="list"></div>
             </div>
         </div>
     </div>
@@ -38,25 +24,133 @@
 
 @push('after-scripts')
     <script>
-        layui.use(['upload', 'util'], function () {
-
+        layui.use(['upload', 'table', 'util'], function () {
             var $ = layui.$,
-                util = layui.util,
-                upload = layui.upload;
-
-            //执行实例
-            var uploadInst = upload.render({
-                elem: '#upload' //绑定元素
-                ,url: '{{ route('admin.api.media.upload') }}' //上传接口
-                ,done: function(res){
-                    //上传完毕回调
+                table = layui.table,
+                upload = layui.upload,
+                util = layui.util
+            var mm = {
+                defaultOptions: {
+                    uploadElem: '#upload',
+                    uploadUrl: '',
+                    listElem: '#list',
+                    listUrl: '',
+                    iconPrefixUrl: '/static/img/file-types',
+                    iconTypes: [
+                        'ai',
+                        'apk',
+                        'bt',
+                        'cad',
+                        'code',
+                        'dir',
+                        'doc',
+                        'eps',
+                        'exe',
+                        'fla',
+                        'fonts',
+                        'ipa',
+                        'keynote',
+                        'links',
+                        'misc',
+                        'mm',
+                        'mmap',
+                        'audio',
+                        'mp4',
+                        'number',
+                        'pages',
+                        'pdf',
+                        'ppt',
+                        'ps',
+                        'rar',
+                        'document',
+                        'visio',
+                        'web',
+                        'xls',
+                        'xmind',
+                        'archive'
+                    ]
                 }
-                ,error: function(){
-                    //请求异常回调
-                }
-            });
+            }
 
-            $.get('{{ route('admin.api.media.index') }}');
+            function MediaManager (options) {
+                this.options = options
+
+                this.options.uploadElem = $(this.options.uploadElem);
+                this.options.listElem = $(this.options.listElem);
+
+                this.initUpload()
+                this.initList()
+            }
+
+            MediaManager.prototype.initUpload = function () {
+                upload.render({
+                    elem: this.options.uploadElem, //绑定元素
+                    url: this.options.uploadUrl, //上传接口
+                    done: function (res) {
+                        //上传完毕回调
+                    },
+                    error: function () {
+                        //请求异常回调
+                    }
+                })
+            }
+            MediaManager.prototype.initList = function () {
+                this.requestData();
+            }
+
+            MediaManager.prototype.requestData = function () {
+                var _this = this
+                $.ajax({
+                    type: 'get',
+                    url: this.options.listUrl,
+                    contentType: 'application/json',
+                    async: false,
+                    dataType: 'json',
+                    headers: {},
+                    success: function (res) {
+                        _this.renderData(res.data)
+                    },
+                    error: function (e, m) {}
+                })
+            }
+
+            MediaManager.prototype.renderData = function (data) {
+                var _this = this
+                //渲染数据
+                var content = ''
+                layui.each(data, function (index, file) {
+                    var iconPrefixUrl = _this.options.iconPrefixUrl
+                    var list = '<li>'
+                    switch (file.aggregate_type) {
+                        case 'image':
+                            list += `<img src="${file.url}" />`
+                            break;
+                        default:
+                            if (_this.options.iconTypes[file.aggregate_type]) {
+                                list += `<img src="${iconPrefixUrl}/${file.aggregate_type}.png" />`
+                            } else {
+                                list += `<img src="${iconPrefixUrl}/nopic.jpg" />`
+                            }
+
+                    }
+                    list += '</li>'
+
+                    content += list;
+                });
+
+                this.options.listElem.html(content);
+            }
+
+            mm.render = function (options) {
+                return new MediaManager({ ...this.defaultOptions, ...options })
+            }
+
+            var mediaManager = mm
+
+            mediaManager.render({
+                uploadUrl: '{{ route('admin.api.media.upload') }}',
+                listUrl: '{{ route('admin.api.media.index') }}',
+            })
         })
     </script>
 @endpush

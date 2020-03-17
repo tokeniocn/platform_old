@@ -62,7 +62,7 @@ return [
     /*
      * Only allow files with specific file extension(s) to be uploaded
      */
-    'allowed_extensions' => [],
+    'allowed_extensions' => ['gz', 'zip'],
 
     /*
      * Only allow files matching specific aggregate type(s) to be uploaded
@@ -141,6 +141,7 @@ return [
             'mime_types' => [
                 'application/zip',
                 'application/x-compressed-zip',
+                'application/x-gzip',
                 'multipart/x-zip',
             ],
             'extensions' => [

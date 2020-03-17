@@ -11,20 +11,22 @@
     @stack('before-styles')
     {{ style('static/layuiadmin/layui/css/layui.css') }}
     {{ style('static/layuiadmin/style/admin.css') }}
-    {{ style('static/admin/css/admin.css') }}
+    {{ style(mix('build/css/admin.css')) }}
     @stack('after-styles')
 </head>
 
 <body>
 
-    <div class="layui-fluid">
+    <div id="app" class="layui-fluid">
         @yield('content')
     </div><!--layui-fluid-->
 
     <!-- Scripts -->
     @stack('before-scripts')
     {!! script('static/layuiadmin/layui/layui.js') !!}
-    {!! script('static/admin/js/admin.js') !!}
+    {!! script(mix('build/js/manifest.js')) !!}
+    {!! script(mix('build/js/vendor.js')) !!}
+    {!! script(mix('build/js/admin.js')) !!}
     @stack('after-scripts')
 </body>
 </html>

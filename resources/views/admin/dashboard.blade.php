@@ -11,10 +11,11 @@
 
     {{ style('static/layuiadmin/layui/css/layui.css') }}
     {{ style('static/layuiadmin/style/admin.css') }}
+    {{ style(mix('build/css/admin.css')) }}
 </head>
 <body class="layui-layout-body">
 
-    <div id="LAY_app">
+    <div id="app">
         <div class="layui-layout layui-layout-admin">
 
             <div class="layui-header">
@@ -161,7 +162,9 @@
     </div>
 
     {!! script('static/layuiadmin/layui/layui.js') !!}
-    {!! script('static/admin/js/admin.js') !!}
+    {!! script(mix('build/js/manifest.js')) !!}
+    {!! script(mix('build/js/vendor.js')) !!}
+    {!! script(mix('build/js/admin.js')) !!}
     <script>
         layui.use(['index', 'util'], function() {
             var $ = layui.$;

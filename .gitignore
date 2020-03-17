@@ -3,6 +3,8 @@
 /public/storage
 /public/images
 /public/vendor
+/public/build
+/public/mix-manifest.json
 /storage/*.key
 /storage/api-docs
 /vendor

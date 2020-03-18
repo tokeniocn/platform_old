@@ -1,4 +1,5 @@
 import './outer';
+import store from './store';
 import Vue from 'vue';
 import iconSet from 'quasar/icon-set/material-icons';
 import Quasar from 'quasar';
@@ -26,4 +27,5 @@ files.keys().map(key => {
 
 const app = new Vue({
   el: '#LAY_app',
+  store
 });

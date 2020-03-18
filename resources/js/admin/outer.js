@@ -1,15 +1,16 @@
 
-const $http = window.$http = require('./boot/http');
-window.Vue = require('vue');
-window._ = require('lodash');
+import G from './boot/global';
+import $http from './boot/http';
+import _ from 'lodash';
+import Vue from 'vue';
+import axios from 'axios';
 
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
+window.G = G;
+window._ = _;
+window.Vue = Vue;
+window.axios = axios;
 
-window.axios = require('axios');
+window.$http = $http;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -39,16 +40,20 @@ layui.config({
   // layui-admin 组件
   index: 'lib/index',
 }).use(['layer'], function () {
-  var $ = window.jQuery = layui.$;
+  const $ = layui.$;
+  const $q = window.$q = Vue.prototype.$q;
 
   // iframe 下隐藏
   if (top == window) {
     $('[lay-iframe-hide]').show();
   }
 
+  const headers = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') };
+  $http.defaults.headers.common = { ...headers, ...$http.defaults.headers.common };
+
   // ajax 基础设定
   $.ajaxSetup( {
-    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    headers,
     // dataFilter: function(data, type) {
     //   console.log('dataFilter', arguments);
     //   return data;

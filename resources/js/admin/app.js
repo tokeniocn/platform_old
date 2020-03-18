@@ -1,10 +1,9 @@
-import './outer';
-import store from './store';
 import Vue from 'vue';
-import iconSet from 'quasar/icon-set/material-icons';
-import Quasar from 'quasar';
-
-Vue.use(Quasar, { config: {}, iconSet: iconSet });
+import './boot/global';
+import './boot/quasar';
+import './boot/http';
+import store from './store';
+import './outer'; // 外部layui兼容实现
 
 /**
  * The following block of code may be used to automatically register your
@@ -25,7 +24,7 @@ files.keys().map(key => {
   Vue.component(name, files(key).default);
 });
 
-const app = new Vue({
+new Vue({
   el: '#LAY_app',
   store
 });

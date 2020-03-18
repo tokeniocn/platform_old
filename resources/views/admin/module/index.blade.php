@@ -4,22 +4,22 @@
     <div class="layui-card">
         <div class="layui-card-body">
             <table id="LAY-module" lay-filter="LAY-module"></table>
-            <script type="text/html" id="table-useradmin-admin">
-                @{{# if(d.enabled) { }}
-                    @{{# if(d.can_disable) { }}
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable"><i class="layui-icon layui-icon-delete" ></i>禁用</a>
-                    @{{# } else { }}
-                        <a class="layui-btn layui-btn-disabled layui-btn-xs"><i class="layui-icon layui-icon-delete" ></i>禁用</a>
-                    @{{# } }}
-                @{{# } else { }}
-                    <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="enable"><i class="layui-icon layui-icon-delete" ></i>启用</a>
-                @{{# } }}
-            </script>
         </div>
     </div>
 @endsection
 
 @push('after-scripts')
+    <script type="text/html" id="table-useradmin-admin">
+        @{{# if(d.enabled) { }}
+            @{{# if(d.can_disable) { }}
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable"><i class="layui-icon layui-icon-delete" ></i>禁用</a>
+            @{{# } else { }}
+                <a class="layui-btn layui-btn-disabled layui-btn-xs"><i class="layui-icon layui-icon-delete" ></i>禁用</a>
+            @{{# } }}
+        @{{# } else { }}
+            <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="enable"><i class="layui-icon layui-icon-delete" ></i>启用</a>
+        @{{# } }}
+    </script>
     <script>
         layui.use(['form', 'table', 'util'], function () {
 

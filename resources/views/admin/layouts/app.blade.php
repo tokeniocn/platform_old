@@ -17,7 +17,7 @@
 
 <body>
 
-    <div id="app" class="layui-fluid">
+    <div id="LAY_app" class="layui-fluid">
         @yield('content')
     </div><!--layui-fluid-->
 

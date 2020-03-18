@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div class="layadmin-user-login layadmin-user-display-show" id="app" style="display: none;">
+<div id="LAY_app" class="layadmin-user-login layadmin-user-display-show" style="display: none;">
 
     <div class="layadmin-user-login-main">
         <div class="layadmin-user-login-box layadmin-user-login-header">

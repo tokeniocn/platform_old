@@ -15,7 +15,7 @@
 </head>
 <body class="layui-layout-body">
 
-    <div id="app">
+    <div id="LAY_app">
         <div class="layui-layout layui-layout-admin">
 
             <div class="layui-header">

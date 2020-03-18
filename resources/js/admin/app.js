@@ -3,7 +3,7 @@ import Vue from 'vue';
 import iconSet from 'quasar/icon-set/material-icons';
 import Quasar from 'quasar';
 
-Vue.use(Quasar, { config: {}, iconSet: iconSet })
+Vue.use(Quasar, { config: {}, iconSet: iconSet });
 
 /**
  * The following block of code may be used to automatically register your
@@ -16,8 +16,12 @@ Vue.use(Quasar, { config: {}, iconSet: iconSet })
 const files = require.context('./components', true, /\.vue$/i);
 files.keys().map(key => {
   const name = key.split('/').pop().split('.')[0];
-  console.log('init:' + name);
-  Vue.component(name, files(key).default)
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`Init Component [${name}] from ${key}`);
+  }
+
+  Vue.component(name, files(key).default);
 });
 
 const app = new Vue({

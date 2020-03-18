@@ -11,12 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
-// mix.js('resources/js/app.js', 'public/js')
-//   .sass('resources/sass/app.scss', 'public/css');
-
-
 mix.setPublicPath('public')
-  .setResourceRoot('../') // Turns assets paths in css relative to css file
+  .options({
+    fileLoaderDirs: {
+      images: 'build/images',
+      fonts: 'build/fonts'
+    },
+  })
 
   /* ============ admin ============ */
   .sass('resources/sass/admin/app.scss', 'build/css/admin.css')

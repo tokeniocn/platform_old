@@ -20,7 +20,9 @@
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.11",
+        "quasar": "^1.9.10",
+        "@quasar/extras": "^1.0.0"
     },
     "browserslist": {
         "development": "last 1 version",

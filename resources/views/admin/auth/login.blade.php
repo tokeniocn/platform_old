@@ -9,11 +9,11 @@
     {{ style('static/layuiadmin/layui/css/layui.css') }}
     {{ style('static/layuiadmin/style/admin.css') }}
     {{ style('static/layuiadmin/style/login.css') }}
-    {{ style('static/admin/css/admin.css') }}
+    {{ style(mix('build/css/admin.css')) }}
 </head>
 <body>
 
-<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+<div class="layadmin-user-login layadmin-user-display-show" id="app" style="display: none;">
 
     <div class="layadmin-user-login-main">
         <div class="layadmin-user-login-box layadmin-user-login-header">
@@ -60,7 +60,9 @@
 </div>
 
 {!! script('static/layuiadmin/layui/layui.js') !!}
-{!! script('static/admin/js/admin.js') !!}
+{!! script(mix('build/js/manifest.js')) !!}
+{!! script(mix('build/js/vendor.js')) !!}
+{!! script(mix('build/js/admin.js')) !!}
 <script>
     layui.use(['index', 'user'], function () {
         // 强制父窗口跳转登录界面

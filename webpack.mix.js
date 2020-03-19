@@ -36,12 +36,11 @@ mix.setPublicPath('public')
     'lodash',
     'dayjs'
   ])
+  .version()
   .sourceMaps();
 
-
 if (mix.inProduction()) {
-  mix.version()
-    .options({
+  mix.options({
       // Optimize JS minification process
       terser: {
         cache: true,

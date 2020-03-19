@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import axios from 'axios';
+import Vue from "vue";
+import axios from "axios";
 
 const $http = axios.create({
-  timeout: 10000,
+  timeout: 20000
 });
 
-$http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+$http.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 Vue.prototype.$axios = axios;
 Vue.prototype.$http = $http;
 

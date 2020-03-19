@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
+    <media-manager></media-manager>
     <div class="layui-card">
         <div class="layui-card-header">
             <button type="button" class="layui-btn" id="upload">

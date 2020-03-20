@@ -1,4 +1,4 @@
-import { capitalize } from "lodash";
+import { upperFirst } from "lodash";
 import { paginationDataStruct } from "./index";
 import $http from "../boot/http";
 
@@ -14,21 +14,16 @@ function resolveAction(
   name,
   { url, method, loadingKey, getterKey, mutationKey }
 ) {
-  return async ({ getters, dispatch, commit }, params = {}) => {
+  return async (
+    { getters, dispatch, commit },
+    { options = {}, ...params } = {}
+  ) => {
     await dispatch("toggleLoading", { key: loadingKey }, { root: true });
 
-    const oldData = getters[getterKey];
-
-    const httpOptions = {};
-    if (method == "get") {
-      httpOptions[params] = { page: 1, limit: 15, ...params };
-    } else {
-      httpOptions;
-    }
     const { data } = await $http({
       url,
       method,
-      params: method == "get" ? { page: 1, limit: 15, ...params } : {},
+      params: method == "get" ? { page: 1, limit: 20, ...params } : {},
       data: method != "get" ? params : {}
     });
 
@@ -37,12 +32,19 @@ function resolveAction(
       { key: loadingKey, loading: false },
       { root: true }
     );
-
-    commit(mutationKey, {
-      ...data,
-      data: (data.current_page != 1 ? oldData.data : []).concat(data.data),
-      has_next_page: data.last_page > data.current_page
-    });
+    if (options.pullNextPage) {
+      const oldData = getters[getterKey];
+      commit(mutationKey, {
+        ...data,
+        data: (data.current_page != 1 ? oldData.data : []).concat(data.data), // 无线拉取
+        has_next_page: data.last_page > data.current_page
+      });
+    } else {
+      commit(mutationKey, {
+        ...data,
+        has_next_page: data.last_page > data.current_page
+      });
+    }
 
     return data;
   };
@@ -55,9 +57,9 @@ export function mapStore(
     method = "get",
     loadingKey = name,
     stateKey = name,
-    mutationKey = "set" + capitalize(stateKey),
+    mutationKey = "set" + upperFirst(stateKey),
     getterKey = name,
-    actionKey = "load" + capitalize(stateKey),
+    actionKey = "load" + upperFirst(stateKey),
     mutation = resolveMutation(name),
     getter = resolveGetter(name),
     action = resolveAction(name, {

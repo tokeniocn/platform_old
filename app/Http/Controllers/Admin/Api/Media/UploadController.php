@@ -16,6 +16,7 @@ class UploadController extends Controller
         return $request->user()
             ->media()
             ->wherePivotIn('tag', ['author'])
+            ->orderBy('order', 'desc')
             ->paginate();
     }
 

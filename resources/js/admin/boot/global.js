@@ -1,7 +1,15 @@
+import { merge } from "lodash";
 
-const G = {
-  baseUrl: window.location ? window.location.origin : '',
-  ...(window.G || {})
-};
+const G = merge(
+  {
+    url: {
+      base: window.location ? window.location.origin : "",
+      media: {
+        upload: "/api/admin/v1/media/upload"
+      }
+    }
+  },
+  window.G || {}
+);
 
 export default G;

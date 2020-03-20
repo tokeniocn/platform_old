@@ -1,9 +1,11 @@
+import G from "./boot/global";
+import $http from "./boot/http";
+import _ from "lodash";
+import Vue from "vue";
+import axios from "axios";
 
-import G from './boot/global';
-import $http from './boot/http';
-import _ from 'lodash';
-import Vue from 'vue';
-import axios from 'axios';
+import app from "./app";
+import MediaMangerDialog from "./components/Media/ManagerDialog";
 
 window.G = G;
 window._ = _;
@@ -11,6 +13,14 @@ window.Vue = Vue;
 window.axios = axios;
 
 window.$http = $http;
+
+const headers = {
+  "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+};
+$http.defaults.headers.common = {
+  ...headers,
+  ...$http.defaults.headers.common
+};
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -34,53 +44,56 @@ window.$http = $http;
  */
 
 // 初始化设置
-layui.config({
-  base: '/static/layuiadmin/' // 静态资源所在路径
-}).extend({
-  // layui-admin 组件
-  index: 'lib/index',
-}).use(['layer'], function () {
-  const $ = layui.$;
-  const $q = window.$q = Vue.prototype.$q;
+layui
+  .config({
+    base: "/static/layuiadmin/" // 静态资源所在路径
+  })
+  .extend({
+    // layui-admin 组件
+    index: "lib/index"
+  })
+  .use(["jquery"], function() {
+    const $ = layui.$;
+    const $q = (window.$q = Vue.prototype.$q);
 
-  // iframe 下隐藏
-  if (top == window) {
-    $('[lay-iframe-hide]').show();
-  }
-
-  const headers = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') };
-  $http.defaults.headers.common = { ...headers, ...$http.defaults.headers.common };
-
-  // ajax 基础设定
-  $.ajaxSetup( {
-    headers,
-    // dataFilter: function(data, type) {
-    //   console.log('dataFilter', arguments);
-    //   return data;
-    // },
-    error: function(jqXHR, textStatus, errorMsg){ // 出错时默认的处理函数
-      if (!$.isEmptyObject(jqXHR.responseJSON)) {
-        var data = jqXHR.responseJSON;
-        var msg = '';
-        if (!$.isEmptyObject(data.errors)) {
-          var errors = [];
-          Object.keys(data.errors).forEach(function(key) {
-            errors = errors.concat(data.errors[key]);
-          })
-          msg = '<ul><li>' + errors.join('</li><li>') + '</li></ul>';
-        } else {
-          msg = data.message;
-        }
-
-        layer.msg(
-          msg,
-          {
-            offset: '15px',
-            time: 2000
-          }
-        )
-      }
+    // iframe 下隐藏
+    if (top == window) {
+      $("[lay-iframe-hide]").show();
     }
-  });
-});
 
+    // $q.dialog({
+    //   component: MediaMangerDialog,
+
+    //   parent: app // 成为该Vue节点的子元素
+    // });
+
+    // ajax 基础设定
+    $.ajaxSetup({
+      headers,
+      // dataFilter: function(data, type) {
+      //   console.log('dataFilter', arguments);
+      //   return data;
+      // },
+      error: function(jqXHR, textStatus, errorMsg) {
+        // 出错时默认的处理函数
+        if (!$.isEmptyObject(jqXHR.responseJSON)) {
+          var data = jqXHR.responseJSON;
+          var msg = "";
+          if (!$.isEmptyObject(data.errors)) {
+            var errors = [];
+            Object.keys(data.errors).forEach(function(key) {
+              errors = errors.concat(data.errors[key]);
+            });
+            msg = "<ul><li>" + errors.join("</li><li>") + "</li></ul>";
+          } else {
+            msg = data.message;
+          }
+
+          layer.msg(msg, {
+            offset: "15px",
+            time: 2000
+          });
+        }
+      }
+    });
+  });

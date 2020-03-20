@@ -1,9 +1,10 @@
-import Vue from 'vue';
-import './boot/global';
-import './boot/quasar';
-import './boot/http';
-import store from './store';
-import './outer'; // 外部layui兼容实现
+import { camelCase, upperFirst, endsWith } from "lodash";
+import Vue from "vue";
+import "./boot/global";
+import "./boot/quasar";
+import "./boot/http";
+import store from "./store";
+import "./outer"; // 外部layui兼容实现
 
 /**
  * The following block of code may be used to automatically register your
@@ -13,18 +14,22 @@ import './outer'; // 外部layui兼容实现
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./components', true, /\.vue$/i);
-files.keys().map(key => {
-  const name = key.split('/').pop().split('.')[0];
+const files = require.context("./components", true, /\.vue$/i);
+files.keys().forEach(key => {
+  if (endsWith(key, ".vue")) {
+    const name = upperFirst(camelCase(key.replace(".vue", "")));
 
-  if (process.env.NODE_ENV !== "production") {
-    console.log(`Init Component [${name}] from ${key}`);
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`Init Component [${name}] from ${key}`);
+    }
+
+    Vue.component(name, files(key).default);
   }
-
-  Vue.component(name, files(key).default);
 });
 
-new Vue({
-  el: '#LAY_app',
+const app = new Vue({
+  el: "#LAY_app",
   store
 });
+
+export default app;

@@ -62,7 +62,7 @@ return [
     /*
      * Only allow files with specific file extension(s) to be uploaded
      */
-    'allowed_extensions' => ['gz', 'zip'],
+    'allowed_extensions' => [],
 
     /*
      * Only allow files matching specific aggregate type(s) to be uploaded

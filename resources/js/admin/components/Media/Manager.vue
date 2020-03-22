@@ -1,10 +1,10 @@
 <template>
   <div>
-    <q-card class="media-manager" flat bordered>
+    <q-card class="manager list-style" flat bordered>
       <div class="bg-blue-grey-1 q-pl-md q-pr-md">
         <div class="row items-center no-wrap">
           <div class="col">
-            <div>Our Planet</div>
+            <div>媒体库</div>
           </div>
 
           <div class="col-auto">
@@ -16,42 +16,113 @@
       <q-separator />
 
       <q-card-section horizontal class="row">
-        <q-card-section class="col-md-auto" v-if="$q.screen.gt.sm">
-          <div style="width: 250px;">123</div>
+        <q-card-section
+          class="col-md-auto relative-position"
+          style="width: 282px;"
+          v-if="$q.screen.gt.sm"
+        >
+          <div v-if="selectedFile" class="file-detail absolute-top">
+            <div class="file-preview">
+              <q-img
+                v-if="isImage(selectedFile)"
+                :src="selectedFile.url"
+                style="width: 282px"
+                :ratio="1"
+                basic
+                spinner-color="white"
+              >
+                <template v-slot:error>
+                  <q-img
+                    :src="require('../../../../images/file-types/nopic.jpg')"
+                    style="width: 100px"
+                    :ratio="1"
+                    basic
+                    spinner-color="white"
+                    class="rounded-borders"
+                  />
+                </template>
+              </q-img>
+              <div v-else-if="isVideo(selectedFile)">
+                <q-video :ratio="1" :src="selectedFile.url" />
+              </div>
+              <div v-else class="type-preview">
+                <img
+                  :src="require(`../../../../images/file-types/${selectedFile.aggregate_type}.png`)"
+                />
+              </div>
+            </div>
+            <ul class="file-metadata">
+              <li>
+                名称:
+                <a
+                  class="text-primary"
+                  :href="selectedFile.url"
+                >{{selectedFile.original_basename}}</a>
+                <q-icon
+                  class="text-primary"
+                  name="file_copy"
+                  v-clipboard:copy="selectedFile.url"
+                  v-clipboard:success="() => $q.notify({ message: '复制成功', position: 'top', timeout: 2000 })"
+                />
+              </li>
+              <li>类型: {{selectedFile.mime_type}}</li>
+              <li>尺寸: {{humanStorageSize(selectedFile.size)}}</li>
+
+              <li>上传于: {{selectedFile.created_at | moment('YYYY-MM-DD HH:mm:ss')}}</li>
+            </ul>
+          </div>
         </q-card-section>
 
         <q-separator vertical v-if="$q.screen.gt.sm" />
 
-        <div class="col relative-position">
+        <div class="col">
           <q-card-section class="q-mb-xl">
-            <ul class="q-gutter-md row items-start">
-              <li v-for="(file, index) in files.data" :key="index" class="q-gutter-md">
+            <ul class="files row">
+              <li
+                @click.stop="selectFile(file)"
+                v-for="(file, index) in files.data"
+                :key="index"
+                class="file"
+                :class="{'selected': isSelectedFile(file)}"
+              >
                 <q-img
+                  v-if="isImage(file)"
                   :src="file.url"
-                  style="width: 120px"
+                  style="width: 100px"
                   :ratio="1"
                   basic
                   spinner-color="white"
                   class="rounded-borders"
                 >
                   <template v-slot:error>
-                    <div
-                      class="absolute-full flex flex-center bg-negative text-white"
-                    >Cannot load image</div>
+                    <q-img
+                      :src="require('../../../../images/file-types/nopic.jpg')"
+                      style="width: 100px"
+                      :ratio="1"
+                      basic
+                      spinner-color="white"
+                      class="rounded-borders"
+                    />
                   </template>
                 </q-img>
+                <div v-else class="type-preview">
+                  <img :src="require(`../../../../images/file-types/${file.aggregate_type}.png`)" />
+                </div>
+                <p class="text-center">{{ file.original_basename }}</p>
               </li>
             </ul>
           </q-card-section>
 
-          <div class="absolute-bottom">
-            <q-pagination
-              class="flex flex-center"
-              :value="files.current_page"
-              @input="handlePage"
-              :max="files.last_page"
-              input
-            />
+          <div class="relative-position">
+            <div class="absolute-bottom">
+              <q-pagination
+                class="flex flex-center"
+                :value="files.current_page"
+                @input="handlePage"
+                :max="files.last_page"
+                input
+              />
+            </div>
           </div>
         </div>
       </q-card-section>
@@ -101,13 +172,15 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
+import { format } from "quasar";
 import G from "../../boot/global";
 
 export default {
-  name: "MediaManager",
+  name: "Manager",
   data() {
     return {
-      uploadDialogShow: false
+      uploadDialogShow: false,
+      selectedID: 0
     };
   },
   created() {
@@ -115,14 +188,9 @@ export default {
   },
   computed: {
     ...mapState(["loading"]),
-    ...mapGetters("media", ["files"]),
-    currentPage: {
-      get() {
-        return this.files.current_page;
-      },
-      set(val) {
-        this.handleRefresh();
-      }
+    ...mapGetters("media", ["files", "types"]),
+    selectedFile() {
+      return this.files.data.find(file => file.id == this.selectedID);
     },
     uploadProps() {
       return {
@@ -139,6 +207,7 @@ export default {
   },
   methods: {
     ...mapActions("media", ["loadFiles"]),
+    humanStorageSize: format.humanStorageSize,
 
     async handleOpenUpload() {
       this.uploadDialogShow = true;
@@ -159,10 +228,76 @@ export default {
 
     async getFiles({ page = 1 } = {}) {
       this.loadFiles({ page });
+    },
+
+    selectFile(file) {
+      if (this.selectedID && this.selectedID == file.id) {
+        this.selectedID = 0;
+      } else {
+        this.selectedID = file.id;
+      }
+    },
+
+    isSelectedFile(file) {
+      return this.selectedID == file.id;
+    },
+
+    isImage(file) {
+      return file.aggregate_type == "image";
+    },
+
+    isVideo(file) {
+      return file.aggregate_type == "video";
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.manager {
+  // 列表形式
+  &.list-style {
+    .file {
+      float: left;
+      margin: 6px;
+      padding: 10px;
+
+      &.selected {
+        border: 1px solid #1976d2;
+        padding: 9px;
+      }
+
+      & > p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100px;
+        margin: 10px 0 0 auto;
+      }
+    }
+    .type-preview {
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      line-height: 100px;
+      img {
+        max-height: 100px;
+        max-width: 100px;
+      }
+    }
+    .file-detail {
+      .type-preview {
+        width: 282px;
+        height: 282px;
+        line-height: 282px;
+      }
+      .file-metadata {
+        padding: 10px 0;
+        li {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+}
 </style>

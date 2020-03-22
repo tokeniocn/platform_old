@@ -3,6 +3,7 @@ import $http from "./boot/http";
 import _ from "lodash";
 import Vue from "vue";
 import axios from "axios";
+import moment from "moment";
 
 import app from "./app";
 import MediaMangerDialog from "./components/Media/ManagerDialog";
@@ -11,6 +12,7 @@ window.G = G;
 window._ = _;
 window.Vue = Vue;
 window.axios = axios;
+window.moment = moment;
 
 window.$http = $http;
 

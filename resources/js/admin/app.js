@@ -3,6 +3,7 @@ import Vue from "vue";
 import "./boot/global";
 import "./boot/quasar";
 import "./boot/http";
+import "./boot/plugins";
 import store from "./store";
 import "./outer"; // 外部layui兼容实现
 

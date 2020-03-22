@@ -29,12 +29,11 @@ mix.setPublicPath('public')
   // .js('resources/js/app.js', 'public/js')
   // .sass('resources/sass/app.scss', 'public/css')
 
-  .copyDirectory('resources/images', 'public/build/images')
   .extract([
     'vue',
     'axios',
     'lodash',
-    'dayjs'
+    'moment',
   ])
   .version()
   .sourceMaps();

@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>@yield('title', app_name())</title>
-    <meta content="webkit" name="renderer">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{ style('static/layuiadmin/layui/css/layui.css') }}
     {{ style('static/layuiadmin/style/admin.css') }}
     {{ style('static/layuiadmin/style/login.css') }}

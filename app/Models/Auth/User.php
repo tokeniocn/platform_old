@@ -13,7 +13,7 @@ use App\Models\Auth\Traits\Relationship\DynamicRelationship;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Airlock\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 

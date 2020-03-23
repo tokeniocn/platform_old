@@ -1,13 +1,11 @@
 {
-    "name": "rappasoft/laravel-boilerplate",
+    "name": "tokeniocn/platform",
     "type": "project",
-    "description": "The Laravel Boilerplate Project.",
+    "description": "The TokenIO Project.",
     "keywords": [
         "framework",
-        "laravel",
-        "boilerplate"
+        "laravel"
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.2.5",
         "arcanedev/log-viewer": "^7.0",
@@ -17,8 +15,8 @@
         "langleyfoxall/laravel-nist-password-rules": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "laravel/ui": "^2.0",
-        "laravel/airlock": "^1.0",
-        "laravel/framework": "^7.0",
+        "laravel/sanctum": "^2.0",
+        "laravel/framework": "^7.2",
         "laravel/socialite": "^4.1",
         "leonis/easysms-notification-channel": "^1.0",
         "maatwebsite/excel": "^3.1",

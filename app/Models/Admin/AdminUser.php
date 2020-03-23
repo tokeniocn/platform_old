@@ -5,7 +5,7 @@ namespace App\Models\Admin;
 use App\Models\Traits\TableName;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Airlock\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 use Plank\Mediable\Mediable;
 use Spatie\Permission\Traits\HasRoles;
 

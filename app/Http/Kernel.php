@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
         'api' => [
             \App\Http\Middleware\ForceResponseJson::class,
             \Fruitcake\Cors\HandleCors::class,
-            \Laravel\Airlock\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

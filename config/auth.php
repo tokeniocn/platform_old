@@ -52,7 +52,7 @@ return [
         ],
 
         'admin_api' => [
-            'driver' => 'airlock',
+            'driver' => 'sanctum',
             'provider' => 'admin_users'
         ]
     ],

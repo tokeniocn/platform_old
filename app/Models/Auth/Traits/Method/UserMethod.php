@@ -61,16 +61,35 @@ trait UserMethod
         return $this->active;
     }
 
+    /**
+     * @return mixed
+     */
+    public function isAuth()
+    {
+        return $this->auth;
+    }
+
+    /**
+     * @return bool 是否验证邮箱
+     */
     public function isEmailVerified()
     {
         return $this->email_verified_at != null;
     }
 
+    /**
+     * @return bool 是否验证手机号
+     */
     public function isMobileVerified()
     {
         return $this->mobile_verified_at != null;
     }
 
+    /**
+     * @param $email
+     *
+     * @return $this
+     */
     public function setEmailVerified($email)
     {
         $this->email = $email;
@@ -79,6 +98,11 @@ trait UserMethod
         return $this;
     }
 
+    /**
+     * @param $email
+     *
+     * @return $this
+     */
     public function setMobileVerified($email)
     {
         $this->mobile = $email;
@@ -87,11 +111,32 @@ trait UserMethod
         return $this;
     }
 
+    /**
+     * @return $this;
+     */
+    public function setAuthVerified()
+    {
+        $this->auth = 1;
+        $this->auth_verified_at = Carbon::now();
+
+        return $this;
+    }
+
+    /**
+     * @param $password
+     *
+     * @return bool
+     */
     public function checkPassword($password)
     {
         return Hash::check($password, $this->getAuthPassword());
     }
 
+    /**
+     * @param $payPassword
+     *
+     * @return bool
+     */
     public function checkPayPassword($payPassword)
     {
         return Hash::check($payPassword, $this->pay_password);

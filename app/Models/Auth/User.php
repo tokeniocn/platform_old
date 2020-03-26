@@ -45,16 +45,12 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'email',
-        'email_verified_at',
         'password',
-        'password_changed_at',
         'mobile',
-        'mobile_verified_at',
         'avatar',
         'active',
         'last_login_at',
         'last_login_ip',
-        'to_be_logged_out',
     ];
 
     /**
@@ -64,6 +60,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'active' => 'boolean',
+        'auth' => 'boolean'
     ];
 
     /**
@@ -72,8 +69,12 @@ class User extends Authenticatable
     protected $dates = [
         'last_login_at',
         'password_changed_at',
+        'pay_password_changed_at',
         'mobile_verified_at',
         'email_verified_at',
+        'auth_verified_at',
+        'created_at',
+        'updated_at'
     ];
 
     /**

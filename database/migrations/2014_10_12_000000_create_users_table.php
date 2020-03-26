@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->dateTime('pay_password_changed_at')->nullable()->comment('支付密码最后修改时间');
             $table->string('avatar')->default('')->comment('头像地址');
             $table->unsignedTinyInteger('active')->default(0)->comment('是否启用');
+            $table->unsignedTinyInteger('auth')->default(0)->comment('是否实名认证');
+            $table->dateTime('auth_verified_at')->nullable()->comment('实名认证时间');
             $table->dateTime('last_login_at')->nullable()->comment('最后登录时间');
             $table->string('last_login_ip')->nullable()->comment('最后登录IP');
             $table->rememberToken()->comment('remember me token');

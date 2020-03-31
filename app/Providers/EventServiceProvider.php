@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Nwidart\Modules\Facades\Module as ModuleManager;
+use Nwidart\Modules\Module;
 
 /**
  * Class EventServiceProvider.
@@ -53,6 +55,23 @@ class EventServiceProvider extends ServiceProvider
      */
     public function shouldDiscoverEvents()
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * 获取应该用于发现事件的监听器的目录。
+     *
+     * @return array
+     */
+    protected function discoverEventsWithin()
+    {
+        $paths = [];
+
+        ModuleManager::collections()->each(function($module) {
+            /** @var Module $module */
+            $paths = $module->getExtraPath('Listeners');
+        });
+
+        return $paths;
     }
 }

@@ -67,9 +67,10 @@ class EventServiceProvider extends ServiceProvider
     {
         $paths = [];
 
-        ModuleManager::collections()->each(function($module) {
+        ModuleManager::collections()->each(function($module) use (&$paths) {
             /** @var Module $module */
-            $paths = $module->getExtraPath('Listeners');
+            $paths[] = $module->getExtraPath('Listeners');
+
         });
 
         return $paths;
